@@ -92,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             hasJumped = true;
+            AudioManager.Instance?.TocaSFX(AudioManager.Instance.EfeitoDePulo);
         }
     }
 }

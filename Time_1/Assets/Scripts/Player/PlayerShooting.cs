@@ -103,6 +103,7 @@ public class PlayerShooting : MonoBehaviour
         spearRb.velocity     = (Vector2)spearTransform.right * throwSpeed;
         spearRb.angularVelocity = 0f;
 
+        AudioManager.Instance?.TocaSFX(AudioManager.Instance.EfeitoDaLanca);
         state = SpearState.Thrown;
     }
 

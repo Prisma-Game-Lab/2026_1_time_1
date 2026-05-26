@@ -2974,10 +2974,10 @@ MonoBehaviour:
   musicSource: {fileID: 1776885439}
   sfxSource: {fileID: 1776885438}
   MusicaDoMenu: {fileID: 8300000, guid: 0334436a2adbb634da865df38895a541, type: 3}
-  MusicaDoJogo: {fileID: 8300000, guid: 0334436a2adbb634da865df38895a541, type: 3}
-  MusicaDoBoss: {fileID: 8300000, guid: 0334436a2adbb634da865df38895a541, type: 3}
-  EfeitoDaLanca: {fileID: 0}
-  EfeitoDePulo: {fileID: 0}
+  MusicaDoJogo: {fileID: 0}
+  MusicaDoBoss: {fileID: 0}
+  EfeitoDaLanca: {fileID: 8300000, guid: 8ae3d31b847666048a6c485dbbd14047, type: 3}
+  EfeitoDePulo: {fileID: 8300000, guid: 897b82f3322623046abc5f02eeac62c4, type: 3}
 --- !u!4 &1776885437
 Transform:
   m_ObjectHideFlags: 0
