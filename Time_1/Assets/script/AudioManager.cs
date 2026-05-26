@@ -1,24 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
-    [Header("Source")]
+    [Header("Sources")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
 
     [Header("Musica de Fundo")]
     public AudioClip MusicaDoMenu;
+    public AudioClip MusicaDoJogo;
 
     [Header("Musica do Boss")]
     public AudioClip MusicaDoBoss;
 
-    [Header("Efeitos")]
-    public AudioClip EfeitoDoBoss;
+    [Header("Efeitos Sonoros")]
     public AudioClip EfeitoDaLanca;
+    public AudioClip EfeitoDePulo;
 
     private void Awake()
     {
@@ -33,8 +32,7 @@ public class AudioManager : MonoBehaviour
 // Musica
     public void TocaMusica(AudioClip clip, bool loop = true)
     {
-        if (musicSource.clip == clip)
-            return;
+        if (musicSource.clip == clip) return;
         musicSource.clip = clip;
         musicSource.loop = loop;
         musicSource.Play();
@@ -50,6 +48,7 @@ public class AudioManager : MonoBehaviour
 // Efeitos Sonoros
     public void TocaSFX(AudioClip clip)
     {
+        if (clip == null) return;
         sfxSource.PlayOneShot(clip);
     }
     public void AjustaVolumeSFX(float volume)

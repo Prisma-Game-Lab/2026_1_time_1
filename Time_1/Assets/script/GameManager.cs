@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     {
         IsGameOver = true;
         AudioManager.Instance?.ParaMusica();
-        Debug.Log("Game Over!");
+        Debug.Log("Noob down!");
         SceneManager.LoadScene("GameOver");
     }
     private void VenceuJogo()
