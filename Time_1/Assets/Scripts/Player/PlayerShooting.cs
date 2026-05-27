@@ -15,10 +15,18 @@ public class PlayerShooting : MonoBehaviour
     // Velocity magnitude applied to the player on spear catch
     [SerializeField] private float returnKnockback = 8f;
 
+    // How long after pressing throw before the spear launches
+    [SerializeField] private float startLag = 0.3f;
+
+    // How long after catching the returned spear before the player can throw again
+    [SerializeField] private float endLag = 0.5f;
+
     [SerializeField] private PlayerMovement playerMovement;
 
-    private enum SpearState { Held, Thrown, Stuck, Returning }
+    private enum SpearState { Held, WindingUp, Thrown, Stuck, Returning, Recovering }
     private SpearState state = SpearState.Held;
+
+    public bool IsWindingUp => state == SpearState.WindingUp;
 
     private Transform spearTransform;
     private Rigidbody2D spearRb;
@@ -33,6 +41,8 @@ public class PlayerShooting : MonoBehaviour
 
     // Direction from stuck spear toward player, computed when return starts
     private Vector2 knockbackDir;
+
+    private float lagTimer;
 
     void Start()
     {
@@ -62,6 +72,12 @@ public class PlayerShooting : MonoBehaviour
     {
         switch (state)
         {
+            case SpearState.WindingUp:
+                lagTimer -= Time.deltaTime;
+                if (lagTimer <= 0f)
+                    ThrowSpear();
+                break;
+
             case SpearState.Thrown:
                 RotateSpearToVelocity();
                 break;
@@ -69,22 +85,39 @@ public class PlayerShooting : MonoBehaviour
             case SpearState.Returning:
                 MoveSpearToPlayer();
                 break;
+
+            case SpearState.Recovering:
+                lagTimer -= Time.deltaTime;
+                if (lagTimer <= 0f)
+                    state = SpearState.Held;
+                break;
         }
     }
 
-    //Input callback
+    // Input callback
 
     public void Throw(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
         if (state == SpearState.Held)
-            ThrowSpear();
+            StartWindUp();
         else if (state == SpearState.Stuck)
             StartReturn();
     }
 
-    // Throw 
+    // Wind-up then throw
+
+    private void StartWindUp()
+    {
+        if (startLag <= 0f)
+        {
+            ThrowSpear();
+            return;
+        }
+        lagTimer = startLag;
+        state = SpearState.WindingUp;
+    }
 
     private void ThrowSpear()
     {
@@ -97,7 +130,7 @@ public class PlayerShooting : MonoBehaviour
         spearTransform.rotation   = worldRot;
         spearTransform.localScale = spearLocalScale;
 
-        // PlayerAim already rotated the spear toward the cursor
+        // PlayerAim rotated the spear toward the cursor during wind-up
         spearRb.simulated    = true;
         spearRb.gravityScale = dropIntensity;
         spearRb.velocity     = (Vector2)spearTransform.right * throwSpeed;
@@ -112,19 +145,19 @@ public class PlayerShooting : MonoBehaviour
     {
         if (spearRb.velocity.sqrMagnitude < 0.01f) return;
 
-        float angle = Mathf.Atan2(spearRb.velocity.y, spearRb.velocity.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(spearRb.velocity.y, spearRb.velocity.x) * Mathf.Rad2Deg + 180f;
         // Use the physics body's rotation so it doesn't fight the simulation
         spearRb.SetRotation(angle);
         spearRb.angularVelocity = 0f; // prevent contacts from adding spin
     }
 
-    // ── Stick (called by SpearCollisionRelay) ────────────────────────────────────
+    // Stick (called by SpearCollisionRelay) 
 
     public void OnSpearHit(Collider2D other)
     {
         if (state != SpearState.Thrown) return;
 
-        // Freeze the spear in world space — no parenting avoids any scale/rotation distortion
+        // Freeze the spear in world space 
         spearRb.velocity        = Vector2.zero;
         spearRb.angularVelocity = 0f;
         spearRb.simulated       = false;
@@ -132,14 +165,14 @@ public class PlayerShooting : MonoBehaviour
         state = SpearState.Stuck;
     }
 
-    // ── Return ───────────────────────────────────────────────────────────────────
+    //  Return
 
     private void StartReturn()
     {
-        // Direction FROM spear TO player — this is the knockback direction on catch
+        // Direction FROM spear TO player 
         knockbackDir = ((Vector2)transform.position - (Vector2)spearTransform.position).normalized;
 
-        // Spear is already frozen in world space (no parent to detach from)
+        // Spear is already frozen in world space 
         spearRb.simulated = false;
 
         state = SpearState.Returning;
@@ -179,6 +212,12 @@ public class PlayerShooting : MonoBehaviour
 
         spearRb.simulated = false;
 
-        state = SpearState.Held;
+        if (endLag <= 0f)
+            state = SpearState.Held;
+        else
+        {
+            lagTimer = endLag;
+            state = SpearState.Recovering;
+        }
     }
 }

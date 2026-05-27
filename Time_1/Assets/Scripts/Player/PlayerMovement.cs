@@ -18,9 +18,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Knockback")]
-    // Rate at which horizontal knockback decays (units/sec).
+    // Rate at which horizontal knockback decays.
     // ~20 matches the default vertical deceleration from gravity, giving both axes equal duration.
     [SerializeField] private float knockbackDecay = 20f;
+
+    public float HorizontalInput => horizontalMovement;
 
     private float horizontalMovement;
     private float verticalInput;
@@ -34,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Called by PlayerShooting when the spear is caught.
-    // Sets rb.velocity immediately (so Y launches correctly) and stores the X
     public void Knockback(Vector2 velocity)
     {
         rb.velocity      = velocity;
@@ -58,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (verticalInput <= 0)
             {
-                // Space not held: apply heavy gravity.
+                // apply heavy gravity.
                 if (hasJumped)
                     rb.velocity = new Vector2(rb.velocity.x, Mathf.Min(rb.velocity.y, jumpCutVelocity));
 

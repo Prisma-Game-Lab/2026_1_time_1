@@ -142,6 +142,18 @@ PrefabInstance:
       propertyPath: groundLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 4583274065654823911, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
+      propertyPath: endLag
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583274065654823911, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
+      propertyPath: startLag
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583274065654823911, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
+      propertyPath: returnSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6629587993135455583, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -377,6 +389,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b64c764048cd5664494a4b625309d3b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &307295915 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4583274065654823911, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
+  m_PrefabInstance: {fileID: 128694466}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4abd433df8afa5b44bd9bafbb17bf8fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &327169975 stripped
@@ -991,6 +1014,14 @@ PrefabInstance:
       propertyPath: playerSprite
       value: 
       objectReference: {fileID: 128694467}
+    - target: {fileID: 7483523305526542658, guid: 3470790e583c63c45b8604749cbde51f, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 307295912}
+    - target: {fileID: 7483523305526542658, guid: 3470790e583c63c45b8604749cbde51f, type: 3}
+      propertyPath: playerShooting
+      value: 
+      objectReference: {fileID: 307295915}
     - target: {fileID: 7483523305526542658, guid: 3470790e583c63c45b8604749cbde51f, type: 3}
       propertyPath: playerTransform
       value: 

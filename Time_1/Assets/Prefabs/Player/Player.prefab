@@ -254,6 +254,8 @@ MonoBehaviour:
   returnSpeed: 15
   dropIntensity: 2
   returnKnockback: 12
+  startLag: 0.3
+  endLag: 0.5
   playerMovement: {fileID: 3534906634803273781}
 --- !u!1 &8835383805352118712
 GameObject:
@@ -373,7 +375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6269570338918552436, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.53
+      value: -0.818
       objectReference: {fileID: 0}
     - target: {fileID: 6269570338918552436, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -385,7 +387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6269570338918552436, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6269570338918552436, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_LocalRotation.x
@@ -397,7 +399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6269570338918552436, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6269570338918552436, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -409,7 +411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6269570338918552436, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
