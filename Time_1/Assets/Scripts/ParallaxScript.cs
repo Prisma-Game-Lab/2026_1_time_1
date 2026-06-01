@@ -15,7 +15,7 @@ public class ParallaxScript : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         foreach (var parallaxEffect in parallaxEffect) 
         {
