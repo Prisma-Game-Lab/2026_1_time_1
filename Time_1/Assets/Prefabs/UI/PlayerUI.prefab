@@ -188,6 +188,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: {fileID: 4360286508800674496}
+  canvas: {fileID: 8480086629331847845}
+  spear: {fileID: 0}
+  playerTransform: {fileID: 0}
+  playerShooting: {fileID: 0}
+  playerMovement: {fileID: 0}
 --- !u!1 &7133726117533449517
 GameObject:
   m_ObjectHideFlags: 0
