@@ -179,7 +179,8 @@ public class PlayerShooting : MonoBehaviour
         }
 
         // Hit an enemy: deal damage first, then decide whether to stick or fall
-        EnemyHealthController enemyHealth = other.GetComponent<EnemyHealthController>();
+        EnemyHealthController enemyHealth = other.GetComponent<EnemyHealthController>()
+            ?? other.GetComponentInParent<EnemyHealthController>();
         if (enemyHealth != null)
         {
             enemyHealth.TakeDamage(damage);

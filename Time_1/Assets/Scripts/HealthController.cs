@@ -1,19 +1,18 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-   [SerializeField] private int maxHealth;
+    [SerializeField] private int maxHealth;
 
-   [HideInInspector] public int currentHealth;
+    [HideInInspector] public int currentHealth;
 
-   void Start()
+    void Start()
     {
         currentHealth = maxHealth;
     }
-
-    public void  TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
         currentHealth -= dmg;
         if (currentHealth <= 0)
@@ -22,7 +21,6 @@ public class HealthController : MonoBehaviour
             Die();
         }
     }
-
     public virtual void Die()
     {
         // Death logic
