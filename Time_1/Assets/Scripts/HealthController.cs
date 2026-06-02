@@ -7,7 +7,6 @@ public class HealthController : MonoBehaviour
     [SerializeField] private int maxHealth;
 
     [HideInInspector] public int currentHealth;
-
     void Start()
     {
         currentHealth = maxHealth;

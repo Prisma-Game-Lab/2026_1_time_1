@@ -43,7 +43,6 @@ public class Galinha : MonoBehaviour
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
     }
-
     void Start()
     {
         lateralPhaseOffset = Random.Range(0f, Mathf.PI * 2f);
@@ -51,7 +50,6 @@ public class Galinha : MonoBehaviour
         if (fallVFXPrefab != null)
             Instantiate(fallVFXPrefab, transform.position, Quaternion.identity, transform);
     }
-
     private void Update()
     {
         if (hasExploded) return;
@@ -72,8 +70,6 @@ public class Galinha : MonoBehaviour
             if (timeAlive >= lifetime) Explode();
         }
     }
-
-    // Chamado pelo EnemyHealthController quando HP chega a 0
     public void Explodir()
     {
         Explode();
@@ -103,21 +99,15 @@ public class Galinha : MonoBehaviour
     {
         if (hasExploded) return;
         hasExploded = true;
-
         Vector2 center = explosionPoint != null
             ? (Vector2)explosionPoint.position
             : (Vector2)transform.position;
-
         float raioEfetivo = maxDamageDistance > 0f ? maxDamageDistance : explosionRadius;
-
         Collider2D[] hits = Physics2D.OverlapCircleAll(center, raioEfetivo, damageableLayers);
-
         Debug.Log($"Explode chamado | Hits encontrados: {hits.Length} | Raio: {raioEfetivo} | Layers: {damageableLayers.value}");
-
         foreach (Collider2D hit in hits)
         {
             if (hit.CompareTag("VFX")) continue;
-
             Debug.Log($"Hit detectado: {hit.gameObject.name} | Tag: {hit.tag} | Layer: {hit.gameObject.layer}");
 
             PlayerHealthController playerHealth = hit.GetComponent<PlayerHealthController>();
@@ -140,14 +130,12 @@ public class Galinha : MonoBehaviour
                 }
             }
         }
-
         if (explosionVFXPrefab != null)
             Instantiate(explosionVFXPrefab, center, Quaternion.identity);
 
         AudioManager.Instance?.TocaSFX(explosionSFX);
         Destroy(gameObject);
     }
-
     private static bool IsInLayerMask(int layer, LayerMask mask) =>
         (mask.value & (1 << layer)) != 0;
 
