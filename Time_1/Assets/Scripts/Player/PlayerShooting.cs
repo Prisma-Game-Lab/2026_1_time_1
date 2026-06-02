@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,9 @@ public class PlayerShooting : MonoBehaviour
 
     // Gravity scale applied to the spear when thrown
     [SerializeField] private float dropIntensity = 1f;
+
+    // The damage the Spear causes
+    [SerializeField] private int damage = 5;
 
     // Velocity magnitude applied to the player on spear catch
     [SerializeField] private float returnKnockback = 8f;
@@ -43,6 +47,9 @@ public class PlayerShooting : MonoBehaviour
     private Vector2 knockbackDir;
 
     private float lagTimer;
+
+    // Tracks which enemy colliders were already damaged during a single return trip
+    private readonly HashSet<int> returnHitIds = new();
 
     void Start()
     {
@@ -89,7 +96,10 @@ public class PlayerShooting : MonoBehaviour
             case SpearState.Recovering:
                 lagTimer -= Time.deltaTime;
                 if (lagTimer <= 0f)
+                {
+                    playerMovement.SetMovementLocked(false);
                     state = SpearState.Held;
+                }
                 break;
         }
     }
@@ -115,12 +125,15 @@ public class PlayerShooting : MonoBehaviour
             ThrowSpear();
             return;
         }
+        playerMovement.SetMovementLocked(true);
         lagTimer = startLag;
         state = SpearState.WindingUp;
     }
 
     private void ThrowSpear()
     {
+        playerMovement.SetMovementLocked(false);
+
         // Preserve world transform before detaching from player
         Vector3    worldPos = spearTransform.position;
         Quaternion worldRot = spearTransform.rotation;
@@ -151,28 +164,63 @@ public class PlayerShooting : MonoBehaviour
         spearRb.angularVelocity = 0f; // prevent contacts from adding spin
     }
 
-    // Stick (called by SpearCollisionRelay) 
+    // Called by SpearCollisionRelay when the spear triggers something while Thrown
 
     public void OnSpearHit(Collider2D other)
     {
         if (state != SpearState.Thrown) return;
 
-        // Freeze the spear in world space 
+        // Parry: destroy enemy projectile and immediately recall with no endlag
+        if (other.CompareTag("Projectile"))
+        {
+            Destroy(other.gameObject);
+            ParryReceive();
+            return;
+        }
+
+        // Hit an enemy: deal damage first, then decide whether to stick or fall
+        EnemyHealthController enemyHealth = other.GetComponent<EnemyHealthController>();
+        if (enemyHealth != null)
+        {
+            enemyHealth.TakeDamage(damage);
+            if (enemyHealth.currentHealth <= 0)
+            {
+                // Enemy died: drop straight down instead of sticking
+                spearRb.velocity        = new Vector2(0f, spearRb.velocity.y);
+                spearRb.angularVelocity = 0f;
+                // Keep simulated = true so gravity pulls the spear to the ground
+                return;
+            }
+        }
+
+        // Stick the spear in world space
         spearRb.velocity        = Vector2.zero;
         spearRb.angularVelocity = 0f;
         spearRb.simulated       = false;
-
         state = SpearState.Stuck;
+    }
+
+    // Instant recall used by parry 
+    private void ParryReceive()
+    {
+        spearRb.simulated = false;
+        spearTransform.SetParent(spearOriginalParent);
+        spearTransform.localPosition = spearLocalPos;
+        spearTransform.localRotation = spearLocalRot;
+        spearTransform.localScale    = spearLocalScale;
+        state = SpearState.Held;
     }
 
     //  Return
 
     private void StartReturn()
     {
-        // Direction FROM spear TO player 
+        returnHitIds.Clear();
+
+        // Direction FROM spear TO player
         knockbackDir = ((Vector2)transform.position - (Vector2)spearTransform.position).normalized;
 
-        // Spear is already frozen in world space 
+        // Spear is already frozen in world space
         spearRb.simulated = false;
 
         state = SpearState.Returning;
@@ -196,6 +244,19 @@ public class PlayerShooting : MonoBehaviour
         Vector2 fromPlayer = (Vector2)spearTransform.position - (Vector2)transform.position;
         float angle = Mathf.Atan2(fromPlayer.y, fromPlayer.x) * Mathf.Rad2Deg;
         spearTransform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        // Deal damage to any enemies the returning spear passes through (once per enemy per trip)
+        Collider2D[] hits = Physics2D.OverlapCircleAll(spearTransform.position, 0.5f);
+        foreach (Collider2D hit in hits)
+        {
+            if (hit == playerCol || hit == spearCol) continue;
+            if (returnHitIds.Contains(hit.GetInstanceID())) continue;
+
+            if (!hit.TryGetComponent(out EnemyHealthController enemyHealth)) continue;
+
+            returnHitIds.Add(hit.GetInstanceID());
+            enemyHealth.TakeDamage(damage);
+        }
     }
 
     private void ReceiveSpear()
@@ -217,6 +278,7 @@ public class PlayerShooting : MonoBehaviour
         else
         {
             lagTimer = endLag;
+            playerMovement.SetMovementLocked(true);
             state = SpearState.Recovering;
         }
     }
