@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -28,8 +30,16 @@ public class AudioManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        CarregarVolumes();
     }
-// Musica
+    private void CarregarVolumes()
+    {
+        float volumeMusica = PlayerPrefs.GetFloat("VolumeMusica", 1f);
+        float volumeSFX = PlayerPrefs.GetFloat("VolumeSFX", 1f);
+        musicSource.volume = Mathf.Clamp01(volumeMusica);
+        sfxSource.volume = Mathf.Clamp01(volumeSFX);
+    }
+    // Musica
     public void TocaMusica(AudioClip clip, bool loop = true)
     {
         if (musicSource.clip == clip) return;
@@ -45,7 +55,7 @@ public class AudioManager : MonoBehaviour
     {
         musicSource.volume = Mathf.Clamp01(volume);
     }
-// Efeitos Sonoros
+    // Efeitos Sonoros
     public void TocaSFX(AudioClip clip)
     {
         if (clip == null) return;

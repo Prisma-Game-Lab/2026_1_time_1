@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
         // Zero friction prevents the player from sticking to walls.
         col.sharedMaterial = new PhysicsMaterial2D { friction = 0f, bounciness = 0f };
     }
-
     // Called by PlayerShooting when the spear is caught.
     public void Knockback(Vector2 velocity)
     {
@@ -43,16 +42,13 @@ public class PlayerMovement : MonoBehaviour
         knockbackVelocityX = velocity.x;
         hasJumped          = false;
     }
-
     void Update()
     {
         // Decay horizontal knockback toward zero, independent of player input direction.
         knockbackVelocityX = Mathf.MoveTowards(knockbackVelocityX, 0f, knockbackDecay * Time.deltaTime);
-
         // Final X = decaying knockback + player-controlled movement (zero if locked during end lag).
         float inputX = movementLocked ? 0f : horizontalMovement;
         rb.velocity = new Vector2(knockbackVelocityX + inputX * moveSpeed, rb.velocity.y);
-
         if (rb.velocity.y < 0)
         {
             hasJumped = false; 
@@ -73,9 +69,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
     public void SetMovementLocked(bool locked) => movementLocked = locked;
-
     public bool IsGrounded()
     {
         Bounds bounds = col.bounds;
@@ -86,13 +80,11 @@ public class PlayerMovement : MonoBehaviour
             groundLayer
         );
     }
-
     public void Move(InputAction.CallbackContext context)
     {
         Vector2 input = context.ReadValue<Vector2>();
         horizontalMovement = input.x;
         verticalInput = input.y;
-
         if (context.performed && input.y > 0 && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);

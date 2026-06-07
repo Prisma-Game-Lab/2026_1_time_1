@@ -95,13 +95,13 @@ GameObject:
   - component: {fileID: 9013516864452686665}
   - component: {fileID: 3898572821118421133}
   - component: {fileID: 7406403022187744113}
-  - component: {fileID: 5627537297288732976}
   - component: {fileID: 6991707820927381310}
   - component: {fileID: 1975737258280315887}
   - component: {fileID: 6115463572851598221}
+  - component: {fileID: 5097680563931927001}
   m_Layer: 0
   m_Name: Duende
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,7 +184,75 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
---- !u!212 &5627537297288732976
+--- !u!114 &6991707820927381310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8842925718238509237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf233dfb97b2c14194384a535e83c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 6629587993135455583, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
+  spriteRenderer: {fileID: 0}
+  projectileSpawnPoint: {fileID: 9013516864452686665}
+  moveSpeed: 6
+  maxVelocity: 8
+  directionChangeIntervalMin: 0.5
+  directionChangeIntervalMax: 2
+  jumpFrequency: 1
+  jumpForceMin: 8
+  jumpForceMax: 14
+  detectionRadius: 6
+  attackRadius: 1.5
+  contactDamage: 1
+  contactDamageCooldown: 0.8
+  knockbackForce: 6
+  enableRangedAttack: 1
+  projectilePrefab: {fileID: 4186590148938384958, guid: 70a042d6156f3004eb81f1b56339d258, type: 3}
+  projectileSpeed: 12
+  projectileDamage: 1
+  fireInterval: 2.5
+  sfxJump: {fileID: 0}
+  sfxAttack: {fileID: 8300000, guid: be550bcb04a1db644bc69bddfe246cc1, type: 3}
+  sfxDeath: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &1975737258280315887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8842925718238509237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 051e88db7d62b1a4d86225ad943bbf02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  currentHealth: 0
+  duende: {fileID: 6991707820927381310}
+--- !u!114 &6115463572851598221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8842925718238509237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 143059b823c577e4284f72d02652f217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 13.3
+  damage: 1
+  maxLifetime: 60
+--- !u!212 &5097680563931927001
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,77 +298,9 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.22, y: 3.1}
+  m_Size: {x: 2.25, y: 2.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6991707820927381310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8842925718238509237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbf233dfb97b2c14194384a535e83c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  projectileSpawnPoint: {fileID: 0}
-  moveSpeed: 6
-  maxVelocity: 8
-  directionChangeIntervalMin: 0.5
-  directionChangeIntervalMax: 2
-  jumpFrequency: 1
-  jumpForceMin: 8
-  jumpForceMax: 14
-  detectionRadius: 6
-  attackRadius: 1.5
-  contactDamage: 10
-  contactDamageCooldown: 0.8
-  knockbackForce: 6
-  enableRangedAttack: 1
-  projectilePrefab: {fileID: 4186590148938384958, guid: 70a042d6156f3004eb81f1b56339d258, type: 3}
-  projectileSpeed: 12
-  projectileDamage: 5
-  fireInterval: 2.5
-  sfxJump: {fileID: 0}
-  sfxAttack: {fileID: 0}
-  sfxDeath: {fileID: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
---- !u!114 &1975737258280315887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8842925718238509237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 051e88db7d62b1a4d86225ad943bbf02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  currentHealth: 0
-  duende: {fileID: 0}
---- !u!114 &6115463572851598221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8842925718238509237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 143059b823c577e4284f72d02652f217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 12
-  damage: 5
-  maxLifetime: 6

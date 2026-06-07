@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float endLag = 0.5f;
 
     [SerializeField] private PlayerMovement playerMovement;
+    // NOVO
+    [SerializeField] private OrbSpawner orbSpawner;
+    //NOVO
+    public Action OnParry;
 
     private enum SpearState { Held, WindingUp, Thrown, Stuck, Returning, Recovering }
     private SpearState state = SpearState.Held;
@@ -66,10 +71,15 @@ public class PlayerShooting : MonoBehaviour
 
         // Spear physics is off while held
         spearRb.simulated = false;
+        OrbManager.Instance?.RegistrarLanca(spearTransform);
 
         // Tell the relay who to notify on trigger hit
         SpearCollisionRelay relay = spear.GetComponent<SpearCollisionRelay>();
         if (relay != null) relay.Init(this);
+        if (OrbManager.Instance != null)
+            OrbManager.Instance.RegistrarPlayerShooting(this);
+        else
+            Debug.LogError("[PlayerShooting] OrbManager.Instance é null!");
 
         // Player and spear should never interact with each other's collider
         Physics2D.IgnoreCollision(spearCol, playerCol);
@@ -169,11 +179,22 @@ public class PlayerShooting : MonoBehaviour
     public void OnSpearHit(Collider2D other)
     {
         if (state != SpearState.Thrown) return;
+        Parryble parryble = other.GetComponent<Parryble>();
+        if (parryble != null)
+        {
+            parryble.OnParried();
+            OnParry?.Invoke();
+            ParryReceive();
+            return;
+        }
 
         // Parry: destroy enemy projectile and immediately recall with no endlag
         if (other.CompareTag("Projectile"))
         {
+            Debug.Log($"[PlayerShooting] Parry via tag Projectile: {other.gameObject.name}");
             Destroy(other.gameObject);
+            Debug.Log($"[PlayerShooting] OnParry tem {OnParry?.GetInvocationList().Length ?? 0} listeners");
+            OnParry?.Invoke();
             ParryReceive();
             return;
         }

@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6629587993135455583
 Transform:
   m_ObjectHideFlags: 0
@@ -259,6 +259,7 @@ MonoBehaviour:
   startLag: 0.1
   endLag: 0.2
   playerMovement: {fileID: 3534906634803273781}
+  orbSpawner: {fileID: 3362294502645830544, guid: 9f5704f9d814dbd4986966e7ec20b414, type: 3}
 --- !u!114 &1579625966490845898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +275,7 @@ MonoBehaviour:
   maxHealth: 3
   currentHealth: 0
   PlayerReference: {fileID: 7133087523553522135}
-  PlayerCanvas: {fileID: 0}
+  PlayerCanvas: {fileID: 1758575627770726082, guid: 3470790e583c63c45b8604749cbde51f, type: 3}
 --- !u!1 &8835383805352118712
 GameObject:
   m_ObjectHideFlags: 0
