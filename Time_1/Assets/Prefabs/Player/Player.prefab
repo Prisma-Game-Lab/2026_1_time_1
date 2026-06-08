@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6629587993135455583
 Transform:
   m_ObjectHideFlags: 0
@@ -192,7 +192,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &8034638234524184603
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -258,6 +258,9 @@ MonoBehaviour:
   returnKnockback: 12
   startLag: 0.1
   endLag: 0.2
+  maxChargeTime: 1.5
+  maxDamageMultiplier: 3
+  maxSpeedMultiplier: 2
   playerMovement: {fileID: 3534906634803273781}
   orbSpawner: {fileID: 3362294502645830544, guid: 9f5704f9d814dbd4986966e7ec20b414, type: 3}
 --- !u!114 &1579625966490845898
@@ -386,7 +389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5488694523069460834, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5488694523069460834, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_SortingLayerID

@@ -26,6 +26,15 @@ public class PlayerShooting : MonoBehaviour
     // How long after catching the returned spear before the player can throw again
     [SerializeField] private float endLag = 0.5f;
 
+    // How long the button can be held after startLag before auto-throwing at max charge
+    [SerializeField] private float maxChargeTime = 1.5f;
+
+    // Damage multiplier at full charge
+    [SerializeField] private float maxDamageMultiplier = 3f;
+
+    // Throw speed multiplier at full charge
+    [SerializeField] private float maxSpeedMultiplier = 2f;
+
     [SerializeField] private PlayerMovement playerMovement;
     // NOVO
     [SerializeField] private OrbSpawner orbSpawner;
@@ -52,9 +61,19 @@ public class PlayerShooting : MonoBehaviour
     private Vector2 knockbackDir;
 
     private float lagTimer;
+    private float chargeTimer;
+
+    // Damage and speed resolved at throw time based on charge
+    private int currentDamage;
+    private float currentThrowSpeed;
 
     // Tracks which enemy colliders were already damaged during a single return trip
     private readonly HashSet<int> returnHitIds = new();
+
+    // Transform the spear is stuck to (null = stuck in static world space)
+    private Transform stuckToTransform;
+    private Vector3   stuckLocalPos;
+    private Quaternion stuckLocalRot;
 
     void Start()
     {
@@ -69,6 +88,9 @@ public class PlayerShooting : MonoBehaviour
         spearLocalRot   = spearTransform.localRotation;
         spearLocalScale = spearTransform.localScale;
 
+        currentDamage      = damage;
+        currentThrowSpeed  = throwSpeed;
+
         // Spear physics is off while held
         spearRb.simulated = false;
         OrbManager.Instance?.RegistrarLanca(spearTransform);
@@ -79,7 +101,7 @@ public class PlayerShooting : MonoBehaviour
         if (OrbManager.Instance != null)
             OrbManager.Instance.RegistrarPlayerShooting(this);
         else
-            Debug.LogError("[PlayerShooting] OrbManager.Instance � null!");
+            Debug.LogError("[PlayerShooting] OrbManager.Instance é null!");
 
         // Player and spear should never interact with each other's collider
         Physics2D.IgnoreCollision(spearCol, playerCol);
@@ -90,9 +112,27 @@ public class PlayerShooting : MonoBehaviour
         switch (state)
         {
             case SpearState.WindingUp:
-                lagTimer -= Time.deltaTime;
-                if (lagTimer <= 0f)
-                    ThrowSpear();
+                if (lagTimer > 0f)
+                {
+                    lagTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    // startLag finished — accumulate charge while button is held
+                    chargeTimer += Time.deltaTime;
+                    if (chargeTimer >= maxChargeTime)
+                    {
+                        chargeTimer = maxChargeTime;
+                        ThrowSpear();
+                    }
+                }
+                break;
+
+            case SpearState.Stuck:
+                if (stuckToTransform != null)
+                    spearTransform.SetPositionAndRotation(
+                        stuckToTransform.TransformPoint(stuckLocalPos),
+                        stuckToTransform.rotation * stuckLocalRot);
                 break;
 
             case SpearState.Thrown:
@@ -118,30 +158,37 @@ public class PlayerShooting : MonoBehaviour
 
     public void Throw(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
-
-        if (state == SpearState.Held)
-            StartWindUp();
-        else if (state == SpearState.Stuck)
-            StartReturn();
+        if (context.started)
+        {
+            if (state == SpearState.Held)
+                StartWindUp();
+            else if (state == SpearState.Stuck)
+                StartReturn();
+        }
+        else if (context.canceled)
+        {
+            if (state == SpearState.WindingUp)
+                ThrowSpear();
+        }
     }
 
     // Wind-up then throw
 
     private void StartWindUp()
     {
-        if (startLag <= 0f)
-        {
-            ThrowSpear();
-            return;
-        }
         playerMovement.SetMovementLocked(true);
-        lagTimer = startLag;
+        lagTimer    = startLag;
+        chargeTimer = 0f;
         state = SpearState.WindingUp;
     }
 
     private void ThrowSpear()
     {
+        float t = (maxChargeTime > 0f) ? Mathf.Clamp01(chargeTimer / maxChargeTime) : 0f;
+        currentDamage     = Mathf.RoundToInt(Mathf.Lerp(damage, damage * maxDamageMultiplier, t));
+        currentThrowSpeed = Mathf.Lerp(throwSpeed, throwSpeed * maxSpeedMultiplier, t);
+        chargeTimer = 0f;
+
         playerMovement.SetMovementLocked(false);
 
         // Preserve world transform before detaching from player
@@ -156,7 +203,7 @@ public class PlayerShooting : MonoBehaviour
         // PlayerAim rotated the spear toward the cursor during wind-up
         spearRb.simulated    = true;
         spearRb.gravityScale = dropIntensity;
-        spearRb.velocity     = (Vector2)spearTransform.right * throwSpeed;
+        spearRb.velocity     = (Vector2)spearTransform.right * currentThrowSpeed;
         spearRb.angularVelocity = 0f;
 
         AudioManager.Instance?.TocaSFX(AudioManager.Instance.EfeitoDaLanca);
@@ -204,7 +251,7 @@ public class PlayerShooting : MonoBehaviour
             ?? other.GetComponentInParent<EnemyHealthController>();
         if (enemyHealth != null)
         {
-            enemyHealth.TakeDamage(damage);
+            enemyHealth.TakeDamage(currentDamage);
             if (enemyHealth.currentHealth <= 0)
             {
                 // Enemy died: drop straight down instead of sticking
@@ -215,14 +262,17 @@ public class PlayerShooting : MonoBehaviour
             }
         }
 
-        // Stick the spear in world space
+        // Stick the spear to whatever it hit so it tracks moving objects
+        stuckToTransform = other.transform;
+        stuckLocalPos    = stuckToTransform.InverseTransformPoint(spearTransform.position);
+        stuckLocalRot    = Quaternion.Inverse(stuckToTransform.rotation) * spearTransform.rotation;
         spearRb.velocity        = Vector2.zero;
         spearRb.angularVelocity = 0f;
         spearRb.simulated       = false;
         state = SpearState.Stuck;
     }
 
-    // Instant recall used by parry 
+    // Instant recall used by parry
     private void ParryReceive()
     {
         spearRb.simulated = false;
@@ -238,13 +288,12 @@ public class PlayerShooting : MonoBehaviour
     private void StartReturn()
     {
         returnHitIds.Clear();
+        stuckToTransform = null;
 
         // Direction FROM spear TO player
         knockbackDir = ((Vector2)transform.position - (Vector2)spearTransform.position).normalized;
 
-        // Spear is already frozen in world space
         spearRb.simulated = false;
-
         state = SpearState.Returning;
     }
 
@@ -277,7 +326,7 @@ public class PlayerShooting : MonoBehaviour
             if (!hit.TryGetComponent(out EnemyHealthController enemyHealth)) continue;
 
             returnHitIds.Add(hit.GetInstanceID());
-            enemyHealth.TakeDamage(damage);
+            enemyHealth.TakeDamage(currentDamage);
         }
     }
 

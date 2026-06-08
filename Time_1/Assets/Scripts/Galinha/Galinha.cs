@@ -79,7 +79,9 @@ public class Galinha : MonoBehaviour
     {
         if (hasExploded) return;
         if (other.GetComponent<PlayerHealthController>() != null) { Explode(); return; }
-        if (other.GetComponent<Galinha>() != null) { Explode(); return; }
+        if (other.GetComponent<Galinha>() != null) { 
+            //Explode(); 
+            return; }
         if (other.CompareTag("Ground") || IsInLayerMask(other.gameObject.layer, damageableLayers))
             Explode();
     }

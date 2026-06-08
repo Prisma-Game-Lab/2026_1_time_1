@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4.18, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8090085505525257741}
@@ -199,15 +199,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5c667b99d42a74cb94beba48eccbbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallSpeed: 2
+  fallSpeed: 3
   lateralIntensity: 1.5
   lateralFrequency: 0.8
   maxFallSpeed: 6
   gravityMultiplier: 0.5
   lifetime: 0
   explosionDamage: 1
-  explosionRadius: 2
-  knockbackForce: 25
+  explosionRadius: 1
+  knockbackForce: 15
   minDamageDistance: 0
   maxDamageDistance: 0
   damageableLayers:
