@@ -30,9 +30,7 @@ public class GalinhaSpawner : MonoBehaviour
     {
         bool podeSpawnarGalinha = galinhaPrefab != null && ContarGalinhas() < maxGalinhas;
         bool podeSpawnarDuende = duendePrefab != null && ContarDuendes() < maxDuendes;
-
         if (!podeSpawnarGalinha && !podeSpawnarDuende) return;
-
         // Se ambos disponíveis, sorteia qual spawnar
         if (podeSpawnarGalinha && podeSpawnarDuende)
         {

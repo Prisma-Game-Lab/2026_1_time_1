@@ -15,13 +15,14 @@ GameObject:
   - component: {fileID: 8034638234524184603}
   - component: {fileID: 4583274065654823911}
   - component: {fileID: 1579625966490845898}
+  - component: {fileID: -6624998140062419713}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6629587993135455583
 Transform:
   m_ObjectHideFlags: 0
@@ -262,7 +263,6 @@ MonoBehaviour:
   maxDamageMultiplier: 3
   maxSpeedMultiplier: 2
   playerMovement: {fileID: 3534906634803273781}
-  orbSpawner: {fileID: 3362294502645830544, guid: 9f5704f9d814dbd4986966e7ec20b414, type: 3}
 --- !u!114 &1579625966490845898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +279,20 @@ MonoBehaviour:
   currentHealth: 0
   PlayerReference: {fileID: 7133087523553522135}
   PlayerCanvas: {fileID: 1758575627770726082, guid: 3470790e583c63c45b8604749cbde51f, type: 3}
+--- !u!114 &-6624998140062419713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7133087523553522135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6ac0b13a2a8b9548abb96be7e50f5c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verificacaoIntervalo: 0.1
+  respeitarPausa: 1
 --- !u!1 &8835383805352118712
 GameObject:
   m_ObjectHideFlags: 0

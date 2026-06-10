@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7139864654743713568}
   - component: {fileID: 1939952442625727587}
   - component: {fileID: 1381136098675758596}
+  - component: {fileID: -237279567537672785}
   m_Layer: 0
   m_Name: DuendeProjectile
   m_TagString: Projectile
@@ -126,7 +127,7 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -164,3 +165,18 @@ MonoBehaviour:
   speed: 12
   damage: 1
   maxLifetime: 6
+--- !u!114 &-237279567537672785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4186590148938384958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd07d37d0668b64e9a3d51ca9c2f389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbDuration: 3
+  orbSpeedMultiplier: 0.3
+  orbSprite: {fileID: 21300000, guid: 4ee1c657c651ec741b3fb1c71cb32d52, type: 3}

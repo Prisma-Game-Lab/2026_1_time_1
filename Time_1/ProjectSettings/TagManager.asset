@@ -9,6 +9,7 @@ TagManager:
   - VFX
   - Orb
   - Enemy
+  - Spear
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - Ground
   - Coalemos
-  - 
+  - Player
   - 
   - 
   - 

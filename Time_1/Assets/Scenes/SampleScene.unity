@@ -637,6 +637,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abd433df8afa5b44bd9bafbb17bf8fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &347518959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 347518961}
+  - component: {fileID: 347518960}
+  m_Layer: 0
+  m_Name: OrbManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &347518960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347518959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b35e35ffe36175e4eae3bff281b93e06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxOrbs: 5
+  orbsParaCurar: 5
+  curaQuantidade: 1
+  playerHealth: {fileID: 1579625966490845898, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
+  orbSpawner: {fileID: 3362294502645830544, guid: 9f5704f9d814dbd4986966e7ec20b414, type: 3}
+--- !u!4 &347518961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347518959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -27.88, y: -0.20309263, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2826,3 +2875,4 @@ SceneRoots:
   - {fileID: 1088174619}
   - {fileID: 1841406472}
   - {fileID: 1029127318}
+  - {fileID: 347518961}

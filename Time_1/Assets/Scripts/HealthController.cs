@@ -9,12 +9,16 @@ public class HealthController : MonoBehaviour
     public int MaxHealth => maxHealth;
 
     [HideInInspector] public int currentHealth;
-    void Start()
+
+    public Action<int, int> OnHealthChanged;
+    void Awake()
     {
         currentHealth = maxHealth;
+    }
+    void Start()
+    {
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
-    public Action<int, int> OnHealthChanged;
     public void Heal(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
@@ -24,11 +28,10 @@ public class HealthController : MonoBehaviour
     {
         currentHealth -= dmg;
         if (currentHealth <= 0)
-        {
             currentHealth = 0;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        if (currentHealth <= 0)
             Die();
-        }
-        OnHealthChanged?.Invoke(currentHealth, maxHealth); 
     }
     public virtual void Die()
     {

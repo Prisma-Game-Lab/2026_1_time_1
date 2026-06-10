@@ -36,6 +36,8 @@ public class Galinha : MonoBehaviour
     private float timeAlive;
     private float lateralPhaseOffset;
 
+    // Enquanto true, a Galinha está no estado de Orb e NÃO pode explodir.
+    public bool EstaComoOrb { get; private set; }
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,41 +56,38 @@ public class Galinha : MonoBehaviour
     {
         if (hasExploded) return;
 
-        float lateralVelocity = lateralIntensity * lateralFrequency
-                                   * Mathf.Cos(Time.time * lateralFrequency + lateralPhaseOffset)
-                                   * (2f * Mathf.PI);
-
+        float lateralVelocity = lateralIntensity * lateralFrequency* Mathf.Cos(Time.time * lateralFrequency + lateralPhaseOffset)* (2f * Mathf.PI);
         float gravityExtra = Physics2D.gravity.y * gravityMultiplier * Time.deltaTime;
         float targetFallVelocity = rb.velocity.y + (-fallSpeed * Time.deltaTime) + gravityExtra;
         float clampedY = Mathf.Clamp(targetFallVelocity, -maxFallSpeed, 0f);
 
         rb.velocity = new Vector2(lateralVelocity, clampedY);
-
         if (lifetime > 0f)
         {
             timeAlive += Time.deltaTime;
             if (timeAlive >= lifetime) Explode();
         }
     }
+    // Chamado pelo ParriedOrb ao virar/sair do estado de orb
+    public void SetComoOrb(bool valor)
+    {
+        EstaComoOrb = valor;
+    }
     public void Explodir()
     {
         Explode();
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (hasExploded) return;
+        if (hasExploded || EstaComoOrb) return;
         if (other.GetComponent<PlayerHealthController>() != null) { Explode(); return; }
-        if (other.GetComponent<Galinha>() != null) { 
-            //Explode(); 
-            return; }
+        if (other.GetComponent<Galinha>() != null) return;
         if (other.CompareTag("Ground") || IsInLayerMask(other.gameObject.layer, damageableLayers))
             Explode();
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (hasExploded) return;
+        if (hasExploded || EstaComoOrb) return;
         GameObject o = collision.gameObject;
         if (o.GetComponent<PlayerHealthController>() != null ||
             o.GetComponent<Galinha>() != null ||
@@ -96,29 +95,24 @@ public class Galinha : MonoBehaviour
             IsInLayerMask(o.layer, damageableLayers))
             Explode();
     }
-
     private void Explode()
     {
-        if (hasExploded) return;
+        // Bloqueia explosão enquanto é orb, venha de onde vier (Die, trigger, lifetime, etc.)
+        if (hasExploded || EstaComoOrb) return;
         hasExploded = true;
         Vector2 center = explosionPoint != null
             ? (Vector2)explosionPoint.position
             : (Vector2)transform.position;
         float raioEfetivo = maxDamageDistance > 0f ? maxDamageDistance : explosionRadius;
         Collider2D[] hits = Physics2D.OverlapCircleAll(center, raioEfetivo, damageableLayers);
-        Debug.Log($"Explode chamado | Hits encontrados: {hits.Length} | Raio: {raioEfetivo} | Layers: {damageableLayers.value}");
         foreach (Collider2D hit in hits)
         {
             if (hit.CompareTag("VFX")) continue;
-            Debug.Log($"Hit detectado: {hit.gameObject.name} | Tag: {hit.tag} | Layer: {hit.gameObject.layer}");
+            if (hit.GetComponent<Galinha>() != null) continue;
 
             PlayerHealthController playerHealth = hit.GetComponent<PlayerHealthController>();
             if (playerHealth != null)
-            {
-                Debug.Log($"Dano aplicado ao player! HP antes: {playerHealth.currentHealth}");
                 playerHealth.TakeDamage(explosionDamage);
-                Debug.Log($"HP depois: {playerHealth.currentHealth}");
-            }
 
             if (!ignoreKnockback)
             {
@@ -128,19 +122,17 @@ public class Galinha : MonoBehaviour
                     Vector2 dir = ((Vector2)hit.transform.position - center).normalized;
                     if (dir == Vector2.zero) dir = Vector2.up;
                     pm.Knockback(dir * knockbackForce * knockbackMultiplier);
-                    Debug.Log($"Knockback aplicado ao player!");
                 }
             }
         }
+
         if (explosionVFXPrefab != null)
             Instantiate(explosionVFXPrefab, center, Quaternion.identity);
 
         AudioManager.Instance?.TocaSFX(explosionSFX);
         Destroy(gameObject);
     }
-    private static bool IsInLayerMask(int layer, LayerMask mask) =>
-        (mask.value & (1 << layer)) != 0;
-
+    private static bool IsInLayerMask(int layer, LayerMask mask) =>(mask.value & (1 << layer)) != 0;
     private void OnDrawGizmosSelected()
     {
         Vector2 center = explosionPoint != null
