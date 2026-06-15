@@ -453,6 +453,7 @@ GameObject:
   - component: {fileID: 7446877143140509245}
   - component: {fileID: 5075298526340389052}
   - component: {fileID: 3379156677600858735}
+  - component: {fileID: 1461117428605098694}
   m_Layer: 7
   m_Name: Coalemos
   m_TagString: Untagged
@@ -576,10 +577,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chickenAttack: {fileID: 5075298526340389052}
   handAttack: {fileID: 3379156677600858735}
+  elfAttack: {fileID: 1461117428605098694}
   chickenCount: 20
   chickenInterval: 0.5
   swipeHeight: -3
+  startDelay: 4
   delayBetweenAttacks: 1.5
+  comboInternalDelay: 0.4
 --- !u!114 &5075298526340389052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -617,5 +621,27 @@ MonoBehaviour:
   slamDropSpeed: 20
   slamReturnSpeed: 8
   swipeSpeed: 10
+  swipeApproachSpeed: 15
   swipeArenaMinX: -10
   swipeArenaMaxX: 10
+--- !u!114 &1461117428605098694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8937436732187326094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e1ccebe15c63446a57a19b429075ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elfPrefab: {fileID: 8842925718238509237, guid: 39dc3d0251786fc4595d9c4fcbc8a1af, type: 3}
+  movement: {fileID: 6205366276529230582}
+  arenaLeft: -10
+  arenaRight: 10
+  spawnHeightMin: -2
+  spawnHeightMax: 3
+  elfCount: 5
+  spawnInterval: 0.35
+  elfSpeed: 6

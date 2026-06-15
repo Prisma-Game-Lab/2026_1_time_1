@@ -83,9 +83,9 @@ public class Duende : MonoBehaviour
     {
         if (!_isAlive) return;
         TickTimers();
-        HandleMovement();
-        HandleJump();
-        FlipSprite();
+        // HandleMovement();  
+        // HandleJump();
+        // FlipSprite();
 
         // Combate só ocorre se jogador estiver dentro do raio de detecção
         if (playerTransform != null && JogadorDetectado())

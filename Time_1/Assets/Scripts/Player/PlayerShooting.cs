@@ -18,6 +18,10 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float maxSpeedMultiplier = 2f;
     [SerializeField] private PlayerMovement playerMovement;
 
+    [Header("Melee Parry")]
+    [SerializeField] private float parryKnockbackForce = 10f;
+    [SerializeField] private float parryKnockbackUp = 4f;
+
     public Action OnParry;
 
     private enum SpearState { Held, WindingUp, Thrown, Stuck, Returning, Recovering }
@@ -40,6 +44,9 @@ public class PlayerShooting : MonoBehaviour
     private float chargeTimer;
     private int currentDamage;
     private float currentThrowSpeed;
+
+    // Set when the throw button is released during startup lag so the throw fires once lag expires
+    private bool pendingThrow;
 
     private readonly HashSet<int> returnHitIds = new();
 
@@ -69,13 +76,22 @@ public class PlayerShooting : MonoBehaviour
 
         Physics2D.IgnoreCollision(spearCol, playerCol);
     }
+
     void Update()
     {
         switch (state)
         {
             case SpearState.WindingUp:
                 if (lagTimer > 0f)
+                {
                     lagTimer -= Time.deltaTime;
+                    // Startup just finished 
+                    if (lagTimer <= 0f && pendingThrow)
+                    {
+                        pendingThrow = false;
+                        ThrowSpear();
+                    }
+                }
                 else
                 {
                     chargeTimer += Time.deltaTime;
@@ -113,6 +129,25 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
+    public bool TryMeleeParry()
+    {
+        // Parry window is the startup lag only 
+        if (state != SpearState.WindingUp || lagTimer <= 0f) return false;
+
+        state = SpearState.Held;
+        pendingThrow = false;
+        playerMovement.SetMovementLocked(false);
+        lagTimer = 0f;
+        chargeTimer = 0f;
+
+        if (OrbManager.Instance != null) OrbManager.Instance.AddOrb();
+
+        float facingSign = spearTransform.right.x >= 0f ? 1f : -1f;
+        playerMovement.Knockback(new Vector2(-facingSign * parryKnockbackForce, parryKnockbackUp));
+
+        return true;
+    }
+
     public void Throw(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -125,12 +160,18 @@ public class PlayerShooting : MonoBehaviour
         else if (context.canceled)
         {
             if (state == SpearState.WindingUp)
-                ThrowSpear();
+            {
+                if (lagTimer <= 0f)
+                    ThrowSpear();
+                else
+                    pendingThrow = true; 
+            }
         }
     }
 
     private void StartWindUp()
     {
+        pendingThrow = false;
         playerMovement.SetMovementLocked(true);
         lagTimer = startLag;
         chargeTimer = 0f;

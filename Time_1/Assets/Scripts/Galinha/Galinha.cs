@@ -104,7 +104,8 @@ public class Galinha : MonoBehaviour
             ? (Vector2)explosionPoint.position
             : (Vector2)transform.position;
         float raioEfetivo = maxDamageDistance > 0f ? maxDamageDistance : explosionRadius;
-        Collider2D[] hits = Physics2D.OverlapCircleAll(center, raioEfetivo, damageableLayers);
+        
+        Collider2D[] hits = Physics2D.OverlapCircleAll(center, raioEfetivo);
         foreach (Collider2D hit in hits)
         {
             if (hit.CompareTag("VFX")) continue;

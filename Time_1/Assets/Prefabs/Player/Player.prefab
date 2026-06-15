@@ -263,6 +263,8 @@ MonoBehaviour:
   maxDamageMultiplier: 3
   maxSpeedMultiplier: 2
   playerMovement: {fileID: 3534906634803273781}
+  parryKnockbackForce: 10
+  parryKnockbackUp: 4
 --- !u!114 &1579625966490845898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,10 +277,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31e07357f876b441ba080baff18003b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 5
   currentHealth: 0
   PlayerReference: {fileID: 7133087523553522135}
   PlayerCanvas: {fileID: 1758575627770726082, guid: 3470790e583c63c45b8604749cbde51f, type: 3}
+  iframeDuration: 1
 --- !u!114 &-6624998140062419713
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,6 +25,10 @@ public class CoalemosMovement : MonoBehaviour
     [SerializeField] float pacingSpeed = 3f;
     [SerializeField] float pacingHalfWidth = 4f;
 
+    [Header("Hands Raised")]
+    [SerializeField] private float handsRaisedYOffset = 2f;
+    [SerializeField] private float handsRaiseSpeed    = 4f;
+
     Vector3 headBaseLocalPos;
     Vector3 leftHandOffsetFromHead;
     Vector3 rightHandOffsetFromHead;
@@ -36,7 +40,7 @@ public class CoalemosMovement : MonoBehaviour
     Vector3 rootTrackingOffset;
     Vector3 rootTrackingVelocity;
 
-    private enum RootMode { FollowPlayer, Pacing }
+    private enum RootMode { FollowPlayer, Pacing, Frozen }
     private RootMode rootMode = RootMode.FollowPlayer;
 
     private float pacingDirection = 1f;
@@ -45,6 +49,8 @@ public class CoalemosMovement : MonoBehaviour
 
     private bool leftHandLocked;
     private bool rightHandLocked;
+    private float currentHandsRaiseY;
+    private float targetHandsRaiseY;
 
     public GameObject LeftHand  => leftHand;
     public GameObject RightHand => rightHand;
@@ -54,6 +60,23 @@ public class CoalemosMovement : MonoBehaviour
     {
         if (isLeft) leftHandLocked  = locked;
         else        rightHandLocked = locked;
+    }
+
+    public void Freeze()
+    {
+        rootMode = RootMode.Frozen;
+    }
+
+    public void Unfreeze()
+    {
+        rootTrackingOffset   = transform.position - rootBaseWorldPos;
+        rootTrackingVelocity = Vector3.zero;
+        rootMode             = RootMode.FollowPlayer;
+    }
+
+    public void SetHandsRaised(bool raised)
+    {
+        targetHandsRaiseY = raised ? handsRaisedYOffset : 0f;
     }
 
     void Start()
@@ -78,16 +101,19 @@ public class CoalemosMovement : MonoBehaviour
             headBaseLocalPos + headTrackingOffset + headWobble,
             Quaternion.Euler(0f, 0f, WobbleRotation(t, 0f)));
 
-        Vector3 headNow = head.transform.localPosition;
+        currentHandsRaiseY = Mathf.MoveTowards(currentHandsRaiseY, targetHandsRaiseY, handsRaiseSpeed * Time.deltaTime);
+
+        Vector3 headNow    = head.transform.localPosition;
+        Vector3 raiseOffset = Vector3.up * currentHandsRaiseY;
 
         if (!leftHandLocked)
             leftHand.transform.SetLocalPositionAndRotation(
-                headNow + leftHandOffsetFromHead + WobbleOffset(t, 1.1f),
+                headNow + leftHandOffsetFromHead + WobbleOffset(t, 1.1f) + raiseOffset,
                 Quaternion.Euler(0f, 0f, WobbleRotation(t, 1.1f)));
 
         if (!rightHandLocked)
             rightHand.transform.SetLocalPositionAndRotation(
-                headNow + rightHandOffsetFromHead + WobbleOffset(t, 2.3f),
+                headNow + rightHandOffsetFromHead + WobbleOffset(t, 2.3f) + raiseOffset,
                 Quaternion.Euler(0f, 0f, WobbleRotation(t, 2.3f)));
     }
 
@@ -118,6 +144,8 @@ public class CoalemosMovement : MonoBehaviour
 
     void UpdateRootPosition()
     {
+        if (rootMode == RootMode.Frozen) return;
+
         if (rootMode == RootMode.FollowPlayer)
         {
             if (player == null) return;

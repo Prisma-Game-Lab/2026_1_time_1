@@ -19,9 +19,10 @@ public class CoalemosHandAttack : MonoBehaviour
     [SerializeField] private float slamReturnSpeed  = 8f;    // speed hand returns to rest after slam
 
     [Header("Hand Swipe")]
-    [SerializeField] private float swipeSpeed     = 10f;
-    [SerializeField] private float swipeArenaMinX = -10f;
-    [SerializeField] private float swipeArenaMaxX =  10f;
+    [SerializeField] private float swipeSpeed        = 10f;
+    [SerializeField] private float swipeApproachSpeed = 15f;
+    [SerializeField] private float swipeArenaMinX    = -10f;
+    [SerializeField] private float swipeArenaMaxX    =  10f;
 
     private Coroutine leftHandCoroutine;
     private Coroutine rightHandCoroutine;
@@ -139,7 +140,13 @@ public class CoalemosHandAttack : MonoBehaviour
         float startX = isLeft ? swipeArenaMinX : swipeArenaMaxX;
         float endX   = isLeft ? swipeArenaMaxX : swipeArenaMinX;
 
-        handObj.transform.position = new(startX, height, swipeZ);
+        // Travel to swipe start position 
+        Vector3 swipeStart = new(startX, height, swipeZ);
+        while (Vector3.Distance(handObj.transform.position, swipeStart) > 0.05f)
+        {
+            handObj.transform.position = Vector3.MoveTowards(handObj.transform.position, swipeStart, swipeApproachSpeed * Time.deltaTime);
+            yield return null;
+        }
 
         if (handCol != null) handCol.enabled = true;
 
