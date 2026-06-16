@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8371975099326768307}
   - component: {fileID: 8633617639357352896}
   - component: {fileID: 361467693815230684}
+  - component: {fileID: 8320686248779232027}
   m_Layer: 5
   m_Name: OrbIcon
   m_TagString: Untagged
@@ -35,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -156.2315, y: 79.59424}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 51, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8633617639357352896
 CanvasRenderer:
@@ -65,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3f1ab1c50d251d043bc3b3aa3ce528af, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8f39d408472f33344a371f338832c5d3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -75,3 +76,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8320686248779232027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182804973153889844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 51
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
