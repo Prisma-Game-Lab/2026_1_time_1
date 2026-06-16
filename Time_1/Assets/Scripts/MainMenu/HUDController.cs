@@ -21,6 +21,9 @@ public class HUDController : MonoBehaviour
     [SerializeField] private HealthController playerHealth;
     [SerializeField] private OrbManager orbManager;
 
+    [Header("Debug")]
+    [SerializeField] private bool logs = false;
+
     private Image[] vidaIcons;
     private Image[] orbIcons;
 
@@ -60,6 +63,7 @@ public class HUDController : MonoBehaviour
         for (int i = 0; i < vidaIcons.Length; i++)
         {
             bool cheio = i < atual;
+            if (logs) Debug.Log($"[HUD] Orbs atualizadas: {atual}/{maximo}");
 
             // Se tiver sprites configurados, troca o sprite; senão usa transparência
             if (vidaCheia != null && vidaVazia != null)

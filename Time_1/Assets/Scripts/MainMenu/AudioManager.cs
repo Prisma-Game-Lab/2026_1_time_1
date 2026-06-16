@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     [Header("Efeitos Sonoros")]
     public AudioClip EfeitoDaLanca;
     public AudioClip EfeitoDePulo;
+    public AudioClip EfeitoDeCura;
 
     private void Awake()
     {

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4583274065654823911}
   - component: {fileID: 1579625966490845898}
   - component: {fileID: -6624998140062419713}
+  - component: {fileID: 436392801324458433}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -137,6 +138,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     m_ActionName: Player/Throw[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 436392801324458433}
+        m_TargetAssemblyTypeName: HealController, Assembly-CSharp
+        m_MethodName: Curar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8b38ecdf-8fb0-4b84-921c-2c970324d7d6
+    m_ActionName: Player/Curar[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -296,6 +313,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verificacaoIntervalo: 0.1
   respeitarPausa: 1
+--- !u!114 &436392801324458433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7133087523553522135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4ba68fe0e00924f93b2dd089fff95a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 1579625966490845898}
+  playerMovement: {fileID: 3534906634803273781}
+  quantidadeCura: 1
+  tempoCanalizacao: 0.6
+  orbsPerdidasAoTomarDano: 1
+  auraCura: {fileID: 0}
+  logs: 1
 --- !u!1 &8835383805352118712
 GameObject:
   m_ObjectHideFlags: 0

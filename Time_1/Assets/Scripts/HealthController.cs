@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private int maxHealth;
@@ -11,6 +10,7 @@ public class HealthController : MonoBehaviour
     [HideInInspector] public int currentHealth;
 
     public Action<int, int> OnHealthChanged;
+    public Action<int> OnDamageTaken;   // NOVO: dispara o valor do dano recebido (aditivo, não quebra nada)
     void Awake()
     {
         currentHealth = maxHealth;
@@ -30,6 +30,7 @@ public class HealthController : MonoBehaviour
         if (currentHealth <= 0)
             currentHealth = 0;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        OnDamageTaken?.Invoke(dmg);     // NOVO
         if (currentHealth <= 0)
             Die();
     }
