@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class HUDController : MonoBehaviour
 {
     [Header("Vida (um ícone por ponto)")]
-    [Tooltip("Prefab do ícone de vida (UI Image — ex: coração)")]
+
     [SerializeField] private GameObject vidaIconPrefab;
-    [Tooltip("Container com Horizontal Layout Group onde os ícones de vida ficam")]
+
     [SerializeField] private Transform vidaContainer;
     [SerializeField] private Sprite vidaCheia;
     [SerializeField] private Sprite vidaVazia;
@@ -14,15 +13,12 @@ public class HUDController : MonoBehaviour
     [Header("Orbs")]
     [SerializeField] private GameObject orbIconPrefab;
     [SerializeField] private Transform orbContainer;
-    [SerializeField] private Color orbAtiva = Color.white;
-    [SerializeField] private Color orbVazia = new Color(1, 1, 1, 0.25f);
+    [SerializeField] private Sprite orbSpriteVazia;
+    [SerializeField] private Sprite orbSpriteCheia;
 
     [Header("Referências")]
     [SerializeField] private HealthController playerHealth;
     [SerializeField] private OrbManager orbManager;
-
-    [Header("Debug")]
-    [SerializeField] private bool logs = false;
 
     private Image[] vidaIcons;
     private Image[] orbIcons;
@@ -38,13 +34,11 @@ public class HUDController : MonoBehaviour
         AtualizarVida(playerHealth.currentHealth, playerHealth.MaxHealth);
         AtualizarOrbs(orbManager.CurrentOrbs, orbManager.MaxOrbs);
     }
-
     void OnDestroy()
     {
         if (playerHealth != null) playerHealth.OnHealthChanged -= AtualizarVida;
         if (orbManager != null) orbManager.OnOrbsChanged -= AtualizarOrbs;
     }
-
     // ── Vida ─────────────────────────────────────────────
     private void CriarIconesVida(int maximo)
     {
@@ -55,7 +49,6 @@ public class HUDController : MonoBehaviour
             vidaIcons[i] = go.GetComponent<Image>();
         }
     }
-
     private void AtualizarVida(int atual, int maximo)
     {
         if (vidaIcons == null) return;
@@ -63,16 +56,12 @@ public class HUDController : MonoBehaviour
         for (int i = 0; i < vidaIcons.Length; i++)
         {
             bool cheio = i < atual;
-            if (logs) Debug.Log($"[HUD] Orbs atualizadas: {atual}/{maximo}");
-
-            // Se tiver sprites configurados, troca o sprite; senão usa transparência
             if (vidaCheia != null && vidaVazia != null)
                 vidaIcons[i].sprite = cheio ? vidaCheia : vidaVazia;
             else
                 vidaIcons[i].color = cheio ? Color.white : new Color(1, 1, 1, 0.25f);
         }
     }
-
     // ── Orbs ─────────────────────────────────────────────
     private void CriarIconesOrb(int quantidade)
     {
@@ -81,15 +70,14 @@ public class HUDController : MonoBehaviour
         {
             GameObject go = Instantiate(orbIconPrefab, orbContainer);
             orbIcons[i] = go.GetComponent<Image>();
-            orbIcons[i].color = orbVazia;
+            orbIcons[i].sprite = orbSpriteVazia;
         }
     }
-
     private void AtualizarOrbs(int atual, int maximo)
     {
         if (orbIcons == null) return;
 
         for (int i = 0; i < orbIcons.Length; i++)
-            orbIcons[i].color = i < atual ? orbAtiva : orbVazia;
+            orbIcons[i].sprite = i < atual ? orbSpriteCheia : orbSpriteVazia;
     }
 }

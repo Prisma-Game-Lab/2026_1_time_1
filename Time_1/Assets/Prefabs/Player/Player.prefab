@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1579625966490845898}
   - component: {fileID: -6624998140062419713}
   - component: {fileID: 436392801324458433}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ MonoBehaviour:
   damage: 5
   returnKnockback: 12
   startLag: 0.1
-  endLag: 0.2
+  endLag: 0.1
   maxChargeTime: 1.5
   maxDamageMultiplier: 3
   maxSpeedMultiplier: 2
@@ -298,6 +298,7 @@ MonoBehaviour:
   currentHealth: 0
   PlayerReference: {fileID: 7133087523553522135}
   PlayerCanvas: {fileID: 1758575627770726082, guid: 3470790e583c63c45b8604749cbde51f, type: 3}
+  GameOverPanel: {fileID: 0}
   iframeDuration: 1
 --- !u!114 &-6624998140062419713
 MonoBehaviour:
@@ -342,7 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1220032635342056128}
   - component: {fileID: 6183407080478769586}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,11 +431,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4574210836180971912, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4731813143948012895, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5488694523069460834, guid: 9bca4c6dfe67c2b428daf602c5c15af6, type: 3}
       propertyPath: m_SortingLayer

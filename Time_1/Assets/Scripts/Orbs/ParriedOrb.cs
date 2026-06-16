@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class ParriedOrb : MonoBehaviour
 {
@@ -16,7 +17,6 @@ public class ParriedOrb : MonoBehaviour
     [SerializeField] private float orbScale = 2f;
 
     private Rigidbody2D rb;
-    private BasicProjectile basicProjectile;
     private SpriteRenderer sr;
 
     private Sprite originalSprite;
@@ -26,14 +26,15 @@ public class ParriedOrb : MonoBehaviour
     private float timer;
     private bool collected;
     private bool activated;
+    public bool EstaComoOrb => activated;
+
+    private readonly List<MonoBehaviour> disabledScripts = new List<MonoBehaviour>();
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        basicProjectile = GetComponent<BasicProjectile>();
         sr = GetComponent<SpriteRenderer>();
     }
-
     private void OnEnable()
     {
         activated = false;
@@ -48,8 +49,13 @@ public class ParriedOrb : MonoBehaviour
         originalSpeed = projectileSpeed;
         timer = orbDuration;
 
-        if (basicProjectile != null)
-            basicProjectile.enabled = false;
+        disabledScripts.Clear();
+        foreach (MonoBehaviour mb in GetComponents<MonoBehaviour>())
+        {
+            if (mb == this || !mb.enabled) continue;
+            mb.enabled = false;
+            disabledScripts.Add(mb);
+        }
 
         // Troca sprite e escala
         if (sr != null)
@@ -83,7 +89,6 @@ public class ParriedOrb : MonoBehaviour
         if (timer <= 0f)
             RevertToProjectile();
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!activated || collected) return;
@@ -93,7 +98,6 @@ public class ParriedOrb : MonoBehaviour
         OrbManager.Instance?.AddOrb();
         Destroy(gameObject);
     }
-
     private void RevertToProjectile()
     {
         // Restaura sprite e escala
@@ -109,9 +113,12 @@ public class ParriedOrb : MonoBehaviour
                 : orbVelocity.normalized;
             rb.velocity = currentDir * originalSpeed;
         }
-
-        if (basicProjectile != null)
-            basicProjectile.enabled = true;
+        // Reativa os scripts de comportamento original
+        foreach (MonoBehaviour mb in disabledScripts)
+        {
+            if (mb != null) mb.enabled = true;
+        }
+        disabledScripts.Clear();
 
         activated = false;
         Destroy(this);

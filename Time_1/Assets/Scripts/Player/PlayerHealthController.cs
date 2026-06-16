@@ -7,6 +7,7 @@ public class PlayerHealthController : HealthController
 {
     [SerializeField] GameObject PlayerReference;
     [SerializeField] GameObject PlayerCanvas;
+    [SerializeField] GameObject GameOverPanel;
 
     [Header("I-Frames")]
     [SerializeField] private float iframeDuration = 1f;
@@ -48,5 +49,6 @@ public class PlayerHealthController : HealthController
     {
         PlayerReference.SetActive(false);
         PlayerCanvas.SetActive(false);
+        if (GameOverPanel != null) GameOverPanel.SetActive(true);
     }
 }

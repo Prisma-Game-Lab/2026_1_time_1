@@ -180,3 +180,4 @@ MonoBehaviour:
   orbDuration: 3
   orbSpeedMultiplier: 0.3
   orbSprite: {fileID: 21300000, guid: 4ee1c657c651ec741b3fb1c71cb32d52, type: 3}
+  orbScale: 5
