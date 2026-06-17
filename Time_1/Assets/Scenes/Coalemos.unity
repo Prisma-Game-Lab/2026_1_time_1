@@ -1256,7 +1256,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -834, y: 336}
+  m_AnchoredPosition: {x: -834, y: 427}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &907076097
@@ -1478,6 +1478,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1884956226}
     - target: {fileID: 6205366276529230582, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: rootHeightOffset
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205366276529230582, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: trackingMaxOffset
       value: 0.8
       objectReference: {fileID: 0}
@@ -1487,7 +1491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7446877143140509245, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: swipeHeight
-      value: -4
+      value: -3.75
       objectReference: {fileID: 0}
     - target: {fileID: 7446877143140509245, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: comboInternalDelay
@@ -1499,7 +1503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7610985103941045702, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.17
+      value: -0.38
       objectReference: {fileID: 0}
     - target: {fileID: 7610985103941045702, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2439,14 +2443,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4583274065654823911, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
-      propertyPath: endLag
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4583274065654823911, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
-      propertyPath: startLag
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4583274065654823911, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
       propertyPath: parryWindow
       value: 99
       objectReference: {fileID: 0}
@@ -2591,7 +2587,7 @@ Transform:
   m_GameObject: {fileID: 1901846790}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.93, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
