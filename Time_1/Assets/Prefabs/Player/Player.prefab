@@ -274,8 +274,8 @@ MonoBehaviour:
   dropIntensity: 2
   damage: 5
   returnKnockback: 12
-  startLag: 0.1
-  endLag: 0.1
+  startLag: 0.2
+  endLag: 0.3
   maxChargeTime: 1.5
   maxDamageMultiplier: 3
   maxSpeedMultiplier: 2

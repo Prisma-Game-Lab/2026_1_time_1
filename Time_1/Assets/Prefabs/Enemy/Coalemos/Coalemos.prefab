@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handDamage: 1
+  knockbackForce: 10
 --- !u!1 &3944056643990255462
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handDamage: 1
+  knockbackForce: 10
 --- !u!1 &8451988353871073513
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +565,8 @@ MonoBehaviour:
   rootTrackingSmoothTime: 0.8
   pacingSpeed: 5
   pacingHalfWidth: 5
+  handsRaisedYOffset: 2
+  handsRaiseSpeed: 4
 --- !u!114 &7446877143140509245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,3 +649,4 @@ MonoBehaviour:
   elfCount: 5
   spawnInterval: 0.35
   elfSpeed: 6
+  elfLifetime: 6
