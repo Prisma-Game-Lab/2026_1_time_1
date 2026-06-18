@@ -46,12 +46,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frames:
-  - {fileID: -646381914, guid: be5623e176d05a64bb8f504ce5046cda, type: 3}
-  - {fileID: 163021446, guid: be5623e176d05a64bb8f504ce5046cda, type: 3}
-  - {fileID: -277754426, guid: be5623e176d05a64bb8f504ce5046cda, type: 3}
-  - {fileID: -1118016911, guid: be5623e176d05a64bb8f504ce5046cda, type: 3}
-  - {fileID: 393414847, guid: be5623e176d05a64bb8f504ce5046cda, type: 3}
-  - {fileID: -838951441, guid: be5623e176d05a64bb8f504ce5046cda, type: 3}
+  - {fileID: 21300000, guid: bcfbb87075d1d2c42b77ed535cdb0e7d, type: 3}
+  - {fileID: 21300000, guid: bcfbb87075d1d2c42b77ed535cdb0e7d, type: 3}
+  - {fileID: 21300000, guid: bcfbb87075d1d2c42b77ed535cdb0e7d, type: 3}
+  - {fileID: 21300000, guid: bcfbb87075d1d2c42b77ed535cdb0e7d, type: 3}
+  - {fileID: 21300000, guid: bcfbb87075d1d2c42b77ed535cdb0e7d, type: 3}
+  - {fileID: 21300000, guid: bcfbb87075d1d2c42b77ed535cdb0e7d, type: 3}
   fps: 10
 --- !u!212 &-63182926774839525
 SpriteRenderer:
@@ -91,17 +91,17 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1309844769
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: bcfbb87075d1d2c42b77ed535cdb0e7d, type: 3}
   m_Color: {r: 1, g: 0.8820755, b: 0.8820755, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.2, y: 3.14}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
