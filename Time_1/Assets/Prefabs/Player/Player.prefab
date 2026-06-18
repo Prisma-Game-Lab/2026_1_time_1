@@ -224,7 +224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6629587993135455583
 Transform:
   m_ObjectHideFlags: 0
@@ -485,6 +485,7 @@ MonoBehaviour:
   playerMovement: {fileID: 3534906634803273781}
   parryKnockbackForce: 10
   parryKnockbackUp: 4
+  elfHitRadius: 0.4
 --- !u!114 &1579625966490845898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,6 +505,7 @@ MonoBehaviour:
   GameOverPanel: {fileID: 0}
   iframeDuration: 0.75
   parryEffect: {fileID: 718480132463861317}
+  parryEffectDuration: 0.3
 --- !u!114 &-6624998140062419713
 MonoBehaviour:
   m_ObjectHideFlags: 0
