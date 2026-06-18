@@ -97,24 +97,27 @@ public class Galinha : MonoBehaviour
     }
     private void Explode()
     {
-        // Bloqueia explosão enquanto é orb, venha de onde vier (Die, trigger, lifetime, etc.)
-        if (hasExploded || EstaComoOrb) return;
+        if (hasExploded) return;
+        if (TryGetComponent(out ParriedOrb orb) && orb.EstaComoOrb) return;
+
         hasExploded = true;
         Vector2 center = explosionPoint != null
             ? (Vector2)explosionPoint.position
             : (Vector2)transform.position;
         float raioEfetivo = maxDamageDistance > 0f ? maxDamageDistance : explosionRadius;
-        
-        Collider2D[] hits = Physics2D.OverlapCircleAll(center, raioEfetivo);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(center, raioEfetivo, damageableLayers);
+        Debug.Log($"Explode chamado | Hits encontrados: {hits.Length} | Raio: {raioEfetivo} | Layers: {damageableLayers.value}");
         foreach (Collider2D hit in hits)
         {
             if (hit.CompareTag("VFX")) continue;
-            if (hit.GetComponent<Galinha>() != null) continue;
-
+            Debug.Log($"Hit detectado: {hit.gameObject.name} | Tag: {hit.tag} | Layer: {hit.gameObject.layer}");
             PlayerHealthController playerHealth = hit.GetComponent<PlayerHealthController>();
             if (playerHealth != null)
+            {
+                Debug.Log($"Dano aplicado ao player! HP antes: {playerHealth.currentHealth}");
                 playerHealth.TakeDamage(explosionDamage);
-
+                Debug.Log($"HP depois: {playerHealth.currentHealth}");
+            }
             if (!ignoreKnockback)
             {
                 PlayerMovement pm = hit.GetComponent<PlayerMovement>();
@@ -123,13 +126,12 @@ public class Galinha : MonoBehaviour
                     Vector2 dir = ((Vector2)hit.transform.position - center).normalized;
                     if (dir == Vector2.zero) dir = Vector2.up;
                     pm.Knockback(dir * knockbackForce * knockbackMultiplier);
+                    Debug.Log($"Knockback aplicado ao player!");
                 }
             }
         }
-
         if (explosionVFXPrefab != null)
             Instantiate(explosionVFXPrefab, center, Quaternion.identity);
-
         AudioManager.Instance?.TocaSFX(explosionSFX);
         Destroy(gameObject);
     }

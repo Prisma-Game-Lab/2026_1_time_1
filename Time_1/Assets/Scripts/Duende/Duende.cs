@@ -9,6 +9,9 @@ public class Duende : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform projectileSpawnPoint;
 
+    [Header("Sprite Aleatório")]
+    [SerializeField] private Sprite[] elfSprites;
+
     [Header("Movimento")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float maxVelocity = 8f;
@@ -21,7 +24,7 @@ public class Duende : MonoBehaviour
     [SerializeField] private float jumpForceMax = 14f;
 
     [Header("Detecção")]
-    [SerializeField] private float detectionRadius = 6f;
+    [SerializeField] private float detectionRadius = 20f;
     [SerializeField] private float attackRadius = 1.5f;
 
     [Header("Combate")]
@@ -35,6 +38,7 @@ public class Duende : MonoBehaviour
     [SerializeField] private float projectileSpeed = 12f;
     [SerializeField] private int projectileDamage = 5;
     [SerializeField] private float fireInterval = 2.5f;
+    [SerializeField] private float aimSpread = 5f;
 
     [Header("Áudio")]
     [SerializeField] private AudioClip sfxJump;
@@ -66,6 +70,9 @@ public class Duende : MonoBehaviour
 
         _col.sharedMaterial = new PhysicsMaterial2D { friction = 0f, bounciness = 0f };
         _jumpInterval = JumpFrequencyToInterval(jumpFrequency);
+
+        if (spriteRenderer != null && elfSprites != null && elfSprites.Length > 0)
+            spriteRenderer.sprite = elfSprites[Random.Range(0, elfSprites.Length)];
         // Direção inicial: esquerda ou direita com igual probabilidade
         _currentDirectionX = Random.value < 0.5f ? -1f : 1f;
         _nextDirectionChange = Random.Range(directionChangeIntervalMin, directionChangeIntervalMax);
@@ -213,6 +220,8 @@ public class Duende : MonoBehaviour
 
         Transform spawnPos = projectileSpawnPoint != null ? projectileSpawnPoint : transform;
         Vector2 dir = ((Vector2)playerTransform.position - (Vector2)spawnPos.position).normalized;
+        float spread = Random.Range(-aimSpread, aimSpread);
+        dir = Quaternion.Euler(0f, 0f, spread) * dir;
 
         GameObject proj = Instantiate(projectilePrefab, spawnPos.position, Quaternion.identity);
 

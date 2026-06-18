@@ -4,6 +4,7 @@ public class BasicProjectile : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     [SerializeField] private int damage = 1;
+    [SerializeField] private LayerMask environmentLayers;
 
     public float Speed => speed;
 
@@ -14,10 +15,14 @@ public class BasicProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        PlayerHealthController playerHealth = other.GetComponent<PlayerHealthController>();
-        if (playerHealth != null)
+        if (other.TryGetComponent(out PlayerHealthController playerHealth))
+        {
             playerHealth.TakeDamage(damage);
+            Destroy(gameObject);
+            return;
+        }
 
-        Destroy(gameObject);
+        if (((1 << other.gameObject.layer) & environmentLayers) != 0)
+            Destroy(gameObject);
     }
 }

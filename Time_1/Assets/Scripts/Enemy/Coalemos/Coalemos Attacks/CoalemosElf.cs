@@ -36,7 +36,7 @@ public class CoalemosElf : MonoBehaviour
 
         float spawnX = fromLeft ? arenaLeft : arenaRight;
         float dirX   = fromLeft ? 1f : -1f;
-        WaitForSeconds wait = new WaitForSeconds(spawnInterval);
+        WaitForSeconds wait = new(spawnInterval);
 
         for (int i = 0; i < elfCount; i++)
         {
@@ -51,7 +51,6 @@ public class CoalemosElf : MonoBehaviour
                 elf.transform.localScale = s;
             }
 
-            // Disable the rigidbody so the elf ignores all physics walls
             if (!elf.TryGetComponent(out Rigidbody2D rb))
                 rb = elf.GetComponentInChildren<Rigidbody2D>();
             if (rb != null) rb.simulated = false;

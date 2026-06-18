@@ -4,10 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class DundeProjectile : MonoBehaviour
 {
-    [Header("Configurações Padrão (sobrescritas pelo Duende)")]
+    [Header("Configuraï¿½ï¿½es Padrï¿½o (sobrescritas pelo Duende)")]
     [SerializeField] private float speed = 12f;
     [SerializeField] private int damage = 5;
     [SerializeField] private float maxLifetime = 6f;
+    [SerializeField] private LayerMask environmentLayers;
 
     private Rigidbody2D _rb;
 
@@ -27,18 +28,24 @@ public class DundeProjectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Se colidiu com a lança, o PlayerShooting trata o parry — NÃO destrói.
+        // Se colidiu com a lanï¿½a, o PlayerShooting trata o parry ï¿½ Nï¿½O destrï¿½i.
         if (other.GetComponent<SpearCollisionRelay>() != null) return;
-        // Ignora qualquer Duende (incluindo o que disparou) — tiro não acerta Duende.
+        // Ignora qualquer Duende (incluindo o que disparou) ï¿½ tiro nï¿½o acerta Duende.
         if (other.GetComponentInParent<Duende>() != null) return;
-        // Se já virou orb, não faz mais nada (a lógica de orb controla o objeto).
+        // Se jï¿½ virou orb, nï¿½o faz mais nada (a lï¿½gica de orb controla o objeto).
         if (GetComponent<ParriedOrb>() != null && !enabled) return;
-        // Ignora outros projéteis.
+        // Ignora outros projï¿½teis.
         if (other.CompareTag("Projectile")) return;
         // Dano ao jogador.
-        PlayerHealthController playerHealth = other.GetComponent<PlayerHealthController>();
-        if (playerHealth != null)
+        if (other.TryGetComponent(out PlayerHealthController playerHealth))
+        {
             playerHealth.TakeDamage(damage);
-        Destroy(gameObject);
+            Destroy(gameObject);
+            return;
+        }
+
+        
+        if (((1 << other.gameObject.layer) & environmentLayers) != 0)
+            Destroy(gameObject);
     }
 }

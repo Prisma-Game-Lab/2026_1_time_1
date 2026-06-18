@@ -8,6 +8,11 @@ public class CoalemosHandAttack : MonoBehaviour
     [Header("References")]
     [SerializeField] private CoalemosMovement coalemosMovement;
 
+    [Header("Hand Sprites")]
+    [SerializeField] private Sprite slamSprite;
+    [SerializeField] private Sprite swipeLeftSprite;
+    [SerializeField] private Sprite swipeRightSprite;
+
     private Transform player;
 
     [Header("Hand Slam")]
@@ -57,18 +62,19 @@ public class CoalemosHandAttack : MonoBehaviour
 
     private IEnumerator HandSlamRoutine(bool isLeft)
     {
-        GameObject  handObj  = isLeft ? coalemosMovement.LeftHand : coalemosMovement.RightHand;
-        Collider2D  handCol  = handObj.GetComponentInChildren<Collider2D>();
-        Rigidbody2D handRb   = handObj.GetComponentInChildren<Rigidbody2D>();
-        Animator    handAnim = handObj.GetComponentInChildren<Animator>();
+        GameObject      handObj  = isLeft ? coalemosMovement.LeftHand : coalemosMovement.RightHand;
+        Collider2D      handCol  = handObj.GetComponentInChildren<Collider2D>();
+        Rigidbody2D     handRb   = handObj.GetComponentInChildren<Rigidbody2D>();
+        Animator        handAnim = handObj.GetComponentInChildren<Animator>();
+        SpriteRenderer  handSr   = handObj.GetComponentInChildren<SpriteRenderer>();
 
         coalemosMovement.SetHandLocked(isLeft, true);
         if (handAnim != null) handAnim.enabled = false;
+        Sprite originalSprite = handSr != null ? handSr.sprite : null;
+        if (handSr != null && slamSprite != null) handSr.sprite = slamSprite;
         bool wasKinematic = handRb != null && handRb.isKinematic;
         if (handRb != null) handRb.isKinematic = true;
-        if (handCol != null) handCol.enabled = true;
 
-        
         Vector3 HoverTarget() => new(player.position.x, player.position.y + slamHeightAbove, handObj.transform.position.z);
 
         while (Vector3.Distance(handObj.transform.position, HoverTarget()) > 0.15f)
@@ -91,6 +97,8 @@ public class CoalemosHandAttack : MonoBehaviour
 
         yield return waitPreDrop;
 
+        if (handCol != null) handCol.enabled = true;
+
         Vector3 slamTarget = new(slamX, slamY, handObj.transform.position.z);
         while (Vector3.Distance(handObj.transform.position, slamTarget) > 0.05f)
         {
@@ -102,6 +110,7 @@ public class CoalemosHandAttack : MonoBehaviour
 
         if (handCol != null) handCol.enabled = false;
         if (handRb  != null) handRb.isKinematic = wasKinematic;
+        if (handSr  != null) handSr.sprite = originalSprite;
         if (handAnim != null) handAnim.enabled = true;
 
         Vector3 restTarget = coalemosMovement.GetHandWorldRestPos(isLeft);
@@ -121,14 +130,18 @@ public class CoalemosHandAttack : MonoBehaviour
     private IEnumerator HandSwipeRoutine(bool isLeft, float height)
     {
 
-        GameObject  handObj  = isLeft ? coalemosMovement.LeftHand : coalemosMovement.RightHand;
-        Collider2D  handCol  = handObj.GetComponentInChildren<Collider2D>();
-        Rigidbody2D handRb   = handObj.GetComponentInChildren<Rigidbody2D>();
-        Animator    handAnim = handObj.GetComponentInChildren<Animator>();
+        GameObject     handObj  = isLeft ? coalemosMovement.LeftHand : coalemosMovement.RightHand;
+        Collider2D     handCol  = handObj.GetComponentInChildren<Collider2D>();
+        Rigidbody2D    handRb   = handObj.GetComponentInChildren<Rigidbody2D>();
+        Animator       handAnim = handObj.GetComponentInChildren<Animator>();
+        SpriteRenderer handSr   = handObj.GetComponentInChildren<SpriteRenderer>();
 
         coalemosMovement.SetHandLocked(isLeft, true);
 
         if (handAnim != null) handAnim.enabled = false;
+        Sprite originalSprite = handSr != null ? handSr.sprite : null;
+        Sprite swipeSprite    = isLeft ? swipeLeftSprite : swipeRightSprite;
+        if (handSr != null && swipeSprite != null) handSr.sprite = swipeSprite;
         bool wasKinematic = handRb != null && handRb.isKinematic;
         if (handRb != null) handRb.isKinematic = true;
 
@@ -161,7 +174,8 @@ public class CoalemosHandAttack : MonoBehaviour
 
         
         handObj.transform.SetParent(originalParent);
-        if (handRb != null) handRb.isKinematic = wasKinematic;
+        if (handRb  != null) handRb.isKinematic = wasKinematic;
+        if (handSr  != null) handSr.sprite = originalSprite;
         if (handAnim != null) handAnim.enabled = true;
 
         Vector3 restTarget = coalemosMovement.GetHandWorldRestPos(isLeft);

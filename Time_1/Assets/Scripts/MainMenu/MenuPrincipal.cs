@@ -29,7 +29,7 @@ public class MenuPrincipal : MonoBehaviour
 
     public void AoBotaoIniciar()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("ea");
     }
     public void AoBotaoOpcoes()
     {

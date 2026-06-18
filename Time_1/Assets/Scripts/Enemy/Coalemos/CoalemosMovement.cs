@@ -86,6 +86,15 @@ public class CoalemosMovement : MonoBehaviour
         rightHandOffsetFromHead = rightHand.transform.localPosition - head.transform.localPosition;
 
         rootBaseWorldPos = transform.position + Vector3.up * rootHeightOffset;
+
+       
+        if (player != null)
+        {
+            Vector3 toPlayer = player.position - rootBaseWorldPos;
+            toPlayer.z = 0f;
+            rootTrackingOffset = Vector3.ClampMagnitude(toPlayer, rootTrackingMaxOffset);
+            transform.position = rootBaseWorldPos + rootTrackingOffset;
+        }
     }
 
     void Update()
