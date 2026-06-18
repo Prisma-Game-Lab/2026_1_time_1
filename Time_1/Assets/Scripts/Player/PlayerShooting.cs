@@ -22,6 +22,9 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float parryKnockbackForce = 10f;
     [SerializeField] private float parryKnockbackUp = 4f;
 
+    [Header("Held Sprite")]
+    [SerializeField] private float elfHitRadius = 0.4f;
+
     public Action OnParry;
 
     private enum SpearState { Held, WindingUp, Thrown, Stuck, Returning, Recovering }
@@ -33,6 +36,7 @@ public class PlayerShooting : MonoBehaviour
     private Rigidbody2D spearRb;
     private Collider2D spearCol;
     private Collider2D playerCol;
+    private SpriteRenderer spearSr;
 
     private Transform spearOriginalParent;
     private Vector3 spearLocalPos;
@@ -49,6 +53,7 @@ public class PlayerShooting : MonoBehaviour
     private bool pendingThrow;
 
     private readonly HashSet<int> returnHitIds = new();
+    private readonly List<ElfMover> _elfSnapshot = new();
 
     private Transform stuckToTransform;
     private Vector3 stuckLocalPos;
@@ -60,6 +65,9 @@ public class PlayerShooting : MonoBehaviour
         spearRb = spear.GetComponent<Rigidbody2D>();
         spearCol = spear.GetComponent<Collider2D>();
         playerCol = GetComponent<Collider2D>();
+
+        spearSr = spear.GetComponent<SpriteRenderer>();
+        if (spearSr == null) spearSr = spear.GetComponentInChildren<SpriteRenderer>();
 
         spearOriginalParent = spearTransform.parent;
         spearLocalPos = spearTransform.localPosition;
@@ -79,6 +87,14 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
+        if (spearSr != null)
+        {
+            if (state == SpearState.WindingUp)
+                spearSr.flipX = transform.localScale.x < 0f;
+            else if (state == SpearState.Held)
+                spearSr.flipX = false;
+        }
+
         switch (state)
         {
             case SpearState.WindingUp:
@@ -112,6 +128,7 @@ public class PlayerShooting : MonoBehaviour
 
             case SpearState.Thrown:
                 RotateSpearToVelocity();
+                CheckElfCollision();
                 break;
 
             case SpearState.Returning:
@@ -200,15 +217,50 @@ public class PlayerShooting : MonoBehaviour
         spearRb.velocity = (Vector2)spearTransform.right * currentThrowSpeed;
         spearRb.angularVelocity = 0f;
 
+        if (spearSr != null) spearSr.flipX = false;
+
         AudioManager.Instance?.TocaSFX(AudioManager.Instance.EfeitoDaLanca);
         state = SpearState.Thrown;
+    }
+
+    private void CheckElfCollision()
+    {
+        _elfSnapshot.Clear();
+        _elfSnapshot.AddRange(ElfMover.Active);
+        foreach (ElfMover elf in _elfSnapshot)
+        {
+            if (elf == null || !elf.isActiveAndEnabled) continue;
+            if (Vector2.Distance(spearTransform.position, elf.transform.position) > elfHitRadius) continue;
+
+            if (!elf.TryGetComponent(out HealthController hc))
+                hc = elf.GetComponentInParent<HealthController>();
+            if (hc == null) continue;
+
+            hc.TakeDamage(currentDamage);
+            if (hc.currentHealth <= 0)
+            {
+                spearRb.velocity = new Vector2(0f, spearRb.velocity.y);
+                spearRb.angularVelocity = 0f;
+            }
+            else
+            {
+                stuckToTransform = elf.transform;
+                stuckLocalPos = stuckToTransform.InverseTransformPoint(spearTransform.position);
+                stuckLocalRot = Quaternion.Inverse(stuckToTransform.rotation) * spearTransform.rotation;
+                spearRb.velocity = Vector2.zero;
+                spearRb.angularVelocity = 0f;
+                spearRb.simulated = false;
+                state = SpearState.Stuck;
+            }
+            return;
+        }
     }
 
     private void RotateSpearToVelocity()
     {
         if (spearRb.velocity.sqrMagnitude < 0.01f) return;
 
-        float angle = Mathf.Atan2(spearRb.velocity.y, spearRb.velocity.x) * Mathf.Rad2Deg + 180f;
+        float angle = Mathf.Atan2(spearRb.velocity.y, spearRb.velocity.x) * Mathf.Rad2Deg;
         spearRb.SetRotation(angle);
         spearRb.angularVelocity = 0f;
     }

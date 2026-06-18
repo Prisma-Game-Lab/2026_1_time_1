@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 286801874}
   - component: {fileID: 286801876}
   - component: {fileID: 286801875}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -839,7 +839,7 @@ GameObject:
   - component: {fileID: 810720315}
   - component: {fileID: 810720317}
   - component: {fileID: 810720316}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2299,7 +2299,7 @@ GameObject:
   - component: {fileID: 1846682061}
   - component: {fileID: 1846682063}
   - component: {fileID: 1846682062}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LeftWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8012141692476209995
 Transform:
   m_ObjectHideFlags: 0
@@ -181,8 +181,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Offset: {x: -0.11524611, y: 0}
+  m_Size: {x: 4.9657817, y: 4.783498}
   m_Direction: 0
 --- !u!114 &6991707820927381310
 MonoBehaviour:
@@ -197,8 +197,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 6629587993135455583, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 5097680563931927001}
   projectileSpawnPoint: {fileID: 9013516864452686665}
+  elfSprites:
+  - {fileID: 21300000, guid: 412f211586c7b8845afa5e413985e7e6, type: 3}
+  - {fileID: 21300000, guid: d20fe19614d7fde49aaa9a75e6ba672e, type: 3}
+  - {fileID: 21300000, guid: 669531ef6fa8ef24980b766e8879654c, type: 3}
+  - {fileID: 21300000, guid: 6916eaab00dd47c4cb6397612bb210da, type: 3}
   moveSpeed: 6
   maxVelocity: 8
   directionChangeIntervalMin: 0.5
@@ -216,6 +221,7 @@ MonoBehaviour:
   projectileSpeed: 12
   projectileDamage: 1
   fireInterval: 2.5
+  aimSpread: 12
   sfxJump: {fileID: 0}
   sfxAttack: {fileID: 8300000, guid: be550bcb04a1db644bc69bddfe246cc1, type: 3}
   sfxDeath: {fileID: 0}
@@ -252,6 +258,9 @@ MonoBehaviour:
   speed: 13.3
   damage: 1
   maxLifetime: 60
+  environmentLayers:
+    serializedVersion: 2
+    m_Bits: 576
 --- !u!212 &5097680563931927001
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -293,7 +302,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a6b649519338f0f4ab4e2f8445e4f1d8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 412f211586c7b8845afa5e413985e7e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 98cfdf17bbc4c3a42a170b576c5f5990, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f16f6d3a9b4fad449845533ab9784e12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -250,7 +250,7 @@ MonoBehaviour:
   orbDuration: 2
   orbSpeedMultiplier: 0.9
   orbSprite: {fileID: 21300000, guid: 178257edd5b809d4cb4b480dafb7f2c0, type: 3}
-  orbScale: 1.5
+  orbScale: 10
 --- !u!1 &7102046123765198300
 GameObject:
   m_ObjectHideFlags: 0

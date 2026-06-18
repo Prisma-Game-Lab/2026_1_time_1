@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpCutVelocity = 3f;            // Upward velocity is clamped to this when jump key is released early
     [SerializeField] private float ascendGravityMultiplier = 1.5f;  // Extra gravity while ascending with jump held
 
+    [SerializeField] private Animator animator;
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Knockback")]
@@ -24,11 +25,14 @@ public class PlayerMovement : MonoBehaviour
 
     public float HorizontalInput => horizontalMovement;
 
+    private static readonly int IsWalkingHash = Animator.StringToHash("isWalking");
+
     private float horizontalMovement;
     private float verticalInput;
     private bool movementLocked;
-    private bool  hasJumped;      // true only after a player-initiated jump; gates the jumpCut branch
+    private bool hasJumped;      // true only after a player-initiated jump; gates the jumpCut branch
     private float knockbackVelocityX;
+    private bool isWalking;
 
     void Start()
     {
@@ -49,6 +53,14 @@ public class PlayerMovement : MonoBehaviour
         // Final X = decaying knockback + player-controlled movement (zero if locked during end lag).
         float inputX = movementLocked ? 0f : horizontalMovement;
         rb.velocity = new Vector2(knockbackVelocityX + inputX * moveSpeed, rb.velocity.y);
+
+        bool walking = inputX != 0f;
+        if (walking != isWalking)
+        {
+            isWalking = walking;
+            if (animator != null)
+                animator.SetBool(IsWalkingHash, isWalking);
+        }
         if (rb.velocity.y < 0)
         {
             hasJumped = false; 
@@ -89,7 +101,8 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             hasJumped = true;
-            AudioManager.Instance?.TocaSFX(AudioManager.Instance.EfeitoDePulo);
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.TocaSFX(AudioManager.Instance.EfeitoDePulo);
         }
     }
 }
