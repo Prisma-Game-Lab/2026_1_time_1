@@ -2728,6 +2728,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4583274065654823911, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
+      propertyPath: endLag
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583274065654823911, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
+      propertyPath: startLag
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583274065654823911, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
       propertyPath: orbSpawner
       value: 
       objectReference: {fileID: 0}
