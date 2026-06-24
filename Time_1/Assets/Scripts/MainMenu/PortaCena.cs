@@ -42,13 +42,11 @@ public class PortaCena : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("[PortaCena] Não existe próxima cena no Build Settings.");
             }
             return;
         }
         if (string.IsNullOrEmpty(nomeDaCena))
         {
-            Debug.LogWarning("[PortaCena] Nenhum nome de cena definido no Inspector.");
             return;
         }
         SceneManager.LoadScene(nomeDaCena);

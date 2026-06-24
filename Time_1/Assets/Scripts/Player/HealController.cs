@@ -36,8 +36,6 @@ public class HealController : MonoBehaviour
 
         if (playerHealth != null)
             playerHealth.OnDamageTaken += AoTomarDano;
-        else
-            Debug.LogError("[CURA] playerHealth NÃO atribuído no HealController!", this);
     }
     private void OnDestroy()
     {
@@ -54,12 +52,11 @@ public class HealController : MonoBehaviour
 
         if (OrbManager.Instance == null)
         {
-            Debug.LogError("[CURA] OrbManager.Instance é null! Não há OrbManager na cena?");
+
             return;
         }
         if (!OrbManager.Instance.TemOrbsSuficientes)
         {
-            if (logs) Debug.Log($"[CURA] Cancelada: orbs insuficientes ({OrbManager.Instance.CurrentOrbs}/{OrbManager.Instance.CustoCura}).");
             return;
         }
 
@@ -77,7 +74,6 @@ public class HealController : MonoBehaviour
         if (auraCura != null) auraCura.SetActive(true);
         AudioManager.Instance?.TocaSFX(AudioManager.Instance.EfeitoDeCura);
 
-        if (logs) Debug.Log($"[CURA] Canalizando por {tempoCanalizacao}s...");
     }
     private void Update()
     {
@@ -89,11 +85,8 @@ public class HealController : MonoBehaviour
     }
     private void FinalizarCura()
     {
-        if (logs) Debug.Log($"[CURA] Vida antes: {playerHealth.currentHealth}/{playerHealth.MaxHealth}");
 
         playerHealth.Heal(quantidadeCura);
-
-        if (logs) Debug.Log($"[CURA] Cura aplicada (+{quantidadeCura}). Vida depois: {playerHealth.currentHealth}/{playerHealth.MaxHealth}");
 
         Encerrar();
     }
