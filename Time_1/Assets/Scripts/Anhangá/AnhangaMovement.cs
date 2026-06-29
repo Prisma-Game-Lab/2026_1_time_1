@@ -5,23 +5,32 @@ using UnityEngine;
 public class AnhangaMovement : MonoBehaviour
 {
     [Header("Limites da Arena")]
-    [SerializeField] private Transform limiteEsquerdo;   
-    [SerializeField] private Transform limiteDireito;  
+    [SerializeField] private Transform limiteEsquerdo;
+    [SerializeField] private Transform limiteDireito;
 
     [Header("Referências")]
-    [Tooltip("Opcional — se vazio, busca pela tag 'Player'")]
     [SerializeField] private Transform player;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("Sprite")]
-    [Tooltip("Marque se a arte do Anhangá olha para a DIREITA por padrão")]
     [SerializeField] private bool spriteOlhaParaDireita = true;
 
-    private float groundY;
+    [Header("Chão")]
+    [SerializeField] private bool usarYDosLimites = true;
 
     public float MinX => Mathf.Min(limiteEsquerdo.position.x, limiteDireito.position.x);
     public float MaxX => Mathf.Max(limiteEsquerdo.position.x, limiteDireito.position.x);
     public Transform Player => player;
+
+    private float GroundY
+    {
+        get
+        {
+            if (usarYDosLimites && limiteEsquerdo != null && limiteDireito != null)
+                return (limiteEsquerdo.position.y + limiteDireito.position.y) * 0.5f;
+            return transform.position.y;
+        }
+    }
 
     private void Awake()
     {
@@ -31,29 +40,46 @@ public class AnhangaMovement : MonoBehaviour
             if (p != null) player = p.transform;
             else Debug.LogWarning("[AnhangaMovement] Player não encontrado (tag 'Player').", this);
         }
-        groundY = transform.position.y; 
     }
     public void AndarParaPlayer(float velocidade)
     {
         if (player == null) return;
-        int dir = player.position.x >= transform.position.x ? 1 : -1;
+        int dir = DirecaoParaPlayer();
         float novoX = transform.position.x + dir * velocidade * Time.deltaTime;
         novoX = Mathf.Clamp(novoX, MinX, MaxX);
-        transform.position = new Vector3(novoX, groundY, transform.position.z);
+        transform.position = new Vector3(novoX, GroundY, transform.position.z);
         AtualizarFlip(dir);
     }
     public bool IrParaX(float alvoX, float velocidade)
     {
         int dir = alvoX >= transform.position.x ? 1 : -1;
         float novoX = Mathf.MoveTowards(transform.position.x, alvoX, velocidade * Time.deltaTime);
-        transform.position = new Vector3(novoX, groundY, transform.position.z);
+        transform.position = new Vector3(novoX, GroundY, transform.position.z);
         AtualizarFlip(dir);
         return Mathf.Abs(transform.position.x - alvoX) <= 0.05f;
     }
 
-    // Vira o sprite para uma direção sem mover (usado no telegraph da corrida).
-    public void Encarar(int direcao) => AtualizarFlip(direcao);
+    public int DirecaoParaPlayer()
+    {
+        if (player == null) return 1;
+        return player.position.x >= transform.position.x ? 1 : -1;
+    }
+    public void PassoHorizontal(int moveDir, int faceDir, float velocidade)
+    {
+        float novoX = Mathf.Clamp(transform.position.x + moveDir * velocidade * Time.deltaTime, MinX, MaxX);
+        transform.position = new Vector3(novoX, GroundY, transform.position.z);
+        AtualizarFlip(faceDir);
+    }
 
+    // Teleporta para um X (usado quando surge num dos lados), travando na altura do chão.
+    public void PosicionarEm(float x)
+    {
+        float cx = Mathf.Clamp(x, MinX, MaxX);
+        transform.position = new Vector3(cx, GroundY, transform.position.z);
+    }
+
+    // Vira o sprite para uma direção sem mover.
+    public void Encarar(int direcao) => AtualizarFlip(direcao);
     private void AtualizarFlip(int direcao)
     {
         if (spriteRenderer == null) return;

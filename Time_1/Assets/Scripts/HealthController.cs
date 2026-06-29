@@ -10,7 +10,7 @@ public class HealthController : MonoBehaviour
     [HideInInspector] public int currentHealth;
 
     public Action<int, int> OnHealthChanged;
-    public Action<int> OnDamageTaken;   // NOVO: dispara o valor do dano recebido (aditivo, não quebra nada)
+    public Action<int> OnDamageTaken;   // NOVO: dispara o valor do dano recebido 
     void Awake()
     {
         currentHealth = maxHealth;
@@ -24,13 +24,13 @@ public class HealthController : MonoBehaviour
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
-    public void TakeDamage(int dmg)
+    public virtual void TakeDamage(int dmg)
     {
         currentHealth -= dmg;
         if (currentHealth <= 0)
             currentHealth = 0;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        OnDamageTaken?.Invoke(dmg);     // NOVO
+        OnDamageTaken?.Invoke(dmg);
         if (currentHealth <= 0)
             Die();
     }

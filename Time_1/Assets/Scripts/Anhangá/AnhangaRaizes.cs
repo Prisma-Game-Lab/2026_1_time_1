@@ -21,7 +21,7 @@ public class AnhangaRaizes : MonoBehaviour
     [SerializeField] private float escalaAviso = 0.3f;
     [SerializeField] private float escalaFinal = 1f;
 
-    [Header("Tempos (ajustáveis)")]
+    [Header("Tempos")]
     [Tooltip("Fase 1 — pequena, SEM dano")]
     [SerializeField] private float tempoAviso = 0.8f;
     [Tooltip("Fase 2 — cresce; o DANO liga aqui")]
@@ -31,7 +31,7 @@ public class AnhangaRaizes : MonoBehaviour
     [Tooltip("Fase 4 — desce e some")]
     [SerializeField] private float tempoRecolhe = 0.4f;
 
-    [Header("Áudio (opcional)")]
+    [Header("Áudio")]
     [SerializeField] private AudioClip sfxRaizes;
 
     private Coroutine routine;

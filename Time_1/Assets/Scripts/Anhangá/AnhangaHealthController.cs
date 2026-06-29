@@ -8,34 +8,45 @@ public class AnhangaHealthController : HealthController
     [Header("Morte")]
     [Tooltip("Objeto a desativar ao morrer. Vazio = este próprio (a raiz do Anhangá).")]
     [SerializeField] private GameObject bossRoot;
-
     [Tooltip("VFX instanciado na posição do boss ao morrer. Opcional.")]
     [SerializeField] private GameObject vfxMortePrefab;
-
-    [Tooltip("Som de morte. Opcional.")]
+    [Tooltip("Som de morte.")]
     [SerializeField] private AudioClip sfxMorte;
-
-    [Tooltip("Disparado ao morrer — plugue aqui o que deve acontecer depois " +
-             "(próxima cena, tela de vitória, GameManager.BossDerrotado, etc.). " +
-             "Pode deixar vazio pra testar.")]
+    [Tooltip("Disparado ao morrer.")]
     [SerializeField] private UnityEvent onMorte;
 
+    [Header("Stagger (vulnerabilidade)")]
+    [Tooltip("Multiplicador do dano que o boss RECEBE enquanto está em stagger")]
+    [Range(1f, 5f)]
+    [SerializeField] private float multiplicadorDanoStagger = 2f;
+
+    private bool vulneravel;
     private bool morreu;
+
+    // Ligado/desligado pelo AnhangaInvestida durante o stagger.
+    public void SetVulneravel(bool v) => vulneravel = v;
+
+    // Amplifica o dano recebido durante o stagger; senão, dano normal.
+    public override void TakeDamage(int dmg)
+    {
+        int final = vulneravel
+            ? Mathf.RoundToInt(dmg * multiplicadorDanoStagger)
+            : dmg;
+        base.TakeDamage(final);
+    }
 
     public override void Die()
     {
-        if (morreu) return;  
+        if (morreu) return;
         morreu = true;
 
         if (vfxMortePrefab != null)
             Instantiate(vfxMortePrefab, transform.position, Quaternion.identity);
-
         if (sfxMorte != null)
             AudioManager.Instance?.TocaSFX(sfxMorte);
 
         onMorte?.Invoke();
 
-        // Desativar a raiz para o boss: para a IA, os ataques (corrotinas),
         GameObject alvo = bossRoot != null ? bossRoot : gameObject;
         alvo.SetActive(false);
     }

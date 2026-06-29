@@ -15,7 +15,7 @@ public class AnhangaCorrida : MonoBehaviour
     [Tooltip("Número MÁXIMO de travessias (= min para valor fixo)")]
     [SerializeField] private int numeroDeCorridasMax = 6;
 
-    [Header("Tempos (ajustáveis)")]
+    [Header("Tempos")]
     [Tooltip("Pausa de aviso, parado, antes de correr")]
     [SerializeField] private float telegraphDuration = 0.6f;
     [Tooltip("Pausa ao bater na parede antes de virar e voltar")]
