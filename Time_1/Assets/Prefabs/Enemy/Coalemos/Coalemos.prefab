@@ -29,8 +29,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2680077163161268405}
   - {fileID: 3715559056450396772}
+  - {fileID: 2680077163161268405}
   m_Father: {fileID: 7610985103941045702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2167991060291624406
@@ -488,6 +488,7 @@ GameObject:
   - component: {fileID: 5075298526340389052}
   - component: {fileID: 3379156677600858735}
   - component: {fileID: 1461117428605098694}
+  - component: {fileID: 750945551157952784}
   m_Layer: 7
   m_Name: Coalemos
   m_TagString: Untagged
@@ -558,7 +559,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.7440767, y: 3.4578395}
+  m_Offset: {x: 0.51622295, y: 4.41808}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -569,7 +570,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.132374, y: 5.6916037}
+  m_Size: {x: 3.3330297, y: 3.771123}
   m_EdgeRadius: 0
 --- !u!114 &6205366276529230582
 MonoBehaviour:
@@ -659,10 +660,12 @@ MonoBehaviour:
   slamPreDropDelay: 0.25
   slamDropSpeed: 20
   slamReturnSpeed: 8
+  slamJitterMax: 0.25
   swipeSpeed: 10
   swipeApproachSpeed: 15
   swipeArenaMinX: -10
   swipeArenaMaxX: 10
+  swipeStartupDelay: 0.3
 --- !u!114 &1461117428605098694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,3 +688,21 @@ MonoBehaviour:
   spawnInterval: 0.35
   elfSpeed: 6
   elfLifetime: 6
+--- !u!114 &750945551157952784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8937436732187326094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a5d9487b2cc5b4d99e2ba637cf77ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 0.1
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  renderers:
+  - {fileID: 8689566941947030917}
+  - {fileID: 1764956835627336540}
+  - {fileID: 6831378374631310168}

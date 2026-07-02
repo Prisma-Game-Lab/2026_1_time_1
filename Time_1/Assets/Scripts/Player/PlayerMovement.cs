@@ -82,6 +82,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     public void SetMovementLocked(bool locked) => movementLocked = locked;
+
+    public void LockPreservingMomentum()
+    {
+        knockbackVelocityX = rb.velocity.x;
+        movementLocked = true;
+    }
     public bool IsGrounded()
     {
         Bounds bounds = col.bounds;

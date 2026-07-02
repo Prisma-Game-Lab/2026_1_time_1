@@ -105,10 +105,9 @@ public class CoalemosMovement : MonoBehaviour
 
         UpdateHeadTracking();
 
-        Vector3 headWobble = WobbleOffset(t, 0f);
         head.transform.SetLocalPositionAndRotation(
-            headBaseLocalPos + headTrackingOffset + headWobble,
-            Quaternion.Euler(0f, 0f, WobbleRotation(t, 0f)));
+            new Vector3(headBaseLocalPos.x + headTrackingOffset.x, headBaseLocalPos.y, headBaseLocalPos.z),
+            Quaternion.identity);
 
         currentHandsRaiseY = Mathf.MoveTowards(currentHandsRaiseY, targetHandsRaiseY, handsRaiseSpeed * Time.deltaTime);
 
@@ -145,7 +144,7 @@ public class CoalemosMovement : MonoBehaviour
     {
         float t     = Time.time * wobbleSpeed;
         float phase = isLeft ? 1.1f : 2.3f;
-        Vector3 headLocalPos = headBaseLocalPos + headTrackingOffset + WobbleOffset(t, 0f);
+        Vector3 headLocalPos = new Vector3(headBaseLocalPos.x + headTrackingOffset.x, headBaseLocalPos.y, headBaseLocalPos.z);
         Vector3 handOffset   = isLeft ? leftHandOffsetFromHead : rightHandOffsetFromHead;
         Vector3 handLocalPos = headLocalPos + handOffset + WobbleOffset(t, phase);
         return transform.TransformPoint(handLocalPos);

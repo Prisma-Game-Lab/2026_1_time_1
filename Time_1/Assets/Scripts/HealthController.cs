@@ -10,7 +10,11 @@ public class HealthController : MonoBehaviour
     [HideInInspector] public int currentHealth;
 
     public Action<int, int> OnHealthChanged;
-    public Action<int> OnDamageTaken;   // NOVO: dispara o valor do dano recebido 
+    public Action<int> OnDamageTaken;   // NOVO: dispara o valor do dano recebido
+
+    private DamageFlash _flash;
+    private bool _flashInitialized;
+
     void Awake()
     {
         currentHealth = maxHealth;
@@ -26,11 +30,14 @@ public class HealthController : MonoBehaviour
     }
     public virtual void TakeDamage(int dmg)
     {
+        if (!_flashInitialized) { _flash = GetComponent<DamageFlash>(); _flashInitialized = true; }
+
         currentHealth -= dmg;
         if (currentHealth <= 0)
             currentHealth = 0;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
         OnDamageTaken?.Invoke(dmg);
+        _flash?.Flash();
         if (currentHealth <= 0)
             Die();
     }

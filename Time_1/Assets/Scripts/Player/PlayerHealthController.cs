@@ -17,19 +17,29 @@ public class PlayerHealthController : HealthController
     [SerializeField] private float parryEffectDuration = 0.3f;
 
     private PlayerShooting playerShooting;
+    private DamageFlash damageFlash;
     private float iframeTimer = 0f;
     private float parryEffectTimer = 0f;
+    private bool wasInvincible = false;
+
+    public bool IsInvincible => iframeTimer > 0f;
 
     void Awake()
     {
         playerShooting = GetComponent<PlayerShooting>();
         currentHealth = MaxHealth;
+        damageFlash = GetComponent<DamageFlash>();
     }
 
     void Update()
     {
         if (iframeTimer > 0f)
             iframeTimer -= Time.deltaTime;
+
+        bool invincible = iframeTimer > 0f;
+        if (!invincible && wasInvincible && damageFlash != null)
+            damageFlash.StopIFrameFlash();
+        wasInvincible = invincible;
 
         if (parryEffectTimer > 0f)
         {
@@ -56,6 +66,7 @@ public class PlayerHealthController : HealthController
         if (iframeTimer > 0f) return;
         base.TakeDamage(dmg);
         iframeTimer = iframeDuration;
+        if (damageFlash != null) damageFlash.StartIFrameFlash();
     }
 
     public override void Die()

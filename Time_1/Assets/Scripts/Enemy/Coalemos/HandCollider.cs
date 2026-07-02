@@ -8,6 +8,7 @@ public class HandCollider : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.TryGetComponent(out PlayerHealthController pHC)) return;
+        if (pHC.IsInvincible) return;
 
         pHC.TakeDamage(handDamage, "Melee");
 

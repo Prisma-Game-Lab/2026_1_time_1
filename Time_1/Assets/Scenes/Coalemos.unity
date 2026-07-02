@@ -3016,7 +3016,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1185332565
@@ -3199,6 +3199,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1719996091227446426, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.54
+      objectReference: {fileID: 0}
     - target: {fileID: 1764956835627336540, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -3211,6 +3215,26 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -1309844769
       objectReference: {fileID: 0}
+    - target: {fileID: 2680077163161268405, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680077163161268405, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680077163161268405, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680077163161268405, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498168008532257589, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.19
+      objectReference: {fileID: 0}
     - target: {fileID: 5075298526340389052, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: spawnHeight
       value: 3
@@ -3218,6 +3242,22 @@ PrefabInstance:
     - target: {fileID: 5075298526340389052, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: chickenSpacing
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492278160625299312, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: m_Size.x
+      value: 5.1220818
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492278160625299312, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: m_Size.y
+      value: 6.0074387
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492278160625299312, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.79576206
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492278160625299312, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.1195168
       objectReference: {fileID: 0}
     - target: {fileID: 6205366276529230582, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: player
@@ -3237,7 +3277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6831378374631310168, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_SortingOrder
-      value: -4
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 6831378374631310168, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_SortingLayerID
@@ -3512,7 +3552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.03693
+      value: 5.02311
       objectReference: {fileID: 0}
     - target: {fileID: 5119046920775485376, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_Name
@@ -3544,7 +3584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db89cd406d7ca446a1c2e990c37534e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  painelPausa: {fileID: 1185332563}
+  painelPausa: {fileID: 0}
   painelOpcoes: {fileID: 1942375335}
   sliderMusica: {fileID: 833798127}
   sliderSFX: {fileID: 293314860}
@@ -4409,7 +4449,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1942375337

@@ -148,8 +148,11 @@ public class PlayerShooting : MonoBehaviour
 
     public bool TryMeleeParry()
     {
-        // Parry window is the startup lag only 
+        // Parry window is the startup lag only
         if (state != SpearState.WindingUp || lagTimer <= 0f) return false;
+
+        // Capture facing before resetting spear rotation (still aimed at cursor)
+        float facingSign = spearTransform.right.x >= 0f ? 1f : -1f;
 
         state = SpearState.Held;
         pendingThrow = false;
@@ -157,9 +160,14 @@ public class PlayerShooting : MonoBehaviour
         lagTimer = 0f;
         chargeTimer = 0f;
 
+        // Reset spear to its held pose so the sprite doesn't stay at the wind-up angle
+        spearTransform.SetParent(spearOriginalParent);
+        spearTransform.SetLocalPositionAndRotation(spearLocalPos, spearLocalRot);
+        spearTransform.localScale = spearLocalScale;
+        if (spearSr != null) spearSr.flipX = false;
+
         if (OrbManager.Instance != null) OrbManager.Instance.AddOrb();
 
-        float facingSign = spearTransform.right.x >= 0f ? 1f : -1f;
         playerMovement.Knockback(new Vector2(-facingSign * parryKnockbackForce, parryKnockbackUp));
 
         return true;
@@ -171,7 +179,7 @@ public class PlayerShooting : MonoBehaviour
         {
             if (state == SpearState.Held)
                 StartWindUp();
-            else if (state == SpearState.Stuck)
+            else if (state == SpearState.Stuck || state == SpearState.Thrown)
                 StartReturn();
         }
         else if (context.canceled)
@@ -381,10 +389,35 @@ public class PlayerShooting : MonoBehaviour
         {
             if (hit == playerCol || hit == spearCol) continue;
             if (returnHitIds.Contains(hit.GetInstanceID())) continue;
-            if (!hit.TryGetComponent(out EnemyHealthController enemyHealth)) continue;
-
             returnHitIds.Add(hit.GetInstanceID());
-            enemyHealth.TakeDamage(currentDamage);
+
+            Parryble parryble = hit.GetComponent<Parryble>();
+            if (parryble != null)
+            {
+                parryble.OnParried();
+                ConverterEmOrb(hit);
+                OnParry?.Invoke();
+                continue;
+            }
+
+            if (!hit.TryGetComponent(out Galinha galinha))
+                galinha = hit.GetComponentInParent<Galinha>();
+            if (galinha != null)
+            {
+                ConverterEmOrb(hit);
+                OnParry?.Invoke();
+                continue;
+            }
+
+            if (hit.CompareTag("Projectile"))
+            {
+                ConverterEmOrb(hit);
+                OnParry?.Invoke();
+                continue;
+            }
+
+            if (hit.TryGetComponent(out EnemyHealthController enemyHealth))
+                enemyHealth.TakeDamage(currentDamage);
         }
     }
 
@@ -405,7 +438,7 @@ public class PlayerShooting : MonoBehaviour
         else
         {
             lagTimer = endLag;
-            playerMovement.SetMovementLocked(true);
+            playerMovement.LockPreservingMomentum();
             state = SpearState.Recovering;
         }
     }

@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 1579625966490845898}
   - component: {fileID: -6624998140062419713}
   - component: {fileID: 436392801324458433}
+  - component: {fileID: 7495144853719185184}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -539,6 +540,23 @@ MonoBehaviour:
   orbsPerdidasAoTomarDano: 1
   auraCura: {fileID: 0}
   logs: 1
+--- !u!114 &7495144853719185184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7133087523553522135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a5d9487b2cc5b4d99e2ba637cf77ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 0.1
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  renderers:
+  - {fileID: 6183407080478769586}
+  - {fileID: 7057077814380690368}
 --- !u!1 &8593327791165192216
 GameObject:
   m_ObjectHideFlags: 0

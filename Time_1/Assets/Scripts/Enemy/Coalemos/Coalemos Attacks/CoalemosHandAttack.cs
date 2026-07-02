@@ -16,32 +16,36 @@ public class CoalemosHandAttack : MonoBehaviour
     private Transform player;
 
     [Header("Hand Slam")]
-    [SerializeField] private float slamTrackSpeed  = 6f;   // speed hand moves above player
-    [SerializeField] private float slamHeightAbove = 3f;   // how far above player it hovers
-    [SerializeField] private float slamWindupDelay  = 0.6f;  // telegraph pause 
-    [SerializeField] private float slamPreDropDelay = 0.25f; // hand locks in position 
-    [SerializeField] private float slamDropSpeed    = 30f;   // speed of the slam itself
-    [SerializeField] private float slamReturnSpeed  = 8f;    // speed hand returns to rest after slam
+    [SerializeField] private float slamTrackSpeed  = 6f;
+    [SerializeField] private float slamHeightAbove = 3f;
+    [SerializeField] private float slamWindupDelay  = 0.6f;
+    [SerializeField] private float slamPreDropDelay = 0.25f;
+    [SerializeField] private float slamDropSpeed    = 30f;
+    [SerializeField] private float slamReturnSpeed  = 8f;
+    [SerializeField] private float slamJitterMax    = 0.25f;
 
     [Header("Hand Swipe")]
-    [SerializeField] private float swipeSpeed        = 10f;
+    [SerializeField] private float swipeSpeed         = 10f;
     [SerializeField] private float swipeApproachSpeed = 15f;
-    [SerializeField] private float swipeArenaMinX    = -10f;
-    [SerializeField] private float swipeArenaMaxX    =  10f;
+    [SerializeField] private float swipeArenaMinX     = -10f;
+    [SerializeField] private float swipeArenaMaxX     =  10f;
+    [SerializeField] private float swipeStartupDelay  = 0.3f;
 
     private Coroutine leftHandCoroutine;
     private Coroutine rightHandCoroutine;
 
     private WaitForSeconds waitImpact;
     private WaitForSeconds waitPreDrop;
+    private WaitForSeconds waitSwipeStartup;
 
     public bool IsAttacking => leftHandCoroutine != null || rightHandCoroutine != null;
 
     void Start()
     {
-        player      = coalemosMovement.Player;
-        waitImpact  = new WaitForSeconds(0.2f);
-        waitPreDrop = new WaitForSeconds(slamPreDropDelay);
+        player           = coalemosMovement.Player;
+        waitImpact       = new WaitForSeconds(0.2f);
+        waitPreDrop      = new WaitForSeconds(slamPreDropDelay);
+        waitSwipeStartup = new WaitForSeconds(swipeStartupDelay);
     }
 
     public void HandSlam(Hand hand)
@@ -77,17 +81,24 @@ public class CoalemosHandAttack : MonoBehaviour
 
         Vector3 HoverTarget() => new(player.position.x, player.position.y + slamHeightAbove, handObj.transform.position.z);
 
+        // Tracking phase — small constant jitter while the hand chases the player
         while (Vector3.Distance(handObj.transform.position, HoverTarget()) > 0.15f)
         {
             handObj.transform.position = Vector3.MoveTowards(handObj.transform.position, HoverTarget(), slamTrackSpeed * Time.deltaTime);
+            float jitter = slamJitterMax * 0.25f;
+            handObj.transform.position += new Vector3(Random.Range(-jitter, jitter), 0f, 0f);
             yield return null;
         }
 
+        // Windup phase — jitter ramps from 0 to max as the hand winds up to slam
         float windupTimer = slamWindupDelay;
         while (windupTimer > 0f)
         {
             Vector3 current = handObj.transform.position;
             handObj.transform.position = new(player.position.x, current.y, current.z);
+            float t = 1f - windupTimer / slamWindupDelay;
+            float jitter = slamJitterMax * t;
+            handObj.transform.position += new Vector3(Random.Range(-jitter, jitter), 0f, 0f);
             windupTimer -= Time.deltaTime;
             yield return null;
         }
@@ -99,12 +110,15 @@ public class CoalemosHandAttack : MonoBehaviour
 
         if (handCol != null) handCol.enabled = true;
 
+        // Drop phase — no jitter, clean straight fall
         Vector3 slamTarget = new(slamX, slamY, handObj.transform.position.z);
         while (Vector3.Distance(handObj.transform.position, slamTarget) > 0.05f)
         {
             handObj.transform.position = Vector3.MoveTowards(handObj.transform.position, slamTarget, slamDropSpeed * Time.deltaTime);
             yield return null;
         }
+
+        handObj.transform.position = slamTarget;
 
         yield return waitImpact;
 
@@ -129,7 +143,6 @@ public class CoalemosHandAttack : MonoBehaviour
 
     private IEnumerator HandSwipeRoutine(bool isLeft, float height)
     {
-
         GameObject     handObj  = isLeft ? coalemosMovement.LeftHand : coalemosMovement.RightHand;
         Collider2D     handCol  = handObj.GetComponentInChildren<Collider2D>();
         Rigidbody2D    handRb   = handObj.GetComponentInChildren<Rigidbody2D>();
@@ -145,7 +158,6 @@ public class CoalemosHandAttack : MonoBehaviour
         bool wasKinematic = handRb != null && handRb.isKinematic;
         if (handRb != null) handRb.isKinematic = true;
 
-       
         Transform originalParent = handObj.transform.parent;
         float swipeZ = handObj.transform.position.z;
         handObj.transform.SetParent(null);
@@ -153,13 +165,16 @@ public class CoalemosHandAttack : MonoBehaviour
         float startX = isLeft ? swipeArenaMinX : swipeArenaMaxX;
         float endX   = isLeft ? swipeArenaMaxX : swipeArenaMinX;
 
-        // Travel to swipe start position 
+        // Travel to swipe start position
         Vector3 swipeStart = new(startX, height, swipeZ);
         while (Vector3.Distance(handObj.transform.position, swipeStart) > 0.05f)
         {
             handObj.transform.position = Vector3.MoveTowards(handObj.transform.position, swipeStart, swipeApproachSpeed * Time.deltaTime);
             yield return null;
         }
+
+        // Brief startup hold before the swipe executes
+        yield return waitSwipeStartup;
 
         if (handCol != null) handCol.enabled = true;
 
@@ -172,7 +187,6 @@ public class CoalemosHandAttack : MonoBehaviour
 
         if (handCol != null) handCol.enabled = false;
 
-        
         handObj.transform.SetParent(originalParent);
         if (handRb  != null) handRb.isKinematic = wasKinematic;
         if (handSr  != null) handSr.sprite = originalSprite;
