@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
-
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private GameObject spear;
@@ -16,6 +15,11 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float maxChargeTime = 1.5f;
     [SerializeField] private float maxDamageMultiplier = 3f;
     [SerializeField] private float maxSpeedMultiplier = 2f;
+
+    [Header("Bônus de Dano por Nabo (%)")]
+    [Tooltip("Percentual de dano extra por cada nabo/orb que o jogador possui no arremesso. Ex: 10 = +10% por nabo. Com 3 nabos = +30% no dano.")]
+    [SerializeField] private float percentPorNabo = 10f;
+
     [SerializeField] private PlayerMovement playerMovement;
 
     [Header("Melee Parry")]
@@ -26,6 +30,14 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float elfHitRadius = 0.4f;
 
     public Action OnParry;
+
+    // Fonte única de "um parry deu certo": dispara o evento E o som, pra melee e projétil.
+    private void DispararParry()
+    {
+        OnParry?.Invoke();
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.TocaSFX(AudioManager.Instance.EfeitoDeParry);
+    }
 
     private enum SpearState { Held, WindingUp, Thrown, Stuck, Returning, Recovering }
     private SpearState state = SpearState.Held;
@@ -49,7 +61,6 @@ public class PlayerShooting : MonoBehaviour
     private int currentDamage;
     private float currentThrowSpeed;
 
-    // Set when the throw button is released during startup lag so the throw fires once lag expires
     private bool pendingThrow;
 
     private readonly HashSet<int> returnHitIds = new();
@@ -84,7 +95,6 @@ public class PlayerShooting : MonoBehaviour
 
         Physics2D.IgnoreCollision(spearCol, playerCol);
     }
-
     void Update()
     {
         if (spearSr != null)
@@ -94,7 +104,6 @@ public class PlayerShooting : MonoBehaviour
             else if (state == SpearState.Held)
                 spearSr.flipX = false;
         }
-
         switch (state)
         {
             case SpearState.WindingUp:
@@ -145,7 +154,6 @@ public class PlayerShooting : MonoBehaviour
                 break;
         }
     }
-
     public bool TryMeleeParry()
     {
         // Parry window is the startup lag only
@@ -168,11 +176,13 @@ public class PlayerShooting : MonoBehaviour
 
         if (OrbManager.Instance != null) OrbManager.Instance.AddOrb();
 
+        // Unifica melee com o parry de projétil: mesmo evento, mesmo som.
+        DispararParry();
+
         playerMovement.Knockback(new Vector2(-facingSign * parryKnockbackForce, parryKnockbackUp));
 
         return true;
     }
-
     public void Throw(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -189,11 +199,10 @@ public class PlayerShooting : MonoBehaviour
                 if (lagTimer <= 0f)
                     ThrowSpear();
                 else
-                    pendingThrow = true; 
+                    pendingThrow = true;
             }
         }
     }
-
     private void StartWindUp()
     {
         pendingThrow = false;
@@ -202,11 +211,18 @@ public class PlayerShooting : MonoBehaviour
         chargeTimer = 0f;
         state = SpearState.WindingUp;
     }
-
     private void ThrowSpear()
     {
+        // ── Bônus de dano por nabo, em % (lido no momento do arremesso) ──
+        int nabos = OrbManager.Instance != null ? OrbManager.Instance.CurrentOrbs : 0;
+        // Ex: percentPorNabo = 10, nabos = 3 → multiplicador = 1 + 0.30 = 1.30 (+30%)
+        float multiplicadorNabos = 1f + (nabos * percentPorNabo / 100f);
+
         float t = (maxChargeTime > 0f) ? Mathf.Clamp01(chargeTimer / maxChargeTime) : 0f;
-        currentDamage = Mathf.RoundToInt(Mathf.Lerp(damage, damage * maxDamageMultiplier, t));
+        int danoCarga = Mathf.RoundToInt(Mathf.Lerp(damage, damage * maxDamageMultiplier, t));
+
+        // O % dos nabos multiplica o dano já resolvido pela carga.
+        currentDamage = Mathf.RoundToInt(danoCarga * multiplicadorNabos);
         currentThrowSpeed = Mathf.Lerp(throwSpeed, throwSpeed * maxSpeedMultiplier, t);
         chargeTimer = 0f;
 
@@ -263,7 +279,6 @@ public class PlayerShooting : MonoBehaviour
             return;
         }
     }
-
     private void RotateSpearToVelocity()
     {
         if (spearRb.velocity.sqrMagnitude < 0.01f) return;
@@ -272,7 +287,6 @@ public class PlayerShooting : MonoBehaviour
         spearRb.SetRotation(angle);
         spearRb.angularVelocity = 0f;
     }
-
     public void OnSpearHit(Collider2D other)
     {
         if (state != SpearState.Thrown) return;
@@ -281,20 +295,18 @@ public class PlayerShooting : MonoBehaviour
         {
             parryble.OnParried();
             ConverterEmOrb(other);
-            OnParry?.Invoke();
+            DispararParry();
             ParryReceive();
             return;
         }
-
         Galinha galinha = other.GetComponent<Galinha>() ?? other.GetComponentInParent<Galinha>();
         if (galinha != null)
         {
             ConverterEmOrb(other);
-            OnParry?.Invoke();
+            DispararParry();
             ParryReceive();
             return;
         }
-
         HealthController enemyHealth = other.GetComponent<HealthController>()
             ?? other.GetComponentInParent<HealthController>();
         if (enemyHealth != null && !(enemyHealth is PlayerHealthController))
@@ -307,7 +319,6 @@ public class PlayerShooting : MonoBehaviour
                 spearRb.angularVelocity = 0f;
                 return;
             }
-
             // Não morreu: crava no inimigo
             stuckToTransform = other.transform;
             stuckLocalPos = stuckToTransform.InverseTransformPoint(spearTransform.position);
@@ -321,7 +332,7 @@ public class PlayerShooting : MonoBehaviour
         if (other.CompareTag("Projectile"))
         {
             ConverterEmOrb(other);
-            OnParry?.Invoke();
+            DispararParry();
             ParryReceive();
             return;
         }
@@ -334,7 +345,6 @@ public class PlayerShooting : MonoBehaviour
         spearRb.simulated = false;
         state = SpearState.Stuck;
     }
-
     // Converte o próprio projétil em orb — NÃO cria objeto novo
     private void ConverterEmOrb(Collider2D projetil)
     {
@@ -347,7 +357,6 @@ public class PlayerShooting : MonoBehaviour
                              ?? projetil.gameObject.AddComponent<ParriedOrb>();
         parriedOrb.Init(projSpeed);
     }
-
     private void ParryReceive()
     {
         spearRb.simulated = false;
@@ -357,7 +366,6 @@ public class PlayerShooting : MonoBehaviour
         spearTransform.localScale = spearLocalScale;
         state = SpearState.Held;
     }
-
     private void StartReturn()
     {
         returnHitIds.Clear();
@@ -366,7 +374,6 @@ public class PlayerShooting : MonoBehaviour
         spearRb.simulated = false;
         state = SpearState.Returning;
     }
-
     private void MoveSpearToPlayer()
     {
         Vector2 toPlayer = (Vector2)transform.position - (Vector2)spearTransform.position;
@@ -396,7 +403,7 @@ public class PlayerShooting : MonoBehaviour
             {
                 parryble.OnParried();
                 ConverterEmOrb(hit);
-                OnParry?.Invoke();
+                DispararParry();
                 continue;
             }
 
@@ -405,14 +412,14 @@ public class PlayerShooting : MonoBehaviour
             if (galinha != null)
             {
                 ConverterEmOrb(hit);
-                OnParry?.Invoke();
+                DispararParry();
                 continue;
             }
 
             if (hit.CompareTag("Projectile"))
             {
                 ConverterEmOrb(hit);
-                OnParry?.Invoke();
+                DispararParry();
                 continue;
             }
 
@@ -420,7 +427,6 @@ public class PlayerShooting : MonoBehaviour
                 enemyHealth.TakeDamage(currentDamage);
         }
     }
-
     private void ReceiveSpear()
     {
         if (!playerMovement.IsGrounded())

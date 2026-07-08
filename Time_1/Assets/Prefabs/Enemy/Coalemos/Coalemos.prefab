@@ -483,8 +483,8 @@ GameObject:
   - component: {fileID: 7610985103941045702}
   - component: {fileID: 8062104467287358412}
   - component: {fileID: 5492278160625299312}
-  - component: {fileID: 6205366276529230582}
   - component: {fileID: 7446877143140509245}
+  - component: {fileID: 6205366276529230582}
   - component: {fileID: 5075298526340389052}
   - component: {fileID: 3379156677600858735}
   - component: {fileID: 1461117428605098694}
@@ -572,6 +572,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.3330297, y: 3.771123}
   m_EdgeRadius: 0
+--- !u!114 &7446877143140509245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8937436732187326094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c982d22c303ed04bb21915a9f406f9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chickenAttack: {fileID: 5075298526340389052}
+  handAttack: {fileID: 3379156677600858735}
+  elfAttack: {fileID: 1461117428605098694}
+  chickenCount: 20
+  chickenInterval: 0.5
+  swipeHeight: -3
+  startDelay: 4
+  delayBetweenAttacks: 1.5
+  comboInternalDelay: 0.4
 --- !u!114 &6205366276529230582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,27 +621,6 @@ MonoBehaviour:
   pacingHalfWidth: 5
   handsRaisedYOffset: 2
   handsRaiseSpeed: 4
---- !u!114 &7446877143140509245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8937436732187326094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c982d22c303ed04bb21915a9f406f9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chickenAttack: {fileID: 5075298526340389052}
-  handAttack: {fileID: 3379156677600858735}
-  elfAttack: {fileID: 1461117428605098694}
-  chickenCount: 20
-  chickenInterval: 0.5
-  swipeHeight: -3
-  startDelay: 4
-  delayBetweenAttacks: 1.5
-  comboInternalDelay: 0.4
 --- !u!114 &5075298526340389052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -702,6 +702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashDuration: 0.1
   flashColor: {r: 1, g: 0, b: 0, a: 1}
+  iframeBlinkInterval: 0.08
   renderers:
   - {fileID: 8689566941947030917}
   - {fileID: 1764956835627336540}

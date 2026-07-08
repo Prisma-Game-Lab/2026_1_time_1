@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
 public class MenuPrincipal : MonoBehaviour
 {
     [Header("Painéis")]
@@ -11,6 +10,9 @@ public class MenuPrincipal : MonoBehaviour
     [Header("Sliders de Volume")]
     [SerializeField] private Slider sliderMusica;
     [SerializeField] private Slider sliderSFX;
+
+    [Header("Cutscene")]
+    [SerializeField] private CutsceneController cutsceneController;
 
     private void Start()
     {
@@ -26,10 +28,12 @@ public class MenuPrincipal : MonoBehaviour
         AudioManager.Instance?.AjustaVolumeSFX(volumeSFX);
         AudioManager.Instance?.TocaMusica(AudioManager.Instance.MusicaDoMenu);
     }
-
     public void AoBotaoIniciar()
     {
-        SceneManager.LoadScene("ea");
+        if (cutsceneController != null)
+            cutsceneController.IniciarCutscene();
+        else
+            SceneManager.LoadScene("AreaInicial"); 
     }
     public void AoBotaoOpcoes()
     {
@@ -54,8 +58,8 @@ public class MenuPrincipal : MonoBehaviour
     public void AoBotaoSair()
     {
         Application.Quit();
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#endif
     }
 }

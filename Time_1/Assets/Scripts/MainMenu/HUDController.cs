@@ -3,14 +3,12 @@ using UnityEngine.UI;
 public class HUDController : MonoBehaviour
 {
     [Header("Vida (um ícone por ponto)")]
-
     [SerializeField] private GameObject vidaIconPrefab;
-
     [SerializeField] private Transform vidaContainer;
     [SerializeField] private Sprite vidaCheia;
     [SerializeField] private Sprite vidaVazia;
 
-    [Header("Orbs")]
+    [Header("Nabos")]
     [SerializeField] private GameObject orbIconPrefab;
     [SerializeField] private Transform orbContainer;
     [SerializeField] private Sprite orbSpriteVazia;
@@ -52,7 +50,6 @@ public class HUDController : MonoBehaviour
     private void AtualizarVida(int atual, int maximo)
     {
         if (vidaIcons == null) return;
-
         for (int i = 0; i < vidaIcons.Length; i++)
         {
             bool cheio = i < atual;
@@ -62,7 +59,7 @@ public class HUDController : MonoBehaviour
                 vidaIcons[i].color = cheio ? Color.white : new Color(1, 1, 1, 0.25f);
         }
     }
-    // ── Orbs ─────────────────────────────────────────────
+    // ── Nabos ────────────────────────────────────────────
     private void CriarIconesOrb(int quantidade)
     {
         orbIcons = new Image[quantidade];
@@ -76,7 +73,6 @@ public class HUDController : MonoBehaviour
     private void AtualizarOrbs(int atual, int maximo)
     {
         if (orbIcons == null) return;
-
         for (int i = 0; i < orbIcons.Length; i++)
             orbIcons[i].sprite = i < atual ? orbSpriteCheia : orbSpriteVazia;
     }

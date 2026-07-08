@@ -223,7 +223,7 @@ MonoBehaviour:
   fireInterval: 2.5
   aimSpread: 12
   sfxJump: {fileID: 0}
-  sfxAttack: {fileID: 8300000, guid: be550bcb04a1db644bc69bddfe246cc1, type: 3}
+  sfxAttack: {fileID: 8300000, guid: e4cb0f94806ef664186203918e61879d, type: 3}
   sfxDeath: {fileID: 0}
   groundLayer:
     serializedVersion: 2
