@@ -217,7 +217,7 @@ MonoBehaviour:
   knockbackMultiplier: 1
   ignoreKnockback: 0
   explosionVFXPrefab: {fileID: 8729515267632807303, guid: 0f250ad6bd3917e47bb7e3884543ec03, type: 3}
-  explosionSFX: {fileID: 0}
+  explosionSFX: {fileID: 8300000, guid: b69bf5442054f104c950a4dc4eaf7351, type: 3}
   fallVFXPrefab: {fileID: 0}
   explosionPoint: {fileID: 8090085505525257741}
 --- !u!114 &-7036643755146082996

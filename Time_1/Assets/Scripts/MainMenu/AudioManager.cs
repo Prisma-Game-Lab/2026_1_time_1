@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     private static AudioManager _instance;
@@ -14,7 +15,7 @@ public class AudioManager : MonoBehaviour
                 if (prefab != null)
                 {
                     GameObject go = Instantiate(prefab);
-                    go.name = "AudioManager"; 
+                    go.name = "AudioManager";
                 }
                 else
                 {
@@ -24,6 +25,12 @@ public class AudioManager : MonoBehaviour
             return _instance;
         }
     }
+
+    [Header("Mixer")]
+    [SerializeField] private AudioMixer mixer;
+    [SerializeField] private AudioMixerGroup musicGroup;
+    [SerializeField] private AudioMixerGroup sfxGroup;
+
     [Header("Sources")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
@@ -68,6 +75,9 @@ public class AudioManager : MonoBehaviour
         {
             sfxSource = CriarAudioSource("SFXSource_Auto", loop: false);
         }
+
+        if (musicGroup != null) musicSource.outputAudioMixerGroup = musicGroup;
+        if (sfxGroup != null) sfxSource.outputAudioMixerGroup = sfxGroup;
     }
     private AudioSource CriarAudioSource(string nomeObjeto, bool loop)
     {
@@ -82,8 +92,8 @@ public class AudioManager : MonoBehaviour
     {
         float volumeMusica = PlayerPrefs.GetFloat("VolumeMusica", 1f);
         float volumeSFX = PlayerPrefs.GetFloat("VolumeSFX", 1f);
-        musicSource.volume = Mathf.Clamp01(volumeMusica);
-        sfxSource.volume = Mathf.Clamp01(volumeSFX);
+        AjustaVolumeMusica(volumeMusica);
+        AjustaVolumeSFX(volumeSFX);
     }
     // Musica
     public void TocaMusica(AudioClip clip, bool loop = true)
@@ -102,8 +112,9 @@ public class AudioManager : MonoBehaviour
     }
     public void AjustaVolumeMusica(float volume)
     {
-        if (musicSource == null) return;
-        musicSource.volume = Mathf.Clamp01(volume);
+        if (mixer == null) return;
+        float dB = volume > 0.0001f ? Mathf.Log10(volume) * 20f : -80f;
+        mixer.SetFloat("VolumeMusica", dB);
     }
     // Efeitos Sonoros
     public void TocaSFX(AudioClip clip)
@@ -112,30 +123,27 @@ public class AudioManager : MonoBehaviour
         if (clip == null) return;
         sfxSource.PlayOneShot(clip);
     }
-
     // SFX com pitch aleatório
     public void TocaSFXComPitch(AudioClip clip, float? pitchMinOverride = null, float? pitchMaxOverride = null)
     {
         if (clip == null) return;
-
         float min = pitchMinOverride ?? pitchMin;
         float max = pitchMaxOverride ?? pitchMax;
-
         GameObject temp = new GameObject("SFX_Pitched");
         temp.transform.SetParent(transform);
         AudioSource src = temp.AddComponent<AudioSource>();
         src.clip = clip;
-        src.volume = sfxSource != null ? sfxSource.volume : 1f;
+        src.outputAudioMixerGroup = sfxGroup;
+        src.volume = 1f;
         src.pitch = Random.Range(min, max);
         src.playOnAwake = false;
         src.Play();
-
         Destroy(temp, clip.length / src.pitch);
     }
-
     public void AjustaVolumeSFX(float volume)
     {
-        if (sfxSource == null) return;
-        sfxSource.volume = Mathf.Clamp01(volume);
+        if (mixer == null) return;
+        float dB = volume > 0.0001f ? Mathf.Log10(volume) * 20f : -80f;
+        mixer.SetFloat("VolumeSFX", dB);
     }
 }

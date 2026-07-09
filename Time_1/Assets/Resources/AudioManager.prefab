@@ -46,6 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7644f4442256f64db87f7ae242872d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: abf66cf70fe964d4888758a3ae80510b, type: 2}
+  musicGroup: {fileID: -4017735788582753969, guid: abf66cf70fe964d4888758a3ae80510b, type: 2}
+  sfxGroup: {fileID: 4318407075197913690, guid: abf66cf70fe964d4888758a3ae80510b, type: 2}
   musicSource: {fileID: 2458868291375666462}
   sfxSource: {fileID: 3613984121483156630}
   MusicaDoMenu: {fileID: 8300000, guid: 144976646abe31e4cbd75f490233a13d, type: 3}
@@ -55,6 +58,8 @@ MonoBehaviour:
   EfeitoDePulo: {fileID: 8300000, guid: d0c20610d91f4a741aedd96742a163ac, type: 3}
   EfeitoDeCura: {fileID: 0}
   EfeitoDeParry: {fileID: 8300000, guid: 7357ba063a640d3498b29e8618570ca3, type: 3}
+  pitchMin: 0.92
+  pitchMax: 1.08
 --- !u!82 &2458868291375666462
 AudioSource:
   m_ObjectHideFlags: 0

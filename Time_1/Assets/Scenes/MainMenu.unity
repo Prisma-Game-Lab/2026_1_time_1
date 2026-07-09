@@ -1597,7 +1597,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00079345703, y: 0}
   m_SizeDelta: {x: 369.5901, y: 13.671}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &869192208
@@ -4041,6 +4040,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1472976432}
     m_Modifications:
     - target: {fileID: 1313387103207301976, guid: 945823f061924124581722fb3f4077dc, type: 3}
+      propertyPath: mixer
+      value: 
+      objectReference: {fileID: 24100000, guid: abf66cf70fe964d4888758a3ae80510b, type: 2}
+    - target: {fileID: 1313387103207301976, guid: 945823f061924124581722fb3f4077dc, type: 3}
+      propertyPath: sfxGroup
+      value: 
+      objectReference: {fileID: 4318407075197913690, guid: abf66cf70fe964d4888758a3ae80510b, type: 2}
+    - target: {fileID: 1313387103207301976, guid: 945823f061924124581722fb3f4077dc, type: 3}
       propertyPath: sfxSource
       value: 
       objectReference: {fileID: 1776885438}
@@ -4048,9 +4055,17 @@ PrefabInstance:
       propertyPath: MusicaDoBoss
       value: 
       objectReference: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
+    - target: {fileID: 1313387103207301976, guid: 945823f061924124581722fb3f4077dc, type: 3}
+      propertyPath: musicGroup
+      value: 
+      objectReference: {fileID: -4017735788582753969, guid: abf66cf70fe964d4888758a3ae80510b, type: 2}
     - target: {fileID: 2458868291375666462, guid: 945823f061924124581722fb3f4077dc, type: 3}
       propertyPath: m_Volume
       value: 0.104
+      objectReference: {fileID: 0}
+    - target: {fileID: 3613984121483156630, guid: 945823f061924124581722fb3f4077dc, type: 3}
+      propertyPath: m_Pitch
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 6137712978593683699, guid: 945823f061924124581722fb3f4077dc, type: 3}
       propertyPath: m_LocalPosition.x
