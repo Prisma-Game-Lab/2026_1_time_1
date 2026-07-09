@@ -1161,8 +1161,8 @@ Transform:
   m_GameObject: {fileID: 427468023}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.98, y: 0.88, z: 0}
-  m_LocalScale: {x: 2.4725773, y: 2.5849845, z: 1}
+  m_LocalPosition: {x: 0.45, y: 0.7, z: 0}
+  m_LocalScale: {x: 2.719835, y: 3.8774767, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2083654210}
@@ -1245,7 +1245,7 @@ Transform:
   m_GameObject: {fileID: 444633661}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.89, y: 0.88, z: 0}
+  m_LocalPosition: {x: -1.83, y: 2.06, z: 0}
   m_LocalScale: {x: 0.15378125, y: 0.13786523, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5095,8 +5095,8 @@ Transform:
   m_GameObject: {fileID: 1574313358}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8.7125, y: 5.375, z: 1}
+  m_LocalPosition: {x: 0.26999962, y: 0, z: 0}
+  m_LocalScale: {x: 5.2275, y: 9.7421875, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2083654210}
@@ -6647,6 +6647,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b75f918a85ac241829cc7ee30fdf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spearRenderer: {fileID: 0}
+  glowColor: {r: 1, g: 0.5, b: 0.1, a: 1}
+  alphaMin: 0
+  alphaMax: 0.6
+  fadeSpeed: 8
 --- !u!1 &1979708508
 GameObject:
   m_ObjectHideFlags: 0
@@ -6936,7 +6941,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea1e553777406824e8648f04b5a61611, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e613f8fd19337bb4da8be61942b78ca0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6956,7 +6961,7 @@ Transform:
   m_GameObject: {fileID: 2083654208}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.99, y: -2.62, z: 0}
+  m_LocalPosition: {x: 5.99, y: -0.84, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6979,7 +6984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {fileID: 2083654214}
-  velocidade: 25
+  velocidade: 30
   numeroDeCorridasMin: 2
   numeroDeCorridasMax: 3
   telegraphDuration: 0.99
@@ -7005,8 +7010,8 @@ MonoBehaviour:
   velocidadeNeutro: 1.02
   neutroTempoMin: 1
   neutroTempoMax: 1.5
-  pesoCorrida: 0.7
-  pesoRaizes: 0.28
+  pesoCorrida: 0.52
+  pesoRaizes: 0.37
   pesoInvestida: 1
   pesoArrow: 1
   arrowCount: 10
@@ -7030,9 +7035,9 @@ MonoBehaviour:
   numeroDeBrechas: 3
   groundY: -4.5
   margemBorda: 0.5
-  escalaAviso: 0.3
+  escalaAviso: 0.38
   escalaFinal: 1
-  tempoAviso: 0.3
+  tempoAviso: 0.51
   tempoCrescimento: 0.25
   tempoEmPe: 1.2
   tempoRecolhe: 0.4
@@ -7053,7 +7058,7 @@ MonoBehaviour:
   limiteDireito: {fileID: 1298199038}
   player: {fileID: 1082353288}
   spriteRenderer: {fileID: 2083654209}
-  spriteOlhaParaDireita: 0
+  spriteOlhaParaDireita: 1
   usarYDosLimites: 0
 --- !u!114 &2083654215
 MonoBehaviour:
@@ -7067,7 +7072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbbc79bbe635b2240b90fbb4dc50d519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 450
+  maxHealth: 250
   currentHealth: 0
   bossRoot: {fileID: 0}
   vfxMortePrefab: {fileID: 0}
@@ -7075,7 +7080,7 @@ MonoBehaviour:
   onMorte:
     m_PersistentCalls:
       m_Calls: []
-  multiplicadorDanoStagger: 2
+  multiplicadorDanoStagger: 3
 --- !u!114 &2083654216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7098,8 +7103,8 @@ MonoBehaviour:
   tempoRecuo: 0.5
   tempoNaFumaca: 1
   tempoSurgir: 0.8
-  velocidadeInvestida: 35.1
-  tempoStagger: 1.5
+  velocidadeInvestida: 40.1
+  tempoStagger: 2.5
   sfxInvestida: {fileID: 0}
 --- !u!114 &2083654217
 MonoBehaviour:
@@ -7404,8 +7409,8 @@ Transform:
   m_GameObject: {fileID: 2116799509}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8.7125, y: 5.375, z: 1}
+  m_LocalPosition: {x: 0.52, y: 0, z: 0}
+  m_LocalScale: {x: 4.688413, y: 9.94375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2083654210}
@@ -7489,6 +7494,6 @@ SceneRoots:
   - {fileID: 1648465467}
   - {fileID: 2083654210}
   - {fileID: 2904472847812486971}
-- {fileID: 167387895}
-  - {fileID: 823151987}
+  - {fileID: 167387895}
   - {fileID: 359281968}
+  - {fileID: 823151987}

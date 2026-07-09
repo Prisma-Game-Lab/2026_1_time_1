@@ -484,7 +484,7 @@ MonoBehaviour:
   maxChargeTime: 1.5
   maxDamageMultiplier: 3
   maxSpeedMultiplier: 2
-  percentPorNabo: 7.5
+  percentPorNabo: 10
   playerMovement: {fileID: 3534906634803273781}
   parryKnockbackForce: 10
   parryKnockbackUp: 4
