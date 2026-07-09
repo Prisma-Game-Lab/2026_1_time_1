@@ -91,6 +91,7 @@ public class CoalemosMovement : MonoBehaviour
         if (player != null)
         {
             Vector3 toPlayer = player.position - rootBaseWorldPos;
+            toPlayer.y = 0f;
             toPlayer.z = 0f;
             rootTrackingOffset = Vector3.ClampMagnitude(toPlayer, rootTrackingMaxOffset);
             transform.position = rootBaseWorldPos + rootTrackingOffset;
@@ -159,6 +160,7 @@ public class CoalemosMovement : MonoBehaviour
             if (player == null) return;
 
             Vector3 toPlayer = player.position - rootBaseWorldPos;
+            toPlayer.y = 0f;
             toPlayer.z = 0f;
             Vector3 target = Vector3.ClampMagnitude(toPlayer, rootTrackingMaxOffset);
             rootTrackingOffset = Vector3.SmoothDamp(rootTrackingOffset, target, ref rootTrackingVelocity, rootTrackingSmoothTime);
@@ -183,6 +185,7 @@ public class CoalemosMovement : MonoBehaviour
 
         Vector3 playerLocal = transform.InverseTransformPoint(player.position);
         Vector3 toPlayer    = playerLocal - headBaseLocalPos;
+        toPlayer.y = 0f;
         toPlayer.z = 0f;
 
         Vector3 target = Vector3.ClampMagnitude(toPlayer, trackingMaxOffset);

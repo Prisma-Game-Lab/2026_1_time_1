@@ -7,6 +7,7 @@ public class BasicProjectile : MonoBehaviour
     [SerializeField] private LayerMask environmentLayers;
 
     public float Speed => speed;
+    public virtual Vector2 GetMovementDirection() => transform.right;
 
     protected virtual void Update()
     {

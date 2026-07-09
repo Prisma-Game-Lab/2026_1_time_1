@@ -1,13 +1,22 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Arrow : BasicProjectile
 {
     [SerializeField] private float launchDelay = 0.8f;
     [SerializeField] private float lifetime    = 6f;
 
     private bool launched = false;
+    private Rigidbody2D rb;
 
+    public override Vector2 GetMovementDirection() => transform.up;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        if (rb != null) rb.bodyType = RigidbodyType2D.Kinematic;
+    }
 
     public void Init(float launchDelay, float lifetime, float speed)
     {

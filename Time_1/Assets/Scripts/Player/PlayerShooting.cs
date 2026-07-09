@@ -349,9 +349,10 @@ public class PlayerShooting : MonoBehaviour
     private void ConverterEmOrb(Collider2D projetil)
     {
         Rigidbody2D projRb = projetil.GetComponent<Rigidbody2D>();
+        BasicProjectile bp = projetil.GetComponent<BasicProjectile>();
         float projSpeed = projRb != null && projRb.velocity.sqrMagnitude > 0.01f
             ? projRb.velocity.magnitude
-            : projetil.GetComponent<BasicProjectile>()?.Speed ?? 10f;
+            : bp != null ? bp.Speed : 10f;
 
         ParriedOrb parriedOrb = projetil.gameObject.GetComponent<ParriedOrb>()
                              ?? projetil.gameObject.AddComponent<ParriedOrb>();
