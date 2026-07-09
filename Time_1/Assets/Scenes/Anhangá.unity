@@ -7010,9 +7010,9 @@ MonoBehaviour:
   velocidadeNeutro: 1.02
   neutroTempoMin: 1
   neutroTempoMax: 1.5
-  pesoCorrida: 0.52
-  pesoRaizes: 0.37
-  pesoInvestida: 1
+  pesoCorrida: 0
+  pesoRaizes: 0
+  pesoInvestida: 0
   pesoArrow: 1
   arrowCount: 10
   arrowInterval: 0.5
@@ -7037,7 +7037,7 @@ MonoBehaviour:
   margemBorda: 0.5
   escalaAviso: 0.38
   escalaFinal: 1
-  tempoAviso: 0.51
+  tempoAviso: 0.75
   tempoCrescimento: 0.25
   tempoEmPe: 1.2
   tempoRecolhe: 0.4

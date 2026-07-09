@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orbDuration: 3
-  orbSpeedMultiplier: 0.7
+  orbSpeedMultiplier: 0.3
   orbSprite: {fileID: 21300000, guid: 8f39d408472f33344a371f338832c5d3, type: 3}
   orbScale: 10
 --- !u!212 &7666503729673641593
