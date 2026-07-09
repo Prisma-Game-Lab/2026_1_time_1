@@ -2046,6 +2046,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806897542}
   m_CullTransparentMesh: 1
+--- !u!1 &823151986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 823151987}
+  m_Layer: 0
+  m_Name: CenterPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &823151987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823151986}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &834415050
 GameObject:
   m_ObjectHideFlags: 0
@@ -4872,11 +4903,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!212 &1558053073 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1545408798754374166, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
-  m_PrefabInstance: {fileID: 1556960833}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1566531392
 GameObject:
   m_ObjectHideFlags: 0
@@ -6521,11 +6547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b75f918a85ac241829cc7ee30fdf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spearRenderer: {fileID: 1558053073}
-  glowColor: {r: 1, g: 0.5, b: 0.1, a: 1}
-  alphaMin: 0
-  alphaMax: 0.6
-  fadeSpeed: 8
 --- !u!1 &1979708508
 GameObject:
   m_ObjectHideFlags: 0
@@ -6766,6 +6787,7 @@ GameObject:
   - component: {fileID: 2083654215}
   - component: {fileID: 2083654216}
   - component: {fileID: 2083654217}
+  - component: {fileID: 2083654218}
   m_Layer: 0
   m_Name: "Anhang\xE1"
   m_TagString: Untagged
@@ -6879,12 +6901,16 @@ MonoBehaviour:
   corrida: {fileID: 2083654211}
   raizes: {fileID: 2083654213}
   investida: {fileID: 2083654216}
+  anhangaArrow: {fileID: 2083654218}
   velocidadeNeutro: 1.02
   neutroTempoMin: 1
   neutroTempoMax: 1.5
   pesoCorrida: 1
   pesoRaizes: 0.28
   pesoInvestida: 1
+  pesoArrow: 1
+  arrowCount: 10
+  arrowInterval: 0.5
 --- !u!114 &2083654213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6991,6 +7017,26 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   iframeBlinkInterval: 0.08
   renderers: []
+--- !u!114 &2083654218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083654208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16a0328203da514419629b87bdefe06b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 4772115686365810810, guid: 3d0f8485bf5958e49ad20973cdf4b175, type: 3}
+  player: {fileID: 1082353288}
+  mapCenter: {fileID: 823151987}
+  spawnRadius: 8
+  spawnHeightBuffer: 1
+  arrowLaunchDelay: 0.8
+  arrowLifetime: 6
+  arrowSpeed: 16
 --- !u!1 &2107757122
 GameObject:
   m_ObjectHideFlags: 0
@@ -7344,3 +7390,4 @@ SceneRoots:
   - {fileID: 2083654210}
   - {fileID: 2904472847812486971}
   - {fileID: 167387895}
+  - {fileID: 823151987}

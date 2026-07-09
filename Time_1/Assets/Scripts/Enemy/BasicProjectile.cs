@@ -2,27 +2,30 @@ using UnityEngine;
 
 public class BasicProjectile : MonoBehaviour
 {
-    [SerializeField] private float speed = 10f;
-    [SerializeField] private int damage = 1;
+    [SerializeField] protected float speed = 10f;
+    [SerializeField] protected int damage = 1;
     [SerializeField] private LayerMask environmentLayers;
 
     public float Speed => speed;
 
-    void Update()
+    protected virtual void Update()
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent(out PlayerHealthController playerHealth))
+        PlayerHealthController playerHealth = other.GetComponent<PlayerHealthController>();
+        if (playerHealth == null) playerHealth = other.GetComponentInParent<PlayerHealthController>();
+
+        if (playerHealth != null)
         {
             playerHealth.TakeDamage(damage);
             Destroy(gameObject);
             return;
         }
 
-        if (((1 << other.gameObject.layer) & environmentLayers) != 0)
+        if ((environmentLayers & (1 << other.gameObject.layer)) != 0)
             Destroy(gameObject);
     }
 }

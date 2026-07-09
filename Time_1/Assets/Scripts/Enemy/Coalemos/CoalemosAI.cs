@@ -44,6 +44,7 @@ public class CoalemosAI : MonoBehaviour
 
     void Start()
     {
+        AudioManager.Instance.TocaMusica(AudioManager.Instance.MusicaDoBoss,true); 
         attackDelay = new WaitForSeconds(delayBetweenAttacks);
         comboDelay  = new WaitForSeconds(comboInternalDelay);
         BuildDeck();
