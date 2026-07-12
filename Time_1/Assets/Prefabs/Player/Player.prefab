@@ -504,7 +504,7 @@ MonoBehaviour:
   maxHealth: 5
   currentHealth: 0
   PlayerReference: {fileID: 7133087523553522135}
-  PlayerCanvas: {fileID: 1758575627770726082, guid: 3470790e583c63c45b8604749cbde51f, type: 3}
+  PlayerCanvas: {fileID: 0}
   GameOverPanel: {fileID: 0}
   iframeDuration: 0.75
   parryEffect: {fileID: 718480132463861317}
