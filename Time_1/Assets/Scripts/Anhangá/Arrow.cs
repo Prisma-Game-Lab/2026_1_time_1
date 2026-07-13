@@ -45,7 +45,7 @@ public class Arrow : BasicProjectile
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-        if (!launched) return;
+        if (!launched || !enabled) return;
 
         if (!other.TryGetComponent(out PlayerHealthController playerHealth))
             playerHealth = other.GetComponentInParent<PlayerHealthController>();

@@ -10,6 +10,7 @@ public class AnhangaAI : MonoBehaviour
     [SerializeField] private AnhangaRaizes    raizes;
     [SerializeField] private AnhangaInvestida investida;
     [SerializeField] private AnhangaArrow     anhangaArrow;
+    [SerializeField] private AnhangaScream    anhangaScream;
 
     [Header("Estado Neutro")]
     [SerializeField] private float velocidadeNeutro = 2.5f;
@@ -22,18 +23,23 @@ public class AnhangaAI : MonoBehaviour
     [SerializeField] private float pesoRaizes   = 1f;
     [SerializeField] private float pesoInvestida = 1f;
     [SerializeField] private float pesoArrow    = 3f;
+    [SerializeField] private float pesoScream   = 0f;
 
     [Header("Flechas")]
     [SerializeField] private int   arrowCount    = 5;
     [SerializeField] private float arrowInterval = 0.2f;
 
+    [Header("Grito")]
+    [SerializeField] private int screamDuration = 3;
+
     private void Start()
     {
-        if (movement    == null) movement    = GetComponent<AnhangaMovement>();
-        if (corrida     == null) corrida     = GetComponent<AnhangaCorrida>();
-        if (raizes      == null) raizes      = GetComponent<AnhangaRaizes>();
-        if (investida   == null) investida   = GetComponent<AnhangaInvestida>();
+        if (movement     == null) movement     = GetComponent<AnhangaMovement>();
+        if (corrida      == null) corrida      = GetComponent<AnhangaCorrida>();
+        if (raizes       == null) raizes       = GetComponent<AnhangaRaizes>();
+        if (investida    == null) investida    = GetComponent<AnhangaInvestida>();
         if (anhangaArrow == null) anhangaArrow = GetComponent<AnhangaArrow>();
+        if (anhangaScream == null) anhangaScream = GetComponent<AnhangaScream>();
 
         if (movement == null || corrida == null || raizes == null || investida == null || anhangaArrow == null)
             return;
@@ -56,7 +62,8 @@ public class AnhangaAI : MonoBehaviour
             }
 
             // --- ESCOLHE POR PESO E EXECUTA ---
-            switch (SortearAtaque())
+            int ataque = SortearAtaque();
+            switch (ataque)
             {
                 case 0:
                     corrida.Iniciar();
@@ -70,18 +77,27 @@ public class AnhangaAI : MonoBehaviour
                     investida.Iniciar();
                     yield return new WaitUntil(() => !investida.IsAttacking);
                     break;
-                default:
+                case 3:
                     anhangaArrow.HomingArrows(arrowCount, arrowInterval);
                     yield return new WaitUntil(() => !anhangaArrow.IsAttacking);
                     break;
+                default:
+                    if (anhangaScream != null) anhangaScream.Scream(screamDuration);
+                    yield return new WaitUntil(() => anhangaScream == null || !anhangaScream.IsAttacking);
+                    break;
             }
+            // Tick confused duration counter after every non-scream attack.
+            if (ataque != 4 && anhangaScream != null)
+                anhangaScream.OnMoveCompleted();
         }
     }
 
-    // 0 = corrida, 1 = raízes, 2 = investida, 3 = flechas
+    // 0 = corrida, 1 = raízes, 2 = investida, 3 = flechas, 4 = grito
     private int SortearAtaque()
     {
-        float total = pesoCorrida + pesoRaizes + pesoInvestida + pesoArrow;
+        // Don't scream again while the player is already confused.
+        float effectivePesoScream = (anhangaScream != null && anhangaScream.IsConfused) ? 0f : pesoScream;
+        float total = pesoCorrida + pesoRaizes + pesoInvestida + pesoArrow + effectivePesoScream;
         if (total <= 0f) return 0;
 
         float r = Random.value * total;
@@ -90,6 +106,8 @@ public class AnhangaAI : MonoBehaviour
         if (r < pesoRaizes) return 1;
         r -= pesoRaizes;
         if (r < pesoInvestida) return 2;
-        return 3;
+        r -= pesoInvestida;
+        if (r < pesoArrow) return 3;
+        return 4;
     }
 }
