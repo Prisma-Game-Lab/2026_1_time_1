@@ -524,7 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bea298b139927b42b74765b4be59af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 500
   currentHealth: 0
   EnemyReference: {fileID: 8937436732187326094}
 --- !u!61 &5492278160625299312
@@ -589,10 +589,10 @@ MonoBehaviour:
   elfAttack: {fileID: 1461117428605098694}
   chickenCount: 20
   chickenInterval: 0.5
-  swipeHeight: -3
-  startDelay: 4
+  swipeHeight: -3.75
+  startDelay: 2
   delayBetweenAttacks: 1.5
-  comboInternalDelay: 0.4
+  comboInternalDelay: 0.5
 --- !u!114 &6205366276529230582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,7 +614,7 @@ MonoBehaviour:
   wobbleSpeed: 1.5
   trackingMaxOffset: 0.8
   trackingSmoothTime: 0.4
-  rootHeightOffset: 2
+  rootHeightOffset: 0
   rootTrackingMaxOffset: 3
   rootTrackingSmoothTime: 0.8
   pacingSpeed: 5
