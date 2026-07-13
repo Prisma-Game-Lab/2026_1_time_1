@@ -701,6 +701,7 @@ MonoBehaviour:
   painelPrincipal: {fileID: 1006636333}
   sliderMusica: {fileID: 975977713}
   sliderSFX: {fileID: 1432981446}
+  cutsceneController: {fileID: 913318193}
 --- !u!4 &403240905
 Transform:
   m_ObjectHideFlags: 0
@@ -1682,6 +1683,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847cc494b33323041a305f3bb082fa90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  painelCutscene: {fileID: 1619386944}
+  videoPlayer: {fileID: 1619386946}
+  cenaDestino: AreaInicial
 --- !u!1 &975977711
 GameObject:
   m_ObjectHideFlags: 0
@@ -4053,13 +4057,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1776885438}
     - target: {fileID: 1313387103207301976, guid: 945823f061924124581722fb3f4077dc, type: 3}
-      propertyPath: MusicaDoBoss
-      value: 
-      objectReference: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
-    - target: {fileID: 1313387103207301976, guid: 945823f061924124581722fb3f4077dc, type: 3}
       propertyPath: musicGroup
       value: 
       objectReference: {fileID: -4017735788582753969, guid: abf66cf70fe964d4888758a3ae80510b, type: 2}
+    - target: {fileID: 1313387103207301976, guid: 945823f061924124581722fb3f4077dc, type: 3}
+      propertyPath: MusicaDoBoss
+      value: 
+      objectReference: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
     - target: {fileID: 2458868291375666462, guid: 945823f061924124581722fb3f4077dc, type: 3}
       propertyPath: m_Volume
       value: 0.104
