@@ -3107,14 +3107,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1884956226}
-    - target: {fileID: 6205366276529230582, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
-      propertyPath: rootHeightOffset
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6205366276529230582, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
-      propertyPath: trackingMaxOffset
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 6831378374631310168, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -3126,18 +3118,6 @@ PrefabInstance:
     - target: {fileID: 6831378374631310168, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_SortingLayerID
       value: -1309844769
-      objectReference: {fileID: 0}
-    - target: {fileID: 7446877143140509245, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
-      propertyPath: startDelay
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7446877143140509245, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
-      propertyPath: swipeHeight
-      value: -3.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7446877143140509245, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
-      propertyPath: comboInternalDelay
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7610985103941045702, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_LocalScale.x
@@ -3190,10 +3170,6 @@ PrefabInstance:
     - target: {fileID: 7610985103941045702, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062104467287358412, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
-      propertyPath: maxHealth
-      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 8689566941947030917, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_SortingLayer
