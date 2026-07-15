@@ -35,8 +35,7 @@ public class PlayerShooting : MonoBehaviour
     private void DispararParry()
     {
         OnParry?.Invoke();
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.TocaSFX(AudioManager.Instance.EfeitoDeParry);
+        SFXManager.PlaySFX("parry");
     }
 
     private enum SpearState { Held, WindingUp, Thrown, Stuck, Returning, Recovering }
@@ -243,7 +242,7 @@ public class PlayerShooting : MonoBehaviour
 
         if (spearSr != null) spearSr.flipX = false;
 
-        AudioManager.Instance?.TocaSFX(AudioManager.Instance.EfeitoDaLanca);
+        SFXManager.PlaySFX("lanca");
         state = SpearState.Thrown;
     }
 

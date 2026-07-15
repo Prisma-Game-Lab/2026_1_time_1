@@ -8,10 +8,10 @@ using UnityEngine.InputSystem;
 public class BossCutscene : MonoBehaviour
 {
     [Header("Identidade")]
-    [Tooltip("ID único desta cutscene.")]
+    [Tooltip("ID unico desta cutscene.")]
     [SerializeField] private string cutsceneId = "Coalemos";
 
-    [Header("Referências")]
+    [Header("Referencias")]
     [Tooltip("Painel/tela que aparece durante a cutscene.")]
     [SerializeField] private GameObject painel;
     [Tooltip("VideoPlayer da cutscene. Se vazio, a cutscene 'termina' na hora.")]
@@ -25,10 +25,10 @@ public class BossCutscene : MonoBehaviour
     [SerializeField] private bool permitirPular = true;
 
     [Header("Eventos")]
-    [Tooltip("Disparado quando a cutscene começa a tocar.")]
+    [Tooltip("Disparado quando a cutscene comeca a tocar.")]
     [SerializeField] private UnityEvent aoIniciar;
-    [Tooltip("Disparado quando a cutscene termina — E TAMBÉM quando é pulada por já ter sido vista. " +
-             "Ligue aqui o BossMusic.Tocar() pra música começar só depois da cutscene.")]
+    [Tooltip("Disparado quando a cutscene termina e E TAMBeM quando e pulada por ja ter sido vista. " +
+             "Ligue aqui o BossMusic.Tocar() pra musica comecar so depois da cutscene.")]
     [SerializeField] private UnityEvent aoTerminar;
 
     private bool vaiTocar;
@@ -38,7 +38,6 @@ public class BossCutscene : MonoBehaviour
     {
         if (painel != null) painel.SetActive(false);
 
-        // Decidido no Awake (antes de qualquer Start) pra segurar o boss a tempo.
         vaiTocar = !CutsceneManager.Instance.JaViu(cutsceneId);
         if (vaiTocar) SetPausado(true);
     }
@@ -66,11 +65,11 @@ public class BossCutscene : MonoBehaviour
         CutsceneManager.Instance.MarcarVisto(cutsceneId);
 
         if (painel != null) painel.SetActive(true);
-        AudioManager.Instance?.ParaMusica();
+        MusicManager.StartFadeOut();
         aoIniciar?.Invoke();
 
         if (video != null) { video.Stop(); video.Play(); }
-        else Terminar(); // sem vídeo  encerra imediatamente
+        else Terminar(); 
     }
 
     private void Update()
@@ -83,7 +82,6 @@ public class BossCutscene : MonoBehaviour
             Pular();
     }
 
-    // Pode ser ligado a um botão de UI também.
     public void Pular()
     {
         if (!tocando) return;
