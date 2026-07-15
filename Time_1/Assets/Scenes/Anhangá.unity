@@ -6864,13 +6864,13 @@ MonoBehaviour:
   velocidadeNeutro: 1.02
   neutroTempoMin: 1
   neutroTempoMax: 1.5
-  pesoCorrida: 0
-  pesoRaizes: 0
-  pesoInvestida: 0
-  pesoArrow: 0
-  pesoScream: 1
+  pesoCorrida: 0.75
+  pesoRaizes: 1
+  pesoInvestida: 1
+  pesoArrow: 0.9
+  pesoScream: 0.5
   arrowCount: 10
-  arrowInterval: 0.5
+  arrowInterval: 0.7
   screamDuration: 1
 --- !u!114 &2083654213
 MonoBehaviour:
@@ -6893,9 +6893,9 @@ MonoBehaviour:
   margemBorda: 0.5
   escalaAviso: 0.38
   escalaFinal: 1
-  tempoAviso: 0.75
-  tempoCrescimento: 0.25
-  tempoEmPe: 1.2
+  tempoAviso: 1
+  tempoCrescimento: 0.23
+  tempoEmPe: 1
   tempoRecolhe: 0.4
   sfxRaizes: {fileID: 8300000, guid: 04ee7e175f6303944aa84f0bf4065803, type: 3}
 --- !u!114 &2083654214
@@ -6993,11 +6993,11 @@ MonoBehaviour:
   arrowPrefab: {fileID: 4772115686365810810, guid: 3d0f8485bf5958e49ad20973cdf4b175, type: 3}
   player: {fileID: 1082353288}
   mapCenter: {fileID: 823151987}
-  spawnRadius: 8
+  spawnRadius: 10
   spawnHeightBuffer: 1
   arrowLaunchDelay: 0.8
   arrowLifetime: 6
-  arrowSpeed: 16
+  arrowSpeed: 14
 --- !u!114 &2083654219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7019,7 +7019,7 @@ MonoBehaviour:
   confusedStateName: Confused
   normalStateName: Normal
   screamAudioSource: {fileID: 2083654220}
-  screamDuration: 2
+  screamDuration: 2.8
   screamClip: {fileID: 8300000, guid: ba7b8dcc25c7e7e4a82ad0c5573b42ac, type: 3}
 --- !u!82 &2083654220
 AudioSource:
