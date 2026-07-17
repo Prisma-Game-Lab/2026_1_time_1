@@ -3171,6 +3171,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8062104467287358412, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: maxHealth
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 8689566941947030917, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_SortingLayer
       value: 2
