@@ -13,10 +13,14 @@ public class PlayerAim : MonoBehaviour
     private Camera cam;
     private Camera canvasCamera;
     private float originalScaleX;
+    private bool aimReversed;
+
+    public void SetAimReversed(bool reversed) => aimReversed = reversed;
 
     void Start()
     {
         cam = Camera.main;
+        Cursor.visible = false;
 
         canvasCamera = canvas.renderMode == RenderMode.ScreenSpaceOverlay
             ? null
@@ -39,7 +43,7 @@ public class PlayerAim : MonoBehaviour
             canvasCamera,
             out Vector2 localPoint
         );
-        cursor.localPosition = localPoint;
+        cursor.localPosition = aimReversed ? -localPoint : localPoint;
 
         if (cam != null)
         {
@@ -53,6 +57,7 @@ public class PlayerAim : MonoBehaviour
             if (spear != null && spear.parent == playerTransform && isWindingUp)
             {
                 Vector2 direction = (Vector2)mouseWorld - (Vector2)spear.position;
+                if (aimReversed) direction = -direction;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 spear.rotation = Quaternion.Euler(0f, 0f, angle);
             }
@@ -66,7 +71,9 @@ public class PlayerAim : MonoBehaviour
 
                 if (isWindingUp)
                 {
-                    faceRight = mouseWorld.x > playerTransform.position.x;
+                    faceRight = aimReversed
+                        ? mouseWorld.x < playerTransform.position.x
+                        : mouseWorld.x > playerTransform.position.x;
                     shouldFlip = true;
                 }
                 else if (playerMovement != null && playerMovement.HorizontalInput != 0f)

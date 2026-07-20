@@ -629,8 +629,10 @@ MonoBehaviour:
   damage: 5
   returnKnockback: 12
   startLag: 0.2
-  endLag: 0.2
+  throwEndLag: 0.1
+  returnLag: 0.1
   maxChargeTime: 1.5
+  pogoFalloff: 0.7
   maxDamageMultiplier: 3
   maxSpeedMultiplier: 2
   percentPorNabo: 12
