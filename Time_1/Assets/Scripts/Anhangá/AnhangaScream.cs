@@ -54,7 +54,7 @@ public class AnhangaScream : MonoBehaviour
         if (!wasConfused)
         {
             ApplySwap();
-            if (playerAim != null) playerAim.SetAimReversed(true);
+            //if (playerAim != null) playerAim.SetAimReversed(true);
             if (confusedEffect != null) confusedEffect.SetActive(true);
             if (hudAnimator != null) hudAnimator.SetBool(confusedStateName, true);
         }

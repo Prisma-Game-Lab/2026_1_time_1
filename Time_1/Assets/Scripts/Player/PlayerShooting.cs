@@ -298,6 +298,8 @@ public class PlayerShooting : MonoBehaviour
                 spearRb.velocity = Vector2.zero;
                 spearRb.angularVelocity = 0f;
                 spearRb.simulated = false;
+                throwEndLagTimer = 0f;
+                playerMovement.SetMovementLocked(false);
                 state = SpearState.Stuck;
             }
             return;
@@ -350,6 +352,8 @@ public class PlayerShooting : MonoBehaviour
             spearRb.velocity = Vector2.zero;
             spearRb.angularVelocity = 0f;
             spearRb.simulated = false;
+            throwEndLagTimer = 0f;
+            playerMovement.SetMovementLocked(false);
             state = SpearState.Stuck;
             return;
         }
@@ -367,6 +371,8 @@ public class PlayerShooting : MonoBehaviour
         spearRb.velocity = Vector2.zero;
         spearRb.angularVelocity = 0f;
         spearRb.simulated = false;
+        throwEndLagTimer = 0f;
+        playerMovement.SetMovementLocked(false);
         state = SpearState.Stuck;
     }
     // Converte o próprio projétil em orb — NÃO cria objeto novo
