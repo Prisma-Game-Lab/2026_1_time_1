@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6629587993135455583
 Transform:
   m_ObjectHideFlags: 0
@@ -656,7 +656,7 @@ MonoBehaviour:
   currentHealth: 0
   PlayerReference: {fileID: 7133087523553522135}
   PlayerCanvas: {fileID: 0}
-  GameOverPanel: {fileID: 0}
+  GameOverPanel: {fileID: 1245780986089252475, guid: c2995655f399e16489d596084b00afdb, type: 3}
   iframeDuration: 0.75
   parryEffect: {fileID: 718480132463861317}
   parryEffectDuration: 0.3

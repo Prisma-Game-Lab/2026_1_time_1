@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 749918658708904502}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -46,7 +46,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a25a1d1caf24d54292d4a6de38b222e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SFXGroups: []
+  SFXGroups:
+  - SFXName: parry
+    SFXVariations:
+    - audioClip: {fileID: 8300000, guid: 7357ba063a640d3498b29e8618570ca3, type: 3}
+      volume: 0.047
+      minPitchShift: 1
+      maxPitchShift: 1
+  - SFXName: lanca
+    SFXVariations:
+    - audioClip: {fileID: 8300000, guid: 4a6236d537aecca48970c2501ec5b71b, type: 3}
+      volume: 0.034
+      minPitchShift: 1
+      maxPitchShift: 1
+  - SFXName: pulo
+    SFXVariations:
+    - audioClip: {fileID: 8300000, guid: d0c20610d91f4a741aedd96742a163ac, type: 3}
+      volume: 0.032
+      minPitchShift: 1
+      maxPitchShift: 1
+  - SFXName: cura
+    SFXVariations:
+    - audioClip: {fileID: 8300000, guid: 06b8a8f85efac394491825c8c25e986e, type: 3}
+      volume: 0.054
+      minPitchShift: 1
+      maxPitchShift: 1
+  - SFXName: dano
+    SFXVariations:
+    - audioClip: {fileID: 8300000, guid: e4ac16a98f1b08545b89c24b51e8ba51, type: 3}
+      volume: 0.027
+      minPitchShift: 1
+      maxPitchShift: 1
 --- !u!114 &1250086137296701712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf05df1098c4c544866179284600f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxSourceObj: {fileID: 0}
+  sfxSourceObj: {fileID: 705181942049284575, guid: c596a5aa9019a604d929e093ab583873, type: 3}
 --- !u!114 &383889891298686442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,7 +102,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 309dc314cccfd374e8afb0dcbd70683f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxName: []
+  sfxName:
+  - parry
+  - lanca
+  - pulo
+  - cura
+  - dano
   localized: 0
   pos: {x: 0, y: 0}
   soundParent: {fileID: 0}
