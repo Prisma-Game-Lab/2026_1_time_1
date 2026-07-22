@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class HealController : MonoBehaviour
 {
-    [Header("Referências")]
+    [Header("Referencias")]
     [SerializeField] private HealthController playerHealth;
     [SerializeField] private PlayerMovement playerMovement;
 
@@ -21,7 +21,7 @@ public class HealController : MonoBehaviour
     [SerializeField] private int orbsPerdidasAoTomarDano = 1;
 
     [Header("Visual (placeholder)")]
-    [Tooltip("Objeto da aura, ativado durante a canalização. Opcional.")]
+    [Tooltip("Objeto da aura, ativado durante a canalizacao. Opcional.")]
     [SerializeField] private GameObject auraCura;
 
     [Header("Debug")]
@@ -42,7 +42,6 @@ public class HealController : MonoBehaviour
         if (playerHealth != null)
             playerHealth.OnDamageTaken -= AoTomarDano;
     }
-    // Ligar à ação "Curar" no Input System.
     public void Curar(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
@@ -64,7 +63,6 @@ public class HealController : MonoBehaviour
     }
     private void IniciarCura()
     {
-        // Consome as orbs imediatamente — perdidas mesmo que a cura seja cancelada.
         if (!OrbManager.Instance.ConsumirOrbsCura()) return;
 
         curando = true;
@@ -72,7 +70,7 @@ public class HealController : MonoBehaviour
 
         playerMovement?.SetMovementLocked(true);
         if (auraCura != null) auraCura.SetActive(true);
-        AudioManager.Instance?.TocaSFX(AudioManager.Instance.EfeitoDeCura);
+        SFXManager.PlaySFX("cura");
 
     }
     private void Update()
@@ -92,10 +90,8 @@ public class HealController : MonoBehaviour
     }
     private void AoTomarDano(int dano)
     {
-        // Penalidade de orbs por dano (independente da cura).
         OrbManager.Instance?.PerderOrbsPorDano(orbsPerdidasAoTomarDano);
 
-        // Se estava curando, o dano cancela. As orbs já consumidas continuam perdidas.
         if (curando)
         {
             if (logs) Debug.Log("[CURA] Cura CANCELADA por dano. Orbs perdidas.");

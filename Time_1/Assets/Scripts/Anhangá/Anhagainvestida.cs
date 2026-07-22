@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class AnhangaInvestida : MonoBehaviour
 {
-    [Header("Referências")]
+    [Header("Referencias")]
     [SerializeField] private AnhangaMovement movement;
     [SerializeField] private AnhangaHealthController health;
-    [Tooltip("SpriteRenderer do corpo do boss — escondido enquanto na fumaça")]
+    [Tooltip("SpriteRenderer do corpo do boss escondido  na fumaca")]
     [SerializeField] private SpriteRenderer bossSprite;
-    [Tooltip("Collider do chifre (corpo). Desligado enquanto invisível/dash; religado no stagger.")]
+    [Tooltip("Collider do chifre (corpo). Desligado enquanto invisivel/dash; religado no stagger.")]
     [SerializeField] private Collider2D chifreCollider;
-    [Tooltip("Collider de DANO ALTO da investida (com seu próprio ChifreCollider). Ligado só no dash.")]
+    [Tooltip("Collider de DANO ALTO da investida (com seu proprio ChifreCollider). Ligado so no dash.")]
     [SerializeField] private Collider2D colliderInvestida;
-    [Tooltip("Fumaça.")]
+    [Tooltip("Fumaca.")]
     [SerializeField] private GameObject fumaca;
 
     [Header("Recuo")]
@@ -21,10 +21,10 @@ public class AnhangaInvestida : MonoBehaviour
     [Tooltip("Quanto tempo recua antes de sumir")]
     [SerializeField] private float tempoRecuo = 0.5f;
 
-    [Header("Sumiço / Surgimento")]
-    [Tooltip("Tempo invisível na fumaça antes de reaparecer")]
+    [Header("Sumico / Surgimento")]
+    [Tooltip("Tempo invisivel na fumaca antes de reaparecer")]
     [SerializeField] private float tempoNaFumaca = 1f;
-    [Tooltip("Pausa após surgir, antes do dash (avisa de que lado vem)")]
+    [Tooltip("Pausa apos surgir, antes do dash (avisa de que lado vem)")]
     [SerializeField] private float tempoSurgir = 0.4f;
 
     [Header("Investida (dash)")]
@@ -32,10 +32,10 @@ public class AnhangaInvestida : MonoBehaviour
     [SerializeField] private float velocidadeInvestida = 22f;
 
     [Header("Stagger")]
-    [Tooltip("Tempo parado e vulnerável no lado oposto")]
+    [Tooltip("Tempo parado e vulneravel no lado oposto")]
     [SerializeField] private float tempoStagger = 1.5f;
 
-    [Header("Áudio")]
+    [Header("audio")]
     [SerializeField] private AudioClip sfxInvestida;
 
     private Coroutine routine;
@@ -51,7 +51,7 @@ public class AnhangaInvestida : MonoBehaviour
         if (routine != null) return;
         if (movement == null)
         {
-            Debug.LogError("[AnhangaInvestida] AnhangaMovement não encontrado.", this);
+            Debug.LogError("[AnhangaInvestida] AnhangaMovement nao encontrado.", this);
             return;
         }
         routine = StartCoroutine(InvestidaRoutine());
@@ -59,7 +59,6 @@ public class AnhangaInvestida : MonoBehaviour
 
     private IEnumerator InvestidaRoutine()
     {
-        // 1) RECUO — anda pra trás (longe do player), encarando o player.
         if (fumaca != null) fumaca.SetActive(true);
         int dirPlayer = movement.DirecaoParaPlayer();
         float t = 0f;
@@ -70,14 +69,12 @@ public class AnhangaInvestida : MonoBehaviour
             yield return null;
         }
 
-        // 2) SUMIÇO — invisível, sem dano.
         if (bossSprite != null) bossSprite.enabled = false;
         if (chifreCollider != null) chifreCollider.enabled = false;
         if (fumaca != null) fumaca.SetActive(false);
 
         yield return new WaitForSeconds(tempoNaFumaca);
 
-        // 3) SURGE num lado sorteado.
         bool surgeNaEsquerda = Random.value < 0.5f;
         float xSurge = surgeNaEsquerda ? movement.MinX : movement.MaxX;
         float xAlvo = surgeNaEsquerda ? movement.MaxX : movement.MinX;
@@ -90,10 +87,9 @@ public class AnhangaInvestida : MonoBehaviour
 
         yield return new WaitForSeconds(tempoSurgir);
 
-        // 4) INVESTIDA — dash atravessando a tela com dano alto.
         if (fumaca != null) fumaca.SetActive(false);
         if (colliderInvestida != null) colliderInvestida.enabled = true;
-        if (sfxInvestida != null) AudioManager.Instance?.TocaSFX(sfxInvestida);
+        if (sfxInvestida != null) SFXManager.PlaySFX("anhanga_investida");
 
         bool chegou = false;
         while (!chegou)
@@ -102,14 +98,12 @@ public class AnhangaInvestida : MonoBehaviour
             yield return null;
         }
 
-        // 5) STAGGER — para no lado oposto, vulnerável.
         if (colliderInvestida != null) colliderInvestida.enabled = false;
-        if (chifreCollider != null) chifreCollider.enabled = true; // volta a poder ser atingido pela lança
+        if (chifreCollider != null) chifreCollider.enabled = true; // volta a poder ser atingido pela lanca
         if (health != null) health.SetVulneravel(true);
 
         yield return new WaitForSeconds(tempoStagger);
 
-        // 6) FIM — restaura.
         if (health != null) health.SetVulneravel(false);
         routine = null;
     }

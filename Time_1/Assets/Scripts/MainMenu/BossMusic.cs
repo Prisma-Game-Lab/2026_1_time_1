@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BossMusic : MonoBehaviour
 {
-    [Tooltip("Música desta cena de boss.")]
-    [SerializeField] private AudioClip musica;
+    [Tooltip("Musica desta cena de boss.")]
+    [SerializeField] private string nomeMusica = "boss";
 
     [Tooltip("Tocar em loop.")]
     [SerializeField] private bool loop = true;
@@ -19,7 +19,7 @@ public class BossMusic : MonoBehaviour
 
     public void Tocar()
     {
-        if (musica == null) return;
-        AudioManager.Instance?.TocaMusica(musica, loop);
+        if (string.IsNullOrEmpty(nomeMusica)) return;
+        MusicManager.PlayMusic(nomeMusica);
     }
 }

@@ -42,9 +42,9 @@ public class PlayerMovement : MonoBehaviour
     // Called by PlayerShooting when the spear is caught.
     public void Knockback(Vector2 velocity)
     {
-        rb.velocity        = velocity;
+        rb.velocity = velocity;
         knockbackVelocityX = velocity.x;
-        hasJumped          = false;
+        hasJumped = false;
     }
     void Update()
     {
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (rb.velocity.y < 0)
         {
-            hasJumped = false; 
+            hasJumped = false;
             rb.velocity += Vector2.up * (Physics2D.gravity.y * (fallGravityMultiplier - 1) * Time.deltaTime);
         }
         else if (rb.velocity.y > 0)
@@ -107,8 +107,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             hasJumped = true;
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.TocaSFX(AudioManager.Instance.EfeitoDePulo);
+            SFXManager.PlaySFX("pulo");
         }
     }
 }
