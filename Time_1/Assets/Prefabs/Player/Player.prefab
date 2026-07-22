@@ -528,7 +528,7 @@ MonoBehaviour:
   col: {fileID: 8034638234524184603}
   spriteRenderer: {fileID: 6183407080478769586}
   moveSpeed: 7
-  jumpForce: 8
+  jumpForce: 7
   fallGravityMultiplier: 4
   jumpCutGravityMultiplier: 3
   jumpCutVelocity: 3
