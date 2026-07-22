@@ -192,6 +192,17 @@
                 {
                     "name": "",
                     "id": "94927e95-08e4-4a19-8e41-7e43746c2477",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Curar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e80e7ec6-cdd3-4112-acca-bc5b83e47664",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",

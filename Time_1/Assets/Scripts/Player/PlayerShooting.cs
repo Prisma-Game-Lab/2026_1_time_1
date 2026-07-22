@@ -11,8 +11,12 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private int damage = 5;
     [SerializeField] private float returnKnockback = 8f;
     [SerializeField] private float startLag = 0.3f;
-    [SerializeField] private float endLag = 0.5f;
+    [SerializeField] private float throwEndLag = 0.15f;
+    [SerializeField] private float returnLag = 0.5f;
     [SerializeField] private float maxChargeTime = 1.5f;
+
+    [Header("Pogo")]
+    [SerializeField] private float pogoFalloff = 0.7f;
     [SerializeField] private float maxDamageMultiplier = 3f;
     [SerializeField] private float maxSpeedMultiplier = 2f;
 
@@ -61,6 +65,9 @@ public class PlayerShooting : MonoBehaviour
     private float currentThrowSpeed;
 
     private bool pendingThrow;
+    private float throwEndLagTimer;
+    private bool bufferedThrow;
+    private int pogoCount;
 
     private readonly HashSet<int> returnHitIds = new();
     private readonly List<ElfMover> _elfSnapshot = new();
@@ -96,6 +103,9 @@ public class PlayerShooting : MonoBehaviour
     }
     void Update()
     {
+        if (playerMovement != null && playerMovement.IsGrounded())
+            pogoCount = 0;
+
         if (spearSr != null)
         {
             if (state == SpearState.WindingUp)
@@ -135,6 +145,12 @@ public class PlayerShooting : MonoBehaviour
                 break;
 
             case SpearState.Thrown:
+                if (throwEndLagTimer > 0f)
+                {
+                    throwEndLagTimer -= Time.deltaTime;
+                    if (throwEndLagTimer <= 0f)
+                        playerMovement.SetMovementLocked(false);
+                }
                 RotateSpearToVelocity();
                 CheckElfCollision();
                 break;
@@ -149,6 +165,11 @@ public class PlayerShooting : MonoBehaviour
                 {
                     playerMovement.SetMovementLocked(false);
                     state = SpearState.Held;
+                    if (bufferedThrow)
+                    {
+                        bufferedThrow = false;
+                        StartWindUp();
+                    }
                 }
                 break;
         }
@@ -188,8 +209,10 @@ public class PlayerShooting : MonoBehaviour
         {
             if (state == SpearState.Held)
                 StartWindUp();
-            else if (state == SpearState.Stuck || state == SpearState.Thrown)
+            else if (state == SpearState.Stuck || (state == SpearState.Thrown && throwEndLagTimer <= 0f))
                 StartReturn();
+            else if (state == SpearState.Recovering)
+                bufferedThrow = true;
         }
         else if (context.canceled)
         {
@@ -225,7 +248,8 @@ public class PlayerShooting : MonoBehaviour
         currentThrowSpeed = Mathf.Lerp(throwSpeed, throwSpeed * maxSpeedMultiplier, t);
         chargeTimer = 0f;
 
-        playerMovement.SetMovementLocked(false);
+        throwEndLagTimer = throwEndLag;
+        playerMovement.LockPreservingMomentum();
 
         Vector3 worldPos = spearTransform.position;
         Quaternion worldRot = spearTransform.rotation;
@@ -273,6 +297,8 @@ public class PlayerShooting : MonoBehaviour
                 spearRb.velocity = Vector2.zero;
                 spearRb.angularVelocity = 0f;
                 spearRb.simulated = false;
+                throwEndLagTimer = 0f;
+                playerMovement.SetMovementLocked(false);
                 state = SpearState.Stuck;
             }
             return;
@@ -325,6 +351,8 @@ public class PlayerShooting : MonoBehaviour
             spearRb.velocity = Vector2.zero;
             spearRb.angularVelocity = 0f;
             spearRb.simulated = false;
+            throwEndLagTimer = 0f;
+            playerMovement.SetMovementLocked(false);
             state = SpearState.Stuck;
             return;
         }
@@ -342,6 +370,8 @@ public class PlayerShooting : MonoBehaviour
         spearRb.velocity = Vector2.zero;
         spearRb.angularVelocity = 0f;
         spearRb.simulated = false;
+        throwEndLagTimer = 0f;
+        playerMovement.SetMovementLocked(false);
         state = SpearState.Stuck;
     }
     // Converte o próprio projétil em orb — NÃO cria objeto novo
@@ -364,6 +394,8 @@ public class PlayerShooting : MonoBehaviour
         spearTransform.localPosition = spearLocalPos;
         spearTransform.localRotation = spearLocalRot;
         spearTransform.localScale = spearLocalScale;
+        throwEndLagTimer = 0f;
+        playerMovement.SetMovementLocked(false);
         state = SpearState.Held;
     }
     private void StartReturn()
@@ -430,7 +462,11 @@ public class PlayerShooting : MonoBehaviour
     private void ReceiveSpear()
     {
         if (!playerMovement.IsGrounded())
-            playerMovement.Knockback(knockbackDir * returnKnockback);
+        {
+            float knockback = returnKnockback * Mathf.Pow(pogoFalloff, pogoCount);
+            playerMovement.Knockback(knockbackDir * knockback);
+            pogoCount++;
+        }
 
         spearTransform.SetParent(spearOriginalParent);
         spearTransform.localPosition = spearLocalPos;
@@ -439,11 +475,11 @@ public class PlayerShooting : MonoBehaviour
 
         spearRb.simulated = false;
 
-        if (endLag <= 0f)
+        if (returnLag <= 0f)
             state = SpearState.Held;
         else
         {
-            lagTimer = endLag;
+            lagTimer = returnLag;
             playerMovement.LockPreservingMomentum();
             state = SpearState.Recovering;
         }

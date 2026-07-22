@@ -16,6 +16,8 @@ public class BasicProjectile : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
+        if (!enabled) return;
+
         PlayerHealthController playerHealth = other.GetComponent<PlayerHealthController>();
         if (playerHealth == null) playerHealth = other.GetComponentInParent<PlayerHealthController>();
 

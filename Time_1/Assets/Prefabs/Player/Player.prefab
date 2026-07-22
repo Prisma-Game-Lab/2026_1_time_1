@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6629587993135455583
 Transform:
   m_ObjectHideFlags: 0
@@ -623,17 +623,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spear: {fileID: 7359861519349465852}
-  throwSpeed: 25
-  returnSpeed: 20
+  throwSpeed: 40
+  returnSpeed: 40
   dropIntensity: 2
   damage: 5
   returnKnockback: 12
   startLag: 0.2
-  endLag: 0.3
+  throwEndLag: 0.1
+  returnLag: 0.1
   maxChargeTime: 1.5
+  pogoFalloff: 0.7
   maxDamageMultiplier: 3
   maxSpeedMultiplier: 2
-  percentPorNabo: 10
+  percentPorNabo: 12
   playerMovement: {fileID: 3534906634803273781}
   parryKnockbackForce: 10
   parryKnockbackUp: 4

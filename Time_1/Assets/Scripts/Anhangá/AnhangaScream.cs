@@ -8,11 +8,10 @@ public class AnhangaScream : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
 
     [Header("Action Names")]
-    [SerializeField] private string moveActionName  = "Move";
-    [SerializeField] private string throwActionName = "Throw";
-    [SerializeField] private string healActionName  = "Curar";
+    [SerializeField] private string moveActionName = "Move";
 
     [Header("References")]
+    [SerializeField] private PlayerAim   playerAim;
     [SerializeField] private GameObject  confusedEffect;
     [SerializeField] private Animator    hudAnimator;
     [SerializeField] private string      confusedStateName = "Confused";
@@ -28,15 +27,11 @@ public class AnhangaScream : MonoBehaviour
 
     private int movesRemaining;
     private InputAction moveAction;
-    private InputAction throwAction;
-    private InputAction healAction;
 
     private void Awake()
     {
         if (playerInput == null) return;
-        moveAction  = playerInput.actions[moveActionName];
-        throwAction = playerInput.actions[throwActionName];
-        healAction  = playerInput.actions[healActionName];
+        moveAction = playerInput.actions[moveActionName];
     }
 
     public void Scream(int movesDuration)
@@ -59,6 +54,7 @@ public class AnhangaScream : MonoBehaviour
         if (!wasConfused)
         {
             ApplySwap();
+            //if (playerAim != null) playerAim.SetAimReversed(true);
             if (confusedEffect != null) confusedEffect.SetActive(true);
             if (hudAnimator != null) hudAnimator.SetBool(confusedStateName, true);
         }
@@ -76,6 +72,7 @@ public class AnhangaScream : MonoBehaviour
         if (movesRemaining <= 0)
         {
             RestoreBindings();
+            if (playerAim != null) playerAim.SetAimReversed(false);
             if (confusedEffect != null) confusedEffect.SetActive(false);
             if (hudAnimator != null) hudAnimator.SetBool(confusedStateName, false);
         }
@@ -84,14 +81,12 @@ public class AnhangaScream : MonoBehaviour
     private void ApplySwap()
     {
         SwapMoveDirections(moveAction);
-        SwapTwoActions(throwAction, healAction);
     }
 
     private void RestoreBindings()
     {
         moveAction?.RemoveAllBindingOverrides();
-        throwAction?.RemoveAllBindingOverrides();
-        healAction?.RemoveAllBindingOverrides();
+        if (playerAim != null) playerAim.SetAimReversed(false);
     }
 
     // Swaps opposite composite pairs (left↔right, up↔down) of a 2D Vector action.
@@ -121,20 +116,6 @@ public class AnhangaScream : MonoBehaviour
             action.ApplyBindingOverride(indicesA[i], pathB);
             action.ApplyBindingOverride(indicesB[i], pathA);
         }
-    }
-
-    // Swaps all bindings between two actions index-by-index.
-    private static void SwapTwoActions(InputAction a, InputAction b)
-    {
-        var aPaths = new string[a.bindings.Count];
-        var bPaths = new string[b.bindings.Count];
-        for (int i = 0; i < a.bindings.Count; i++) aPaths[i] = a.bindings[i].effectivePath;
-        for (int i = 0; i < b.bindings.Count; i++) bPaths[i] = b.bindings[i].effectivePath;
-
-        int aCount = Mathf.Min(a.bindings.Count, bPaths.Length);
-        int bCount = Mathf.Min(b.bindings.Count, aPaths.Length);
-        for (int i = 0; i < aCount; i++) a.ApplyBindingOverride(i, bPaths[i]);
-        for (int i = 0; i < bCount; i++) b.ApplyBindingOverride(i, aPaths[i]);
     }
 
     private void OnDisable()
