@@ -6848,7 +6848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {fileID: 2083654214}
-  velocidade: 30
+  velocidade: 26
   numeroDeCorridasMin: 2
   numeroDeCorridasMax: 3
   telegraphDuration: 0.99
@@ -7004,7 +7004,7 @@ MonoBehaviour:
   arrowPrefab: {fileID: 4772115686365810810, guid: 3d0f8485bf5958e49ad20973cdf4b175, type: 3}
   player: {fileID: 1082353288}
   mapCenter: {fileID: 823151987}
-  spawnRadius: 10
+  spawnRadius: 9.5
   spawnHeightBuffer: 1
   arrowLaunchDelay: 0.8
   arrowLifetime: 6
@@ -7023,8 +7023,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 1556960836}
   moveActionName: Move
-  throwActionName: Throw
-  healActionName: Curar
   playerAim: {fileID: 1905114931}
   confusedEffect: {fileID: 1556960837}
   hudAnimator: {fileID: 1905114930}
