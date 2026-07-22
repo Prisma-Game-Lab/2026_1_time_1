@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnhangaRaizes : MonoBehaviour
 {
-    [Header("Referências")]
+    [Header("Referencias")]
     [SerializeField] private AnhangaMovement movement;
     [SerializeField] private GameObject raizPrefab;
     [SerializeField] private GameObject brilhoOlhos;
@@ -12,9 +12,9 @@ public class AnhangaRaizes : MonoBehaviour
     [Header("Layout das Brechas")]
     [SerializeField] private int numeroDeSlots = 9;
     [SerializeField] private int numeroDeBrechas = 3;
-    [Tooltip("Altura do chão onde as raízes nascem")]
+    [Tooltip("Altura do chao onde as raizes nascem")]
     [SerializeField] private float groundY = -3.5f;
-    [Tooltip("Margem nas bordas pra não nascer colado nas paredes")]
+    [Tooltip("Margem nas bordas pra nao nascer colado nas paredes")]
     [SerializeField] private float margemBorda = 0.5f;
 
     [Header("Escala")]
@@ -22,16 +22,16 @@ public class AnhangaRaizes : MonoBehaviour
     [SerializeField] private float escalaFinal = 1f;
 
     [Header("Tempos")]
-    [Tooltip("Fase 1 — pequena, SEM dano")]
+    [Tooltip("Fase 1 e pequena, SEM dano")]
     [SerializeField] private float tempoAviso = 0.8f;
-    [Tooltip("Fase 2 — cresce; o DANO liga aqui")]
+    [Tooltip("Fase 2 e cresce; o DANO liga aqui")]
     [SerializeField] private float tempoCrescimento = 0.25f;
-    [Tooltip("Fase 3 — erguida")]
+    [Tooltip("Fase 3 e erguida")]
     [SerializeField] private float tempoEmPe = 1.5f;
-    [Tooltip("Fase 4 — desce e some")]
+    [Tooltip("Fase 4 e desce e some")]
     [SerializeField] private float tempoRecolhe = 0.4f;
 
-    [Header("Áudio")]
+    [Header("audio")]
     [SerializeField] private AudioClip sfxRaizes;
 
     private Coroutine routine;
@@ -80,14 +80,12 @@ public class AnhangaRaizes : MonoBehaviour
         }
 
         if (brilhoOlhos != null) brilhoOlhos.SetActive(true);
-        if (sfxRaizes != null) AudioManager.Instance?.TocaSFX(sfxRaizes);
+        if (sfxRaizes != null) SFXManager.PlaySFX("anhanga_raizes");
 
-        // Aviso — pequenas, sem dano.
         yield return new WaitForSeconds(tempoAviso);
 
         if (brilhoOlhos != null) brilhoOlhos.SetActive(false);
 
-        // Crescimento — dano LIGA.
         for (int i = 0; i < colliders.Count; i++)
             if (colliders[i] != null) colliders[i].enabled = true;
 
@@ -101,9 +99,7 @@ public class AnhangaRaizes : MonoBehaviour
             yield return null;
         }
         AplicarEscala(raizes, escalaFinal);
-        // Em pé.
         yield return new WaitForSeconds(tempoEmPe);
-        // Recolhe.
         t = 0f;
         while (t < tempoRecolhe)
         {

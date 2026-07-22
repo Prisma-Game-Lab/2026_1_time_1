@@ -4,21 +4,21 @@ using UnityEngine;
 public class CoalemosAI : MonoBehaviour
 {
     [Header("Attack References")]
-    [SerializeField] private CoalemosChicken   chickenAttack;
+    [SerializeField] private CoalemosChicken chickenAttack;
     [SerializeField] private CoalemosHandAttack handAttack;
-    [SerializeField] private CoalemosElf        elfAttack;
+    [SerializeField] private CoalemosElf elfAttack;
 
     [Header("Chicken Rain Settings")]
-    [SerializeField] private int   chickenCount    = 20;
+    [SerializeField] private int chickenCount = 20;
     [SerializeField] private float chickenInterval = 0.5f;
 
     [Header("Hand Attack Settings")]
     [SerializeField] private float swipeHeight = -3f;
 
     [Header("Timing")]
-    [SerializeField] private float startDelay          = 4f;
+    [SerializeField] private float startDelay = 4f;
     [SerializeField] private float delayBetweenAttacks = 3f;
-    [SerializeField] private float comboInternalDelay  = 0.4f;
+    [SerializeField] private float comboInternalDelay = 0.4f;
 
     private enum AttackMove
     {
@@ -44,9 +44,9 @@ public class CoalemosAI : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.TocaMusica(AudioManager.Instance.MusicaDoBoss,true); 
+        MusicManager.PlayMusic("boss");
         attackDelay = new WaitForSeconds(delayBetweenAttacks);
-        comboDelay  = new WaitForSeconds(comboInternalDelay);
+        comboDelay = new WaitForSeconds(comboInternalDelay);
         BuildDeck();
         StartCoroutine(AttackCycle());
     }
