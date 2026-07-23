@@ -45,12 +45,12 @@ public class NezhaAI : MonoBehaviour
                     yield return new WaitUntil(() => !fireballAttack.IsAttacking);
                     break;
 
-                case 1: // NOVO — Chute
+                case 1: // NOVO ï¿½ Chute
                     chuteAttack.Iniciar();
                     yield return new WaitUntil(() => !chuteAttack.IsAttacking);
                     break;
 
-                case 2: // NOVO — Teleporte + esmagamento
+                case 2: // NOVO ï¿½ Teleporte + esmagamento
                     teleporteSlamAttack.Iniciar();
                     yield return new WaitUntil(() => !teleporteSlamAttack.IsAttacking);
                     break;
@@ -88,16 +88,20 @@ public class NezhaAI : MonoBehaviour
         float total = 0f;
         for (int i = 0; i < weights.Length; i++) total += weights[i];
 
-        if (total <= 0f) return 0;
+        if (total <= 0f) return -1;
 
         float roll = Random.value * total;
         for (int i = 0; i < weights.Length; i++)
         {
-            if (roll < weights[i]) return i;
             roll -= weights[i];
+            if (roll < 0f) return i;
         }
 
-        return 0;
+        
+        for (int i = weights.Length - 1; i >= 0; i--)
+            if (weights[i] > 0f) return i;
+
+        return -1;
     }
 
     private float GetEdgeX()

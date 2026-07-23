@@ -3,9 +3,11 @@ using UnityEngine;
 public class Fireball : BasicProjectile
 {
     [SerializeField] private float gravityScale = 2f;
+    [SerializeField] private float lifetime = 4f;
 
     private Vector2 velocity;
     private bool launched;
+    private float lifeTimer;
 
     public void Launch(Vector2 direction)
     {
@@ -22,6 +24,9 @@ public class Fireball : BasicProjectile
     protected override void Update()
     {
         if (!launched) return;
+
+        lifeTimer += Time.deltaTime;
+        if (lifeTimer >= lifetime) { Destroy(gameObject); return; }
 
         velocity.y += Physics2D.gravity.y * gravityScale * Time.deltaTime;
         transform.position += (Vector3)(velocity * Time.deltaTime);

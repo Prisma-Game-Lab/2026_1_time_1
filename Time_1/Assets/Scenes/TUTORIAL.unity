@@ -5883,7 +5883,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projetilPrefab: {fileID: 3565455818903472802, guid: 59803ceea343b194a81c8402d2b10a29, type: 3}
   pontoSpawn: {fileID: 911800469}
-  limiteX: -20
+  mirarNoPlayer: 1
+  alvo: {fileID: 0}
+  offsetAngulo: 0
+  distanciaMaxima: 25
   tempoLimite: 6
 --- !u!4 &1368830018
 Transform:
@@ -8153,6 +8156,10 @@ PrefabInstance:
     - target: {fileID: 7133087523553522135, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7133087523553522135, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8290600747932042379, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
       propertyPath: m_Camera
