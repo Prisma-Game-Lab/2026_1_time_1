@@ -66,6 +66,9 @@ MonoBehaviour:
   - musicName: ea
     musicClip: {fileID: 8300000, guid: 739be9cc3db089f4a8f9371fed88fd6f, type: 3}
     volume: 0.101
+  - musicName: boss
+    musicClip: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
+    volume: 0.101
 --- !u!114 &5301473440715809330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d744501ebbda4249a94d540ac2c12ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMusicName: menu
+  defaultMusicName: boss
   fadeInTime: 0
   fadeOutTime: 0
   playOnStart: 1

@@ -77,6 +77,28 @@ MonoBehaviour:
       volume: 0.027
       minPitchShift: 1
       maxPitchShift: 1
+  - SFXName: galinha_explosao
+    SFXVariations:
+    - audioClip: {fileID: 8300000, guid: b69bf5442054f104c950a4dc4eaf7351, type: 3}
+      volume: 0.027
+      minPitchShift: 1
+      maxPitchShift: 1
+    - audioClip: {fileID: 8300000, guid: b69bf5442054f104c950a4dc4eaf7351, type: 3}
+      volume: 0.027
+      minPitchShift: 1
+      maxPitchShift: 1
+  - SFXName: duende_ataque
+    SFXVariations:
+    - audioClip: {fileID: 8300000, guid: 3de673c2fc083b74abe89ba5304849c9, type: 3}
+      volume: 0.027
+      minPitchShift: 1
+      maxPitchShift: 1
+  - SFXName: duende_morte
+    SFXVariations:
+    - audioClip: {fileID: 8300000, guid: e4cb0f94806ef664186203918e61879d, type: 3}
+      volume: 0.027
+      minPitchShift: 1
+      maxPitchShift: 1
 --- !u!114 &1250086137296701712
 MonoBehaviour:
   m_ObjectHideFlags: 0
