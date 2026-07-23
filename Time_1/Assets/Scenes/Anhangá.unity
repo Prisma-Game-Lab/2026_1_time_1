@@ -6967,7 +6967,7 @@ PrefabInstance:
       objectReference: {fileID: 823151987}
     - target: {fileID: 1075362651006491005, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
       propertyPath: arrowSpeed
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1075362651006491005, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
       propertyPath: spawnRadius
@@ -7031,7 +7031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5821022186662121867, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
       propertyPath: velocidadeInvestida
-      value: 30
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 6513730409082068644, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
       propertyPath: pesoArrow
