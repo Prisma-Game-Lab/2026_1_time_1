@@ -6953,6 +6953,10 @@ PrefabInstance:
       propertyPath: confusedEffect
       value: 
       objectReference: {fileID: 1556960837}
+    - target: {fileID: 855911154949338050, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
+      propertyPath: screamDuration
+      value: 2.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1075362651006491005, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
       propertyPath: player
       value: 
@@ -6961,6 +6965,14 @@ PrefabInstance:
       propertyPath: mapCenter
       value: 
       objectReference: {fileID: 823151987}
+    - target: {fileID: 1075362651006491005, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
+      propertyPath: arrowSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1075362651006491005, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
+      propertyPath: spawnRadius
+      value: 9.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1190953772131428527, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
       propertyPath: player
       value: 
@@ -7016,6 +7028,34 @@ PrefabInstance:
     - target: {fileID: 4047506365685839270, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5821022186662121867, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
+      propertyPath: velocidadeInvestida
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513730409082068644, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
+      propertyPath: pesoArrow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513730409082068644, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
+      propertyPath: pesoRaizes
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513730409082068644, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
+      propertyPath: arrowInterval
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513730409082068644, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
+      propertyPath: pesoInvestida
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146781105255706547, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
+      propertyPath: tempoCrescimento
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474565117679050340, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
+      propertyPath: velocidade
+      value: 26
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
