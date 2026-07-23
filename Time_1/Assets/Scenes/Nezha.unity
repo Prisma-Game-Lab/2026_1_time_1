@@ -178,6 +178,50 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 524819274398448224}
+    - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: chuteAttack
+      value: 
+      objectReference: {fileID: 391346760}
+    - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: weightChute
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: weightFireball
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: teleporteSlamAttack
+      value: 
+      objectReference: {fileID: 391346759}
+    - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: weightTeleporteSlam
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523082738790159110, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5375
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523082738790159110, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.46703124
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523082738790159110, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.335
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451071781742208489, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5254297
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451071781742208489, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0232805
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451071781742208489, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.39
+      objectReference: {fileID: 0}
     - target: {fileID: 4537466160486295610, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
       propertyPath: flightTime
       value: 1
@@ -186,6 +230,22 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 128694468}
+    - target: {fileID: 6723637712725970088, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2b7a4590bf4fdaf4db3209b84af5c5b2, type: 3}
+    - target: {fileID: 6723637712725970088, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6723637712725970088, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6723637712725970088, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6723637712725970088, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
       propertyPath: m_SortingOrder
       value: 0
@@ -213,7 +273,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1847299950495477742, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 391346760}
+    - targetCorrespondingSourceObject: {fileID: 1847299950495477742, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 391346759}
   m_SourcePrefab: {fileID: 100100000, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
 --- !u!4 &47484656 stripped
 Transform:
@@ -368,6 +434,94 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &391346752 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1847299950495477742, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+  m_PrefabInstance: {fileID: 47484655}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &391346755 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 8816219735419107528, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+  m_PrefabInstance: {fileID: 47484655}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &391346757 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6769297392770798520, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+  m_PrefabInstance: {fileID: 47484655}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391346752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d89bb9a1c913d428ebbb36d35c10bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &391346759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391346752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc9066e167449048a64e3692aeec3f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 391346757}
+  playerTransform: {fileID: 128694468}
+  rb: {fileID: 391346755}
+  pontoAcerto: {fileID: 0}
+  deslocamentoAtras: {x: 0, y: -1}
+  forcaParaCima: 30
+  forcaLateralParte1: 0
+  parte1DaDano: 0
+  danoParte1: 1
+  tempoAntesDoSlam: 0.35
+  alturaAcima: 4
+  velocidadeSlam: 45
+  duracaoSlam: 0.5
+  raioAcerto: 0.8
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  danoSlam: 1
+  knockbackLateral: 6
+  knockbackVertical: 8
+  parryavel: 1
+  recuperacao: 0.4
+  prenderNaArena: 1
+  cam: {fileID: 0}
+  margem: 1
+  limiteMin: {x: 0, y: 0}
+  limiteMax: {x: 0, y: 0}
+--- !u!114 &391346760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391346752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13c0fea3c6cf3b40a20b1bc251a3550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 391346757}
+  playerTransform: {fileID: 128694468}
+  rb: {fileID: 391346755}
+  pontoAcerto: {fileID: 0}
+  tempoPreparacao: 0.6
+  duracaoChute: 0.4
+  recuperacao: 0.4
+  velocidadeChute: 40
+  raioAcerto: 0.8
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  dano: 1
+  knockbackForca: 14
+  knockbackCima: 4
+  parryavel: 1
 --- !u!1 &519420028 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3542975621074989868, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}

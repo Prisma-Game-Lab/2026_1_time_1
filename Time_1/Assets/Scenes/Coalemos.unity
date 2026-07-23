@@ -521,14 +521,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
       propertyPath: SFXGroups.Array.size
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
       propertyPath: SFXGroups.Array.data[5].SFXName
       value: galinha_explosao
       objectReference: {fileID: 0}
     - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXName
+      value: duende_ataque
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[7].SFXName
+      value: duende_morte
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
       propertyPath: SFXGroups.Array.data[5].SFXVariations.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[7].SFXVariations.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
@@ -536,15 +552,95 @@ PrefabInstance:
       value: 0.027
       objectReference: {fileID: 0}
     - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[5].SFXVariations.Array.data[1].volume
+      value: 0.027
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[0].volume
+      value: 0.027
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[1].volume
+      value: 0.027
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[7].SFXVariations.Array.data[0].volume
+      value: 0.027
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[7].SFXVariations.Array.data[1].volume
+      value: 0.027
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
       propertyPath: SFXGroups.Array.data[5].SFXVariations.Array.data[0].audioClip
       value: 
       objectReference: {fileID: 8300000, guid: b69bf5442054f104c950a4dc4eaf7351, type: 3}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[5].SFXVariations.Array.data[1].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b69bf5442054f104c950a4dc4eaf7351, type: 3}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[0].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3de673c2fc083b74abe89ba5304849c9, type: 3}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[1].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e4cb0f94806ef664186203918e61879d, type: 3}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[7].SFXVariations.Array.data[0].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e4cb0f94806ef664186203918e61879d, type: 3}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[7].SFXVariations.Array.data[1].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e4cb0f94806ef664186203918e61879d, type: 3}
     - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
       propertyPath: SFXGroups.Array.data[5].SFXVariations.Array.data[0].maxPitchShift
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
       propertyPath: SFXGroups.Array.data[5].SFXVariations.Array.data[0].minPitchShift
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[5].SFXVariations.Array.data[1].maxPitchShift
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[5].SFXVariations.Array.data[1].minPitchShift
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[0].maxPitchShift
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[0].minPitchShift
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[1].maxPitchShift
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[1].minPitchShift
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[7].SFXVariations.Array.data[0].maxPitchShift
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[7].SFXVariations.Array.data[0].minPitchShift
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[7].SFXVariations.Array.data[1].maxPitchShift
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[7].SFXVariations.Array.data[1].minPitchShift
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3495,7 +3591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6219499
+      value: -0.6732199
       objectReference: {fileID: 0}
     - target: {fileID: 5119046920775485376, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_Name
@@ -3565,7 +3661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff6300065fd36144af15716b083f5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nomeMusica: Koalemos
+  nomeMusica: boss
   loop: 0
   tocarNoStart: 0
 --- !u!1 &1678887991
