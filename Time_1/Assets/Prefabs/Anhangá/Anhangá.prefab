@@ -286,8 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 0}
   moveActionName: Move
-  throwActionName: Throw
-  healActionName: Curar
+  playerAim: {fileID: 0}
   confusedEffect: {fileID: 0}
   hudAnimator: {fileID: 0}
   confusedStateName: Confused
@@ -625,7 +624,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.45, y: 0.7, z: 0}
-  m_LocalScale: {x: 2.719835, y: 3.8774767, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4047506365685839270}
@@ -668,10 +667,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1309844769
+  m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: be418abf9ddcbf3439622925fceadc46, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d4a6a0546a809d841895a5511de2a4fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
