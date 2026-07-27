@@ -4,10 +4,11 @@ public class NezhaAI : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private NezhaMovement movement;
-    [SerializeField] private NezhaFireball fireballAttack;
-    [SerializeField] private NezhaChute chuteAttack;                 
-    [SerializeField] private NezhaTeleporteSlam teleporteSlamAttack; 
-    [SerializeField] private Camera cam;
+    [SerializeField] private NezhaFireball     fireballAttack;
+    [SerializeField] private NezhaChute        chuteAttack;
+    [SerializeField] private NezhaTeleporteSlam teleporteSlamAttack;
+    [SerializeField] private NezhaSlam         slamAttack;
+    [SerializeField] private Camera            cam;
 
     [Header("Timing")]
     [SerializeField] private float minIdleTime = 1.2f;
@@ -18,9 +19,10 @@ public class NezhaAI : MonoBehaviour
     [SerializeField] private float edgeMargin = 1.5f;
 
     [Header("Attack Weights")]
-    [SerializeField] private float weightFireball = 1f;
-    [SerializeField] private float weightChute = 1f;          
-    [SerializeField] private float weightTeleporteSlam = 1f;  
+    [SerializeField] private float weightFireball     = 1f;
+    [SerializeField] private float weightChute        = 1f;
+    [SerializeField] private float weightTeleporteSlam = 1f;
+    [SerializeField] private float weightSlam         = 1f;
 
     private int lastAttack = -1;
 
@@ -50,9 +52,14 @@ public class NezhaAI : MonoBehaviour
                     yield return new WaitUntil(() => !chuteAttack.IsAttacking);
                     break;
 
-                case 2: // NOVO � Teleporte + esmagamento
+                case 2:
                     teleporteSlamAttack.Iniciar();
                     yield return new WaitUntil(() => !teleporteSlamAttack.IsAttacking);
+                    break;
+
+                case 3:
+                    slamAttack.Iniciar();
+                    yield return new WaitUntil(() => !slamAttack.IsAttacking);
                     break;
             }
         }
@@ -80,7 +87,7 @@ public class NezhaAI : MonoBehaviour
     }
     private int PickAttack()
     {
-        float[] weights = { weightFireball, weightChute, weightTeleporteSlam };
+        float[] weights = { weightFireball, weightChute, weightTeleporteSlam, weightSlam };
 
         if (lastAttack >= 0 && lastAttack < weights.Length)
             weights[lastAttack] = 0f;
