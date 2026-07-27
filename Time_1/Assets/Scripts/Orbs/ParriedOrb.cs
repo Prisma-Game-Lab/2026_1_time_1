@@ -35,7 +35,7 @@ public class ParriedOrb : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+        sr = transform.root.GetComponentInChildren<SpriteRenderer>();
     }
 
     private void OnEnable()

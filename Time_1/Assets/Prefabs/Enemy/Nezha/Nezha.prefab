@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 8816219735419107528}
   - component: {fileID: 3094117739503362040}
   - component: {fileID: 4537466160486295610}
+  - component: {fileID: 2566423536601295276}
   m_Layer: 8
   m_Name: Nezha
   m_TagString: Untagged
@@ -198,12 +199,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 6769297392770798520}
   fireballAttack: {fileID: 4537466160486295610}
+  chuteAttack: {fileID: 0}
+  teleporteSlamAttack: {fileID: 0}
+  slamAttack: {fileID: 0}
   cam: {fileID: 0}
   minIdleTime: 1.2
   maxIdleTime: 2.5
   edgeMoveProbability: 0.3
   edgeMargin: 1.5
   weightFireball: 1
+  weightChute: 1
+  weightTeleporteSlam: 1
+  weightSlam: 1
 --- !u!114 &4537466160486295610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +237,36 @@ MonoBehaviour:
   edgeMargin: 1.5
   walkTimeout: 3
   landTimeout: 5
+--- !u!114 &2566423536601295276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847299950495477742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783a98b598fd03049a96e8ab2848ab23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 6769297392770798520}
+  rb: {fileID: 8816219735419107528}
+  centerTransform: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  shockwavePrefab: {fileID: 9086345754621319686, guid: 2559caee73ef79d42bc35a404965aeaf, type: 3}
+  fireballPrefab: {fileID: 4507950110497743581, guid: 255b9f9a5966f9845ba9a8098cfef90c, type: 3}
+  centerThreshold: 0.3
+  walkTimeout: 3
+  jumpForce: 18
+  apexTimeout: 3
+  hangTime: 0.3
+  slamSpeed: 30
+  slamTimeout: 3
+  shockwaveCount: 2
+  fireballCount: 8
+  fireballSpread: 70
+  fireballLaunchSpeed: 20
+  recoveryTime: 0.5
 --- !u!1 &3484288027399402318
 GameObject:
   m_ObjectHideFlags: 0

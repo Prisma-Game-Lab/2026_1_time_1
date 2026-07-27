@@ -71,8 +71,8 @@ public class PlayerHealthController : HealthController
 
     public override void Die()
     {
-        PlayerReference.SetActive(false);
-        PlayerCanvas.SetActive(false);
+        if (PlayerReference != null) PlayerReference.SetActive(false);
+        if (PlayerCanvas != null) PlayerCanvas.SetActive(false);
         if (GameOverPanel != null) GameOverPanel.SetActive(true);
     }
 }

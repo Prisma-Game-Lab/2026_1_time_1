@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class AnhangaCorrida : MonoBehaviour
 {
-    [Header("Referências")]
+    [Header("Referencias")]
     [SerializeField] private AnhangaMovement movement;
 
     [Header("Corrida")]
     [Tooltip("Velocidade horizontal da chifrada")]
     [SerializeField] private float velocidade = 8f;
-    [Tooltip("Número MÍNIMO de travessias por ataque")]
+    [Tooltip("Numero MINIMO de travessias por ataque")]
     [SerializeField] private int numeroDeCorridasMin = 5;
-    [Tooltip("Número MÁXIMO de travessias (= min para valor fixo)")]
+    [Tooltip("Numero MAXIMO de travessias (= min para valor fixo)")]
     [SerializeField] private int numeroDeCorridasMax = 6;
 
     [Header("Tempos")]
@@ -21,7 +21,7 @@ public class AnhangaCorrida : MonoBehaviour
     [Tooltip("Pausa ao bater na parede antes de virar e voltar")]
     [SerializeField] private float pausaNaBorda = 0.25f;
 
-    [Header("Áudio")]
+    [Header("Audio")]
     [SerializeField] private AudioClip sfxChifrada;
 
     private Coroutine routine;
@@ -36,14 +36,13 @@ public class AnhangaCorrida : MonoBehaviour
         if (routine != null) return;
         if (movement == null)
         {
-            Debug.LogError("[AnhangaCorrida] AnhangaMovement não encontrado.", this);
+            Debug.LogError("[AnhangaCorrida] AnhangaMovement nao encontrado.", this);
             return;
         }
         routine = StartCoroutine(CorridaRoutine());
     }
     private IEnumerator CorridaRoutine()
     {
-        // Direção inicial: na direção do player.
         int direcao = 1;
         if (movement.Player != null)
             direcao = movement.Player.position.x >= transform.position.x ? 1 : -1;
@@ -54,7 +53,7 @@ public class AnhangaCorrida : MonoBehaviour
         if (telegraphDuration > 0f)
             yield return new WaitForSeconds(telegraphDuration);
 
-        if (sfxChifrada != null) AudioManager.Instance?.TocaSFX(sfxChifrada);
+        if (sfxChifrada != null) SFXManager.PlaySFX("anhanga_chifrada");
 
         int corridas = Random.Range(numeroDeCorridasMin, numeroDeCorridasMax + 1);
         while (corridas > 0)

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 public class CutsceneController : MonoBehaviour
 {
-    [Header("Referências")]
+    [Header("Referencias")]
     [SerializeField] private GameObject painelCutscene;
     [SerializeField] private VideoPlayer videoPlayer;
 
@@ -36,7 +36,7 @@ public class CutsceneController : MonoBehaviour
         if (painelCutscene != null)
             painelCutscene.SetActive(true);
 
-        AudioManager.Instance?.ParaMusica();
+        MusicManager.StartFadeOut();
 
         if (videoPlayer != null)
         {

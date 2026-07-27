@@ -28,6 +28,6 @@ public class DamageSound : MonoBehaviour
     private void AoLevarDano(int dano)
     {
         if (clipDano == null) return;
-        AudioManager.Instance?.TocaSFX(clipDano);
+        SFXManager.PlaySFX("dano");
     }
 }

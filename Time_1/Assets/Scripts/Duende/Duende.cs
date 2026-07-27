@@ -19,7 +19,7 @@ public class Duende : MonoBehaviour
     [SerializeField] private float directionChangeIntervalMax = 2f;
 
     [Header("Pulos")]
-    [SerializeField] private float jumpFrequency = 1f;   
+    [SerializeField] private float jumpFrequency = 1f;
     [SerializeField] private float jumpForceMin = 8f;
     [SerializeField] private float jumpForceMax = 14f;
 
@@ -51,7 +51,7 @@ public class Duende : MonoBehaviour
     private bool _isAlive = true;
 
     // Movimento
-    private float _currentDirectionX = 1f;  
+    private float _currentDirectionX = 1f;
     private float _directionTimer = 0f;
     private float _nextDirectionChange;
 
@@ -173,7 +173,7 @@ public class Duende : MonoBehaviour
             forcaX = _currentDirectionX * moveSpeed * 0.3f;
         }
         _rb.velocity = new Vector2(forcaX, forcaY);
-        AudioManager.Instance?.TocaSFX(sfxJump);
+        SFXManager.PlaySFX("duende_pulo");
     }
     private float JumpFrequencyToInterval(float frequency)
     {
@@ -235,7 +235,7 @@ public class Duende : MonoBehaviour
                 projRb.velocity = dir * projectileSpeed;
         }
 
-        AudioManager.Instance?.TocaSFX(sfxAttack);
+        SFXManager.PlaySFX("duende_ataque");
     }
     private void FlipSprite()
     {
@@ -263,7 +263,7 @@ public class Duende : MonoBehaviour
         _rb.simulated = false;
         _col.enabled = false;
 
-        AudioManager.Instance?.TocaSFX(sfxDeath);
+        SFXManager.PlaySFX("duende_morte");
         gameObject.SetActive(false);
     }
     private void OnDrawGizmosSelected()

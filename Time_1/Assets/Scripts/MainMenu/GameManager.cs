@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    [Header("Configurações do Jogo")]
+    [Header("Configuracoes do Jogo")]
     public int totalBosses = 3;
     public int CurrentBossIndex { get; private set; } = 0;
     public bool IsGameOver { get; private set; } = false;
@@ -31,21 +31,21 @@ public class GameManager : MonoBehaviour
             VenceuJogo();
         else
         {
-            AudioManager.Instance?.TocaMusica(AudioManager.Instance.MusicaDoBoss);
+            MusicManager.PlayMusic("boss");
             CarregarCenaBoss(CurrentBossIndex);
         }
     }
     public void GameOver()
     {
         IsGameOver = true;
-        AudioManager.Instance?.ParaMusica();
+        MusicManager.StartFadeOut();
         Debug.Log("Noob down!");
         SceneManager.LoadScene("GameOver");
     }
     private void VenceuJogo()
     {
-        AudioManager.Instance?.ParaMusica();
-        Debug.Log("Você venceu todos os bosses!");
+        MusicManager.StartFadeOut();
+        Debug.Log("Voce venceu todos os bosses!");
         SceneManager.LoadScene("WinScreen");
     }
     private void CarregarCenaBoss(int bossIndex)
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     }
     public void IrParaMenu()
     {
-        AudioManager.Instance?.TocaMusica(AudioManager.Instance.MusicaDoMenu);
+        MusicManager.PlayMusic("menu");
         SceneManager.LoadScene("MainMenu");
     }
 }

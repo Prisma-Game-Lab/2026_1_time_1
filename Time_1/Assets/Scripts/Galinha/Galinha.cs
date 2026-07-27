@@ -56,7 +56,7 @@ public class Galinha : MonoBehaviour
     {
         if (hasExploded) return;
 
-        float lateralVelocity = lateralIntensity * lateralFrequency* Mathf.Cos(Time.time * lateralFrequency + lateralPhaseOffset)* (2f * Mathf.PI);
+        float lateralVelocity = lateralIntensity * lateralFrequency * Mathf.Cos(Time.time * lateralFrequency + lateralPhaseOffset) * (2f * Mathf.PI);
         float gravityExtra = Physics2D.gravity.y * gravityMultiplier * Time.deltaTime;
         float targetFallVelocity = rb.velocity.y + (-fallSpeed * Time.deltaTime) + gravityExtra;
         float clampedY = Mathf.Clamp(targetFallVelocity, -maxFallSpeed, 0f);
@@ -132,10 +132,10 @@ public class Galinha : MonoBehaviour
         }
         if (explosionVFXPrefab != null)
             Instantiate(explosionVFXPrefab, center, Quaternion.identity);
-        AudioManager.Instance?.TocaSFX(explosionSFX);
+        SFXManager.PlaySFX("galinha_explosao");
         Destroy(gameObject);
     }
-    private static bool IsInLayerMask(int layer, LayerMask mask) =>(mask.value & (1 << layer)) != 0;
+    private static bool IsInLayerMask(int layer, LayerMask mask) => (mask.value & (1 << layer)) != 0;
     private void OnDrawGizmosSelected()
     {
         Vector2 center = explosionPoint != null

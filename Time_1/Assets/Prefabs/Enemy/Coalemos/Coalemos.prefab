@@ -489,6 +489,7 @@ GameObject:
   - component: {fileID: 3379156677600858735}
   - component: {fileID: 1461117428605098694}
   - component: {fileID: 750945551157952784}
+  - component: {fileID: 1762049495412972827}
   m_Layer: 7
   m_Name: Coalemos
   m_TagString: Untagged
@@ -707,3 +708,38 @@ MonoBehaviour:
   - {fileID: 8689566941947030917}
   - {fileID: 1764956835627336540}
   - {fileID: 6831378374631310168}
+--- !u!70 &1762049495412972827
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8937436732187326094}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5306413, y: 4.4191813}
+  m_Size: {x: 3.2552822, y: 3.8545558}
+  m_Direction: 0
