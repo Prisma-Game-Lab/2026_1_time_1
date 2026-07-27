@@ -70,7 +70,7 @@ public class HealController : MonoBehaviour
 
         playerMovement?.SetMovementLocked(true);
         if (auraCura != null) auraCura.SetActive(true);
-        SFXManager.PlaySFX("cura");
+        //SFXManager.PlaySFX("cura");
 
     }
     private void Update()

@@ -79,7 +79,7 @@ public class GerenciadorTutorial : MonoBehaviour
     private bool inscritoOrbs;
 
     // ---------------------------------------------------------------
-
+    
     void Start()
     {
         if (vidaPlayer != null)
