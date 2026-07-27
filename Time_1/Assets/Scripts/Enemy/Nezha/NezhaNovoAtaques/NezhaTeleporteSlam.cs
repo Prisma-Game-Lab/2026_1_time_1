@@ -3,52 +3,49 @@ using UnityEngine;
 
 public class NezhaTeleporteSlam : MonoBehaviour
 {
-    [Header("Referências")]
+    [Header("Referencias")]
     [SerializeField] private NezhaMovement movement;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Rigidbody2D rb;
-    [Tooltip("Ponto de origem do teste de acerto do esmagamento. Se vazio, usa este transform.")]
-    [SerializeField] private Transform pontoAcerto;
+    [Tooltip("Hitbox do esmagamento: collider FILHO (Is Trigger) com o script ChifreCollider. " +
+             "Fica ligada so durante a descida. O dano e o knockback ficam no ChifreCollider.")]
+    [SerializeField] private Collider2D slamHitbox;
 
-    [Header("Parte 1 — teleporte atrás + arremesso")]
-    [Tooltip("Deslocamento relativo ao player para 'atrás dele'. Ajuste o sinal/altura como quiser.")]
+    [Header("Parte 1 - teleporte atras + arremesso")]
+    [Tooltip("Deslocamento relativo ao player para 'atras dele'.")]
     [SerializeField] private Vector2 deslocamentoAtras = new Vector2(0f, -1f);
-    [Tooltip("Força que joga o player para cima.")]
+    [Tooltip("Forca que joga o player para cima.")]
     [SerializeField] private float forcaParaCima = 18f;
     [SerializeField] private float forcaLateralParte1 = 0f;
-    [Tooltip("Se marcado, a Parte 1 também dá dano (padrão: não dá).")]
+    [Tooltip("Se marcado, a Parte 1 tambem da dano (padrao: nao da).")]
     [SerializeField] private bool parte1DaDano = false;
     [SerializeField] private int danoParte1 = 1;
+    [Tooltip("Se marcado, o dano da Parte 1 usa tag 'Melee' (pode ser parryado).")]
+    [SerializeField] private bool parryavel = true;
 
     [Header("Espera entre as partes")]
     [Tooltip("Tempo com o player subindo antes do esmagamento.")]
     [SerializeField] private float tempoAntesDoSlam = 0.35f;
 
-    [Header("Parte 2 — esmagamento (sempre dá dano)")]
+    [Header("Parte 2 - esmagamento")]
     [Tooltip("Altura acima do player para onde Nezha teleporta antes de descer.")]
     [SerializeField] private float alturaAcima = 4f;
     [Tooltip("Velocidade da descida (absurda).")]
     [SerializeField] private float velocidadeSlam = 45f;
-    [SerializeField] private float duracaoSlam = 0.5f;
-    [SerializeField] private float raioAcerto = 0.8f;
-    [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private int danoSlam = 1;
-    [SerializeField] private float knockbackLateral = 6f;
-    [SerializeField] private float knockbackVertical = 8f;
-    [Tooltip("Se marcado, o dano usa tag 'Melee' (pode ser parryado).")]
-    [SerializeField] private bool parryavel = true;
+    [Tooltip("Teto de seguranca para a descida (caso nao alcance o chao).")]
+    [SerializeField] private float duracaoSlam = 1f;
 
-    [Header("Recuperação")]
+    [Header("Recuperacao")]
     [SerializeField] private float recuperacao = 0.4f;
 
     [Header("Limites da arena (evita sair do mapa)")]
     [Tooltip("Se marcado, prende os teleportes dentro da arena.")]
     [SerializeField] private bool prenderNaArena = true;
-    [Tooltip("Câmera usada para calcular os limites. Vazio = Camera.main.")]
+    [Tooltip("Camera usada para calcular os limites. Vazio = Camera.main.")]
     [SerializeField] private Camera cam;
-    [Tooltip("Margem para dentro das bordas (o boss não cola na borda).")]
+    [Tooltip("Margem para dentro das bordas.")]
     [SerializeField] private float margem = 1f;
-    [Tooltip("Opcional: retângulo exato da arena. Se 'Limite Max' > 'Limite Min', usa estes valores no lugar da câmera.")]
+    [Tooltip("Opcional: retangulo exato da arena. Se 'Limite Max' > 'Limite Min', usa estes valores.")]
     [SerializeField] private Vector2 limiteMin;
     [SerializeField] private Vector2 limiteMax;
 
@@ -59,7 +56,9 @@ public class NezhaTeleporteSlam : MonoBehaviour
         if (movement == null) movement = GetComponent<NezhaMovement>();
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         if (cam == null) cam = Camera.main;
+        if (slamHitbox != null) slamHitbox.enabled = false; // so liga na descida
     }
+
     private Vector2 PrenderNaArena(Vector2 pos)
     {
         if (!prenderNaArena) return pos;
@@ -84,6 +83,7 @@ public class NezhaTeleporteSlam : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, minY + margem, maxY - margem);
         return pos;
     }
+
     public void Iniciar()
     {
         StartCoroutine(Routine());
@@ -94,7 +94,11 @@ public class NezhaTeleporteSlam : MonoBehaviour
         IsAttacking = true;
         movement.Stop();
 
-        // ---------- PARTE 1: teleporta atrás e joga o player pra cima ----------
+        // Nivel do chao = onde o boss esta parado ANTES de teleportar. A descida vai parar
+        // exatamente nesse Y, entao e IMPOSSIVEL o slam furar o chao.
+        float chaoY = transform.position.y;
+
+        // ---------- PARTE 1: teleporta atras e joga o player pra cima ----------
         transform.position = PrenderNaArena((Vector2)playerTransform.position + deslocamentoAtras);
         movement.FacePlayer();
 
@@ -113,79 +117,36 @@ public class NezhaTeleporteSlam : MonoBehaviour
 
         yield return new WaitForSeconds(tempoAntesDoSlam);
 
-        // ---------- PARTE 2: aparece acima e esmaga pra baixo  ----------
+        // ---------- PARTE 2: aparece acima e esmaga pra baixo ----------
         Vector2 acima = PrenderNaArena((Vector2)playerTransform.position + Vector2.up * alturaAcima);
         transform.position = acima;
         movement.FacePlayer();
 
-        Vector2 dir = ((Vector2)playerTransform.position - acima);
-        dir = dir.sqrMagnitude > 0.01f ? dir.normalized : Vector2.down;
+        // Alvo do esmagamento: X do player, travado no Y do chao (nunca abaixo).
+        Vector2 alvo = PrenderNaArena(new Vector2(playerTransform.position.x, chaoY));
+        alvo.y = chaoY; // garante o chao, sem o clamp de arena mexer no Y
 
         movement.FreezeInAir();
-        rb.velocity = dir * velocidadeSlam;
+        if (slamHitbox != null) slamHitbox.enabled = true;
 
-        bool acertou = false;
         float t = 0f;
-        Vector2 pontoAnterior = PontoAcerto();
         while (t < duracaoSlam)
         {
-            if (!acertou)
-            {
-                Vector2 pontoAtual = PontoAcerto();
-                Collider2D hit = VarrerAcerto(pontoAnterior, pontoAtual);
-                if (hit != null)
-                {
-                    float sinalX = Mathf.Sign(hit.transform.position.x - transform.position.x);
-                    Vector2 kb = new Vector2(sinalX * knockbackLateral, -knockbackVertical);
-                    AplicarDano(hit, danoSlam, kb);
-                    acertou = true;
-                    rb.velocity *= 0.15f;
-                }
-                pontoAnterior = pontoAtual;
-            }
+            // MoveTowards nunca ultrapassa o alvo -> para exatamente no chao, sem tunneling.
+            transform.position = Vector2.MoveTowards(transform.position, alvo, velocidadeSlam * Time.deltaTime);
+            if (Vector2.Distance(transform.position, alvo) <= 0.05f) break;
+
             t += Time.deltaTime;
             yield return null;
         }
+
+        if (slamHitbox != null) slamHitbox.enabled = false;
+        rb.velocity = Vector2.zero;
 
         movement.ReleaseFromAir();
         movement.Stop();
         yield return new WaitForSeconds(recuperacao);
 
         IsAttacking = false;
-    }
-    private void AplicarDano(Collider2D playerCol, int qtd, Vector2 knockback)
-    {
-        var hp = playerCol.GetComponent<PlayerHealthController>() ?? playerCol.GetComponentInParent<PlayerHealthController>();
-        if (hp == null) return;
-        if (hp.IsInvincible) return;
-
-        if (parryavel) hp.TakeDamage(qtd, "Melee");
-        else hp.TakeDamage(qtd);
-
-        var pm = playerCol.GetComponent<PlayerMovement>() ?? playerCol.GetComponentInParent<PlayerMovement>();
-        if (pm != null) pm.Knockback(knockback);
-    }
-    private Vector2 PontoAcerto() => pontoAcerto != null ? (Vector2)pontoAcerto.position : (Vector2)transform.position;
-    // Varre o caminho entre o frame anterior e o atual (evita tunneling na descida rápida).
-    private Collider2D VarrerAcerto(Vector2 de, Vector2 ate)
-    {
-        Collider2D o = Physics2D.OverlapCircle(ate, raioAcerto, playerLayer);
-        if (o != null) return o;
-
-        Vector2 delta = ate - de;
-        float dist = delta.magnitude;
-        if (dist > 0.001f)
-        {
-            RaycastHit2D h = Physics2D.CircleCast(de, raioAcerto, delta / dist, dist, playerLayer);
-            if (h.collider != null) return h.collider;
-        }
-        return null;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Vector3 c = pontoAcerto != null ? pontoAcerto.position : transform.position;
-        Gizmos.color = new Color(0.4f, 0.5f, 1f, 0.4f);
-        Gizmos.DrawWireSphere(c, raioAcerto);
     }
 }

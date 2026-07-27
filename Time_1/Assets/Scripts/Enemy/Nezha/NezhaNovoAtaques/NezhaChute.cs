@@ -3,123 +3,80 @@ using UnityEngine;
 
 public class NezhaChute : MonoBehaviour
 {
-    [Header("Referências")]
+    [Header("Referencias")]
     [SerializeField] private NezhaMovement movement;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Rigidbody2D rb;
-    [Tooltip("Ponto de origem do teste de acerto. Se vazio, usa este transform.")]
-    [SerializeField] private Transform pontoAcerto;
+    [Tooltip("Hitbox do chute: collider FILHO (Is Trigger) com o script ChifreCollider. " +
+             "Fica ligada so durante o avanco. O dano e o knockback ficam no ChifreCollider.")]
+    [SerializeField] private Collider2D chuteHitbox;
 
     [Header("Tempo")]
-    [Tooltip("Espera antes de partir (telegrafo). É o 'tempo x' ajustável.")]
+    [Tooltip("Espera antes de partir (telegrafo). E o 'tempo x' ajustavel.")]
     [SerializeField] private float tempoPreparacao = 0.6f;
-    [Tooltip("Duração do avanço do chute.")]
-    [SerializeField] private float duracaoChute = 0.4f;
-    [Tooltip("Recuperação depois do chute.")]
+    [Tooltip("Teto de seguranca para o avanco (caso nao alcance o alvo).")]
+    [SerializeField] private float duracaoChute = 0.6f;
+    [Tooltip("Recuperacao depois do chute.")]
     [SerializeField] private float recuperacao = 0.4f;
 
     [Header("Chute")]
-    [Tooltip("Velocidade do avanço (absurda).")]
+    [Tooltip("Velocidade do avanco (absurda).")]
     [SerializeField] private float velocidadeChute = 40f;
-    [SerializeField] private float raioAcerto = 0.8f;
-    [SerializeField] private LayerMask playerLayer;
 
-    [Header("Dano / Knockback")]
-    [SerializeField] private int dano = 1;
-    [SerializeField] private float knockbackForca = 14f;
-    [SerializeField] private float knockbackCima = 4f;
-    [Tooltip("Se marcado, o dano usa tag 'Melee' (pode ser parryado). Desmarque para chute imparável.")]
-    [SerializeField] private bool parryavel = true;
     public bool IsAttacking { get; private set; }
 
     private void Awake()
     {
         if (movement == null) movement = GetComponent<NezhaMovement>();
         if (rb == null) rb = GetComponent<Rigidbody2D>();
+        if (chuteHitbox != null) chuteHitbox.enabled = false; // so liga durante o golpe
     }
+
     public void Iniciar()
     {
         StartCoroutine(Routine());
     }
+
     private IEnumerator Routine()
     {
         IsAttacking = true;
+
+        // Nivel do chao = onde o boss esta parado agora. O avanco fica preso nesse Y,
+        // entao e IMPOSSIVEL o chute furar o chao ou levar o boss pra fora do mapa.
+        float chaoY = transform.position.y;
 
         // Telegrafo
         movement.Stop();
         movement.FacePlayer();
         yield return new WaitForSeconds(tempoPreparacao);
 
-        // Direção capturada no início do avanço
-        Vector2 origem = transform.position;
-        Vector2 dir = ((Vector2)playerTransform.position - origem);
-        dir = dir.sqrMagnitude > 0.01f ? dir.normalized : Vector2.right;
+        // Compromete o alvo no inicio do avanco (esquivavel): X do player, no chao.
         movement.FacePlayer();
+        Vector2 alvo = new Vector2(playerTransform.position.x, chaoY);
 
-        // Avanço reto (sem gravidade) na velocidade absurda
+        // Desliga a gravidade so por seguranca; o movimento e por MoveTowards (nao por velocidade fisica).
         movement.FreezeInAir();
-        rb.velocity = dir * velocidadeChute;
+        if (chuteHitbox != null) chuteHitbox.enabled = true;
 
-        bool acertou = false;
         float t = 0f;
-        Vector2 pontoAnterior = PontoAcerto();
         while (t < duracaoChute)
         {
-            if (!acertou)
-            {
-                Vector2 pontoAtual = PontoAcerto();
-                Collider2D hit = VarrerAcerto(pontoAnterior, pontoAtual);
-                if (hit != null)
-                {
-                    Vector2 kb = new Vector2(Mathf.Sign(dir.x == 0 ? 1f : dir.x) * knockbackForca, knockbackCima);
-                    AplicarDano(hit, dano, kb);
-                    acertou = true;
-                    rb.velocity *= 0.15f; // "trava" o chute ao conectar
-                }
-                pontoAnterior = pontoAtual;
-            }
+            // MoveTowards nunca ultrapassa o alvo -> sem overshoot, sem tunneling.
+            transform.position = Vector2.MoveTowards(transform.position, alvo, velocidadeChute * Time.deltaTime);
+            if (Vector2.Distance(transform.position, alvo) <= 0.05f) break; // chegou no player
+
             t += Time.deltaTime;
             yield return null;
         }
+
+        // Desliga a hitbox e garante velocidade zero antes de devolver a gravidade.
+        if (chuteHitbox != null) chuteHitbox.enabled = false;
+        rb.velocity = Vector2.zero;
+
         movement.ReleaseFromAir();
         movement.Stop();
         yield return new WaitForSeconds(recuperacao);
 
         IsAttacking = false;
-    }
-    private void AplicarDano(Collider2D playerCol, int qtd, Vector2 knockback)
-    {
-        var hp = playerCol.GetComponent<PlayerHealthController>() ?? playerCol.GetComponentInParent<PlayerHealthController>();
-        if (hp == null) return;
-        if (hp.IsInvincible) return;
-
-        if (parryavel) hp.TakeDamage(qtd, "Melee");
-        else hp.TakeDamage(qtd);
-
-        var pm = playerCol.GetComponent<PlayerMovement>() ?? playerCol.GetComponentInParent<PlayerMovement>();
-        if (pm != null) pm.Knockback(knockback);
-    }
-    private Vector2 PontoAcerto() => pontoAcerto != null ? (Vector2)pontoAcerto.position : (Vector2)transform.position;
-
-    // Varre o caminho entre o frame anterior e o atual (evita tunneling em velocidade alta).
-    private Collider2D VarrerAcerto(Vector2 de, Vector2 ate)
-    {
-        Collider2D o = Physics2D.OverlapCircle(ate, raioAcerto, playerLayer);
-        if (o != null) return o;
-
-        Vector2 delta = ate - de;
-        float dist = delta.magnitude;
-        if (dist > 0.001f)
-        {
-            RaycastHit2D h = Physics2D.CircleCast(de, raioAcerto, delta / dist, dist, playerLayer);
-            if (h.collider != null) return h.collider;
-        }
-        return null;
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Vector3 c = pontoAcerto != null ? pontoAcerto.position : transform.position;
-        Gizmos.color = new Color(1f, 0.4f, 0f, 0.4f);
-        Gizmos.DrawWireSphere(c, raioAcerto);
     }
 }
