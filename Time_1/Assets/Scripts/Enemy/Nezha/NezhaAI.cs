@@ -8,6 +8,7 @@ public class NezhaAI : MonoBehaviour
     [SerializeField] private NezhaFireball fireballAttack;
     [SerializeField] private NezhaChute chuteAttack;
     [SerializeField] private NezhaTeleporteSlam teleporteSlamAttack;
+    [SerializeField] private NezhaSlam slamAttack;
     [Tooltip("Ataque de chao disparado ao terminar a flutuacao (com chance).")]
     [SerializeField] private NezhaChaoDeFogo chaoDeFogoAttack;
     [SerializeField] private Camera cam;
@@ -29,6 +30,7 @@ public class NezhaAI : MonoBehaviour
     [SerializeField] private float weightFireball = 1f;
     [SerializeField] private float weightChute = 1f;
     [SerializeField] private float weightTeleporteSlam = 1f;
+    [SerializeField] private float weightSlam = 1f;
 
     [Header("Context Tuning")]
     [Tooltip("Distancia horizontal considerada 'perto'.")]
@@ -124,6 +126,11 @@ public class NezhaAI : MonoBehaviour
                     teleporteSlamAttack.Iniciar();
                     yield return new WaitUntil(() => !teleporteSlamAttack.IsAttacking);
                     break;
+
+                case 3:
+                    slamAttack.Iniciar();
+                    yield return new WaitUntil(() => !slamAttack.IsAttacking);
+                    break;
             }
         }
     }
@@ -204,6 +211,8 @@ public class NezhaAI : MonoBehaviour
 
     private int PickAttack()
     {
+        float[] weights = { weightFireball, weightChute, weightTeleporteSlam, weightSlam };
+
         float dist = PlayerXDistance();
         float heightDiff = playerTransform != null
             ? playerTransform.position.y - transform.position.y
