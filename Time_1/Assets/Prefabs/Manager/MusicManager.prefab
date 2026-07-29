@@ -51,21 +51,21 @@ MonoBehaviour:
   - musicName: menu
     musicClip: {fileID: 8300000, guid: 144976646abe31e4cbd75f490233a13d, type: 3}
     volume: 0.101
-  - musicName: Koalemos
+  - musicName: Coalemos
     musicClip: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
     volume: 0.101
   - musicName: AreaInicial
     musicClip: {fileID: 8300000, guid: 739be9cc3db089f4a8f9371fed88fd6f, type: 3}
     volume: 0.101
-  - musicName: Anhanga
-    musicClip: {fileID: 8300000, guid: 70d209b714b98724cba5fcf85927f55e, type: 3}
-    volume: 0.101
-  - musicName: ea
-    musicClip: {fileID: 8300000, guid: 739be9cc3db089f4a8f9371fed88fd6f, type: 3}
-    volume: 0.101
-  - musicName: ea
-    musicClip: {fileID: 8300000, guid: 739be9cc3db089f4a8f9371fed88fd6f, type: 3}
-    volume: 0.101
+  - musicName: 
+    musicClip: {fileID: 0}
+    volume: 0
+  - musicName: 
+    musicClip: {fileID: 0}
+    volume: 0
+  - musicName: 
+    musicClip: {fileID: 0}
+    volume: 0
   - musicName: boss
     musicClip: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
     volume: 0.101
@@ -107,7 +107,7 @@ AudioSource:
   m_GameObject: {fileID: 7058534459148261585}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4017735788582753969, guid: abf66cf70fe964d4888758a3ae80510b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
