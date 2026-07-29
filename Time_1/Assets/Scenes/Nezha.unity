@@ -236,7 +236,7 @@ PrefabInstance:
       objectReference: {fileID: 391346759}
     - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
       propertyPath: weightTeleporteSlam
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3523082738790159110, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
       propertyPath: m_LocalScale.x
@@ -861,6 +861,10 @@ PrefabInstance:
     - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
       propertyPath: musicList.Array.size
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
+      propertyPath: musicList.Array.data[2].volume
+      value: 0.089
       objectReference: {fileID: 0}
     - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
       propertyPath: musicList.Array.data[6].volume
@@ -1533,11 +1537,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.2478046
+      value: -0.32490587
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.02311
+      value: 5.03693
       objectReference: {fileID: 0}
     - target: {fileID: 5119046920775485376, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_Name

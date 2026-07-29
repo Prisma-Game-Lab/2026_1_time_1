@@ -53,6 +53,7 @@ public class GerenciadorTutorial : MonoBehaviour
 
     [Header("Textos - Coleta + Cura")]
     [TextArea] public string falaPosColeta = "Boa! Você juntou nabos suficientes. Agora use a CURA para restaurar sua vida.";
+    [TextArea] public string falaPosColeta2 = "Para curar, clique com o botão direito do mouse. Fique atento ao momento certo.";
     [TextArea] public string falaFinal = "Curado! Agora vamos treinar o parry de verdade.";
 
     [Header("Textos - Fase do Projétil Parável")]
@@ -68,18 +69,15 @@ public class GerenciadorTutorial : MonoBehaviour
     {
         Intro1, Intro2, Pogo, EsperandoMoeda, PosMoeda,
         AntesAtaque, EsperandoResultado, CaixaResultado,
-        EsperandoOrbs, PosColeta, EsperandoCura, FimCura,
+        EsperandoOrbs, PosColeta, PosColeta2, EsperandoCura, FimCura,
         CaixaIntroProjetil, EsperandoProjetil, CaixaProjetilOk, CaixaProjetilFalhou,
         EsperandoTravessiaLenta, CaixaTravessiaFinal, CaixaTravessiaFalhou,
         Fim
     }
-
     private Passo passo;
     private int ultimaVidaConhecida;
     private bool inscritoOrbs;
-
     // ---------------------------------------------------------------
-    
     void Start()
     {
         if (vidaPlayer != null)
@@ -156,7 +154,13 @@ public class GerenciadorTutorial : MonoBehaviour
                 break;
 
             case Passo.PosColeta:
-                // solta o player para curar
+                // caixa de dialogo normal extra antes de liberar a cura
+                passo = Passo.PosColeta2;
+                MostrarTexto(falaPosColeta2);
+                break;
+
+            case Passo.PosColeta2:
+                // solta o player para curar (fluxo normal de antes)
                 passo = Passo.EsperandoCura;
                 EsconderCaixa(); TravarJogador(false);
                 if (logsDiagnostico)

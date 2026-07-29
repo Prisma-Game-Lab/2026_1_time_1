@@ -309,16 +309,17 @@ MonoBehaviour:
     pela arena."
   falaDeuParry: "Voc\xEA deu parry? Eu nem te ensinei isso ainda. Pegue esses nabos
     e se cure. 67"
-  falaPosColeta: "Boa! Voc\xEA juntou nabos suficientes. Estamos prontos para o pr\xF3ximo
-    passo. A cura clique com o bot\xE3o direito do mouse."
+  falaPosColeta: "Cada nabo que voc\xEA coletar te d\xE1 mais 10% de dano!"
+  falaPosColeta2: "Agora a cura. Clique com o bot\xE3o direito do mouse."
   falaFinal: "Perfeito. Voc\xEA dominou a cura. Est\xE1 pronto para os desafios reais!"
   falaIntroProjetil: "Vou atirar um proj\xE9til. Acerte-o com sua lan\xE7a para transform\xE1-lo
-    em orb (PARRY)."
-  falaProjetilOk: "Isso! Voc\xEA parou o proj\xE9til e virou orb. Agora um \xFAltimo
+    em nabo isso \xE9 um dos tipos de parry"
+  falaProjetilOk: "Isso! Voc\xEA parou o proj\xE9til e ele virou nabo. Agora um \xFAltimo
     desafio..."
-  falaProjetilFalhou: "Ainda n\xE3o. Fique atento e tente o parry de novo!"
-  falaTravessiaLentaFinal: "Parry impec\xE1vel! Voc\xEA est\xE1 pronto. Continue
-    para abrir o portal."
+  falaProjetilFalhou: "Assim n\xE3o! Jogue sua lan\xE7a no cobre que vou jogar em
+    voc\xEA."
+  falaTravessiaLentaFinal: "Mandou bem! Agora voc\xEA esta pronto para enfrentar
+    o coalemos."
   falaTravessiaLentaFalhou: Quase! Foque no tempo do parry e tente outra vez.
 --- !u!4 &47000329
 Transform:
@@ -6824,6 +6825,7 @@ GameObject:
   - component: {fileID: 1819198941}
   - component: {fileID: 1819198940}
   - component: {fileID: 1819198939}
+  - component: {fileID: 1819198942}
   m_Layer: 0
   m_Name: Caixa de som 2000
   m_TagString: Untagged
@@ -6843,9 +6845,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff6300065fd36144af15716b083f5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nomeMusica: ea
+  musica: {fileID: 0}
+  volume: 0.5
   loop: 0
   tocarNoStart: 0
+  grupoMusica: {fileID: 0}
+  pararMusicaGlobal: 1
 --- !u!212 &1819198940
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6913,6 +6918,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1819198942
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819198938}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1836619068
 GameObject:
   m_ObjectHideFlags: 0

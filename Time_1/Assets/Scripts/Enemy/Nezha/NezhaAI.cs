@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-
 public class NezhaAI : MonoBehaviour
 {
     [Header("References")]
@@ -84,7 +83,6 @@ public class NezhaAI : MonoBehaviour
 
         StartCoroutine(MainLoop());
     }
-
     private void Update()
     {
         if (playerTransform == null) return;
@@ -92,7 +90,6 @@ public class NezhaAI : MonoBehaviour
         playerVerticalVel = (y - prevPlayerY) / Mathf.Max(Time.deltaTime, 1e-5f);
         prevPlayerY = y;
     }
-
     private IEnumerator MainLoop()
     {
         while (true)
@@ -106,7 +103,6 @@ public class NezhaAI : MonoBehaviour
                 lastFloatTime = Time.time;
                 continue;
             }
-
             int attack = PickAttack();
             lastAttack = attack;
 
@@ -134,7 +130,6 @@ public class NezhaAI : MonoBehaviour
             }
         }
     }
-
     private IEnumerator IdlePhase()
     {
         float idleTime = Random.Range(minIdleTime, maxIdleTime);
@@ -163,14 +158,11 @@ public class NezhaAI : MonoBehaviour
                     movement.FacePlayer();
                 }
             }
-
             elapsed += Time.deltaTime;
             yield return null;
         }
-
         movement.Stop();
     }
-
     private IEnumerator FloatPhase()
     {
         float duration = Random.Range(floatMinDuration, floatMaxDuration);
@@ -188,7 +180,6 @@ public class NezhaAI : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-
         movement.ReleaseFromAir();
 
         // Espera aterrissar antes de voltar ao loop normal.
@@ -198,7 +189,6 @@ public class NezhaAI : MonoBehaviour
             land += Time.deltaTime;
             yield return null;
         }
-
         movement.Stop();
 
         // Ao bater no chao apos flutuar, com chance, cobre o chao da arena de dano.
@@ -211,8 +201,6 @@ public class NezhaAI : MonoBehaviour
 
     private int PickAttack()
     {
-        float[] weights = { weightFireball, weightChute, weightTeleporteSlam, weightSlam };
-
         float dist = PlayerXDistance();
         float heightDiff = playerTransform != null
             ? playerTransform.position.y - transform.position.y
@@ -224,7 +212,8 @@ public class NezhaAI : MonoBehaviour
         // t = 0 quando perto, 1 quando longe.
         float rangeT = Mathf.InverseLerp(closeRange, farRange, dist);
 
-        float[] w = { weightFireball, weightChute, weightTeleporteSlam };
+        // 4 ataques: 0 = Fireball, 1 = Chute, 2 = TeleporteSlam, 3 = Slam.
+        float[] w = { weightFireball, weightChute, weightTeleporteSlam, weightSlam };
 
         // Fireball: chuva aerea, melhor de longe / com espaco.
         w[0] *= Mathf.Lerp(0.4f, 1.6f, rangeT);
@@ -238,12 +227,19 @@ public class NezhaAI : MonoBehaviour
         w[2] *= playerAirborne ? 1.8f : 1.0f;
         w[2] *= Mathf.Lerp(0.8f, 1.4f, rangeT);
 
+        // Slam: pulo + esmagao no centro da arena; melhor de perto e com o player no chao.
+        w[3] *= playerAirborne ? 0.6f : 1.4f;
+        w[3] *= Mathf.Lerp(1.3f, 0.7f, rangeT);
+
         // Penaliza (nao zera) o ultimo ataque -> variedade sem travar combos.
         if (lastAttack >= 0 && lastAttack < w.Length)
             w[lastAttack] *= repeatPenalty;
 
         // Injeta aleatoriedade controlada para nao ficar explorável.
-        float avg = (w[0] + w[1] + w[2]) / 3f;
+        float avg = 0f;
+        for (int i = 0; i < w.Length; i++) avg += w[i];
+        avg /= w.Length;
+
         for (int i = 0; i < w.Length; i++)
         {
             w[i] = Mathf.Max(0f, w[i]);
