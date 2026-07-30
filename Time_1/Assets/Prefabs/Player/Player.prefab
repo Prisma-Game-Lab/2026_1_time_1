@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6629587993135455583
 Transform:
   m_ObjectHideFlags: 0
@@ -533,10 +533,12 @@ MonoBehaviour:
   jumpCutGravityMultiplier: 3
   jumpCutVelocity: 3
   ascendGravityMultiplier: 2
-  animator: {fileID: 7505792243763349245}
+  animator: {fileID: 5998799601198549645}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  idleSprite: {fileID: 1112072044523797014}
+  walkSpriteScaleMultiplier: 1.5
   knockbackDecay: 20
 --- !u!50 &5635622864824786433
 Rigidbody2D:
@@ -767,7 +769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1220032635342056128}
   - component: {fileID: 6183407080478769586}
-  - component: {fileID: 7505792243763349245}
+  - component: {fileID: 5998799601198549645}
   m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
@@ -842,7 +844,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &7505792243763349245
+--- !u!95 &5998799601198549645
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0

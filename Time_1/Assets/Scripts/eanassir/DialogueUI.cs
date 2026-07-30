@@ -10,19 +10,20 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject painel;
     [SerializeField] private TextMeshProUGUI texto;
 
-    [Header("Grupos de Botões")]
-    [Tooltip("GameObject que contém Comprar + Cancelar lado a lado.")]
+    [Header("Grupos de Botï¿½es")]
+    [Tooltip("GameObject que contï¿½m Comprar + Cancelar lado a lado.")]
     [SerializeField] private GameObject grupoOferta;
-    [Tooltip("GameObject que contém apenas o botão Fechar.")]
+    [Tooltip("GameObject que contï¿½m apenas o botï¿½o Fechar.")]
     [SerializeField] private GameObject grupoSimples;
 
-    [Header("Botões")]
+    [Header("Botï¿½es")]
     [SerializeField] private Button botaoComprar;
     [SerializeField] private Button botaoCancelar;
     [SerializeField] private Button botaoFechar;
 
     private Action callbackComprar;
     private Action callbackCancelar;
+    private bool cursorOverrideActive;
 
     void Awake()
     {
@@ -41,6 +42,7 @@ public class DialogueUI : MonoBehaviour
         if (grupoOferta != null) grupoOferta.SetActive(true);
         if (grupoSimples != null) grupoSimples.SetActive(false);
         if (painel != null) painel.SetActive(true);
+        PushCursor();
     }
     public void MostrarSimples(string mensagem)
     {
@@ -48,12 +50,34 @@ public class DialogueUI : MonoBehaviour
         if (grupoOferta != null) grupoOferta.SetActive(false);
         if (grupoSimples != null) grupoSimples.SetActive(true);
         if (painel != null) painel.SetActive(true);
+        PushCursor();
     }
     public void Fechar()
     {
         if (painel != null) painel.SetActive(false);
         callbackComprar = null;
         callbackCancelar = null;
+        PopCursor();
+    }
+    private void PushCursor()
+    {
+        if (!cursorOverrideActive)
+        {
+            PlayerAim.ForceShowCursor(true);
+            cursorOverrideActive = true;
+        }
+    }
+    private void PopCursor()
+    {
+        if (cursorOverrideActive)
+        {
+            PlayerAim.ForceShowCursor(false);
+            cursorOverrideActive = false;
+        }
+    }
+    private void OnDestroy()
+    {
+        PopCursor();
     }
     public bool EstaAberto => painel != null && painel.activeSelf;
 }

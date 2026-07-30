@@ -3,23 +3,25 @@ using UnityEngine;
 
 public class NezhaChute : MonoBehaviour
 {
-    [Header("Referências")]
+    [Header("Referï¿½ncias")]
     [SerializeField] private NezhaMovement movement;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Rigidbody2D rb;
     [Tooltip("Ponto de origem do teste de acerto. Se vazio, usa este transform.")]
     [SerializeField] private Transform pontoAcerto;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite kickingSprite;
 
     [Header("Tempo")]
-    [Tooltip("Espera antes de partir (telegrafo). É o 'tempo x' ajustável.")]
+    [Tooltip("Espera antes de partir (telegrafo). ï¿½ o 'tempo x' ajustï¿½vel.")]
     [SerializeField] private float tempoPreparacao = 0.6f;
-    [Tooltip("Duração do avanço do chute.")]
+    [Tooltip("Duraï¿½ï¿½o do avanï¿½o do chute.")]
     [SerializeField] private float duracaoChute = 0.4f;
-    [Tooltip("Recuperação depois do chute.")]
+    [Tooltip("Recuperaï¿½ï¿½o depois do chute.")]
     [SerializeField] private float recuperacao = 0.4f;
 
     [Header("Chute")]
-    [Tooltip("Velocidade do avanço (absurda).")]
+    [Tooltip("Velocidade do avanï¿½o (absurda).")]
     [SerializeField] private float velocidadeChute = 40f;
     [SerializeField] private float raioAcerto = 0.8f;
     [SerializeField] private LayerMask playerLayer;
@@ -28,7 +30,7 @@ public class NezhaChute : MonoBehaviour
     [SerializeField] private int dano = 1;
     [SerializeField] private float knockbackForca = 14f;
     [SerializeField] private float knockbackCima = 4f;
-    [Tooltip("Se marcado, o dano usa tag 'Melee' (pode ser parryado). Desmarque para chute imparável.")]
+    [Tooltip("Se marcado, o dano usa tag 'Melee' (pode ser parryado). Desmarque para chute imparï¿½vel.")]
     [SerializeField] private bool parryavel = true;
     public bool IsAttacking { get; private set; }
 
@@ -45,18 +47,23 @@ public class NezhaChute : MonoBehaviour
     {
         IsAttacking = true;
 
+        Sprite originalSprite = spriteRenderer != null ? spriteRenderer.sprite : null;
+
         // Telegrafo
         movement.Stop();
         movement.FacePlayer();
         yield return new WaitForSeconds(tempoPreparacao);
 
-        // Direção capturada no início do avanço
+        // Direï¿½ï¿½o capturada no inï¿½cio do avanï¿½o
         Vector2 origem = transform.position;
         Vector2 dir = ((Vector2)playerTransform.position - origem);
         dir = dir.sqrMagnitude > 0.01f ? dir.normalized : Vector2.right;
         movement.FacePlayer();
 
-        // Avanço reto (sem gravidade) na velocidade absurda
+        // Avanï¿½o reto (sem gravidade) na velocidade absurda
+        if (spriteRenderer != null && kickingSprite != null)
+            spriteRenderer.sprite = kickingSprite;
+
         movement.FreezeInAir();
         rb.velocity = dir * velocidadeChute;
 
@@ -83,6 +90,8 @@ public class NezhaChute : MonoBehaviour
         }
         movement.ReleaseFromAir();
         movement.Stop();
+        if (spriteRenderer != null && originalSprite != null)
+            spriteRenderer.sprite = originalSprite;
         yield return new WaitForSeconds(recuperacao);
 
         IsAttacking = false;
@@ -104,16 +113,23 @@ public class NezhaChute : MonoBehaviour
     // Varre o caminho entre o frame anterior e o atual (evita tunneling em velocidade alta).
     private Collider2D VarrerAcerto(Vector2 de, Vector2 ate)
     {
-        Collider2D o = Physics2D.OverlapCircle(ate, raioAcerto, playerLayer);
+        Collider2D o = FindPlayerInOverlap(Physics2D.OverlapCircleAll(ate, raioAcerto));
         if (o != null) return o;
 
         Vector2 delta = ate - de;
         float dist = delta.magnitude;
         if (dist > 0.001f)
         {
-            RaycastHit2D h = Physics2D.CircleCast(de, raioAcerto, delta / dist, dist, playerLayer);
-            if (h.collider != null) return h.collider;
+            foreach (RaycastHit2D h in Physics2D.CircleCastAll(de, raioAcerto, delta / dist, dist))
+                if (h.collider.CompareTag("Player")) return h.collider;
         }
+        return null;
+    }
+
+    private static Collider2D FindPlayerInOverlap(Collider2D[] cols)
+    {
+        foreach (var c in cols)
+            if (c.CompareTag("Player")) return c;
         return null;
     }
     private void OnDrawGizmosSelected()

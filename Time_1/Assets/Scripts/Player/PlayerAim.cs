@@ -15,12 +15,19 @@ public class PlayerAim : MonoBehaviour
     private float originalScaleX;
     private bool aimReversed;
 
+    
+    private static int cursorForceCount = 0;
+    public static void ForceShowCursor(bool show)
+    {
+        cursorForceCount += show ? 1 : -1;
+        if (cursorForceCount < 0) cursorForceCount = 0;
+    }
+
     public void SetAimReversed(bool reversed) => aimReversed = reversed;
 
     void Start()
     {
         cam = Camera.main;
-        Cursor.visible = false;
 
         canvasCamera = canvas.renderMode == RenderMode.ScreenSpaceOverlay
             ? null
@@ -30,9 +37,24 @@ public class PlayerAim : MonoBehaviour
             originalScaleX = playerTransform.localScale.x;
     }
 
+    private void OnDisable()
+    {
+        Cursor.visible = true;
+    }
+
     private void Update()
     {
         if (cursor == null || canvas == null) return;
+
+        if (cursorForceCount > 0)
+        {
+            Cursor.visible = true;
+            return;
+        }
+
+        bool inGameCursorVisible = cursor.gameObject.activeInHierarchy;
+        Cursor.visible = !inGameCursorVisible;
+        if (!inGameCursorVisible) return;
 
         Vector2 screenPos = Mouse.current.position.ReadValue();
 

@@ -54,6 +54,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   gravityScale: 1
+  lifetime: 4
 --- !u!50 &1122333844202005278
 Rigidbody2D:
   serializedVersion: 4
@@ -138,7 +139,7 @@ SpriteRenderer:
   m_SortingLayerID: -1309844769
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c374416d11308534694c306a2fcb4ac0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c0310d79d6b3c34d894e7566a78b01f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

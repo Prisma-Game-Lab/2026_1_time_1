@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: -1309844769
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: abf4dd73af4f23c479c7d456c71192a2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -139,6 +139,7 @@ MonoBehaviour:
   maxHealth: 200
   currentHealth: 0
   EnemyReference: {fileID: 1847299950495477742}
+  portaParaAtivar: {fileID: 0}
 --- !u!114 &6769297392770798520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,9 +156,9 @@ MonoBehaviour:
   col: {fileID: 6040596949038901827}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   playerTransform: {fileID: 0}
-  walkSpeed: 4
+  walkSpeed: 8
 --- !u!50 &8816219735419107528
 Rigidbody2D:
   serializedVersion: 4
@@ -201,16 +202,36 @@ MonoBehaviour:
   fireballAttack: {fileID: 4537466160486295610}
   chuteAttack: {fileID: 0}
   teleporteSlamAttack: {fileID: 0}
-  slamAttack: {fileID: 0}
+  slamAttack: {fileID: 2566423536601295276}
+  chaoDeFogoAttack: {fileID: 0}
   cam: {fileID: 0}
+  playerTransform: {fileID: 0}
   minIdleTime: 1.2
   maxIdleTime: 2.5
+  preferredSpacing: 4.5
+  spacingTolerance: 1.2
   edgeMoveProbability: 0.3
   edgeMargin: 1.5
   weightFireball: 1
   weightChute: 1
   weightTeleporteSlam: 1
   weightSlam: 1
+  closeRange: 3
+  farRange: 8
+  airHeightThreshold: 2
+  airVelThreshold: 3
+  repeatPenalty: 0.25
+  randomness: 0.25
+  floatChance: 0.35
+  floatMinDuration: 3
+  floatMaxDuration: 5
+  floatCooldown: 9
+  floatHeight: 3.5
+  floatHorizSpeed: 3.5
+  floatVertSpeed: 4
+  floatChaseSpacing: 2.5
+  floatLandTimeout: 4
+  chanceChaoPosFloat: 0.5
 --- !u!114 &4537466160486295610
 MonoBehaviour:
   m_ObjectHideFlags: 0

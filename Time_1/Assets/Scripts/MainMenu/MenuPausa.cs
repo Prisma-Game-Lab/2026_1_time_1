@@ -23,6 +23,7 @@ public class MenuPausa : MonoBehaviour
     [SerializeField] private string cenaMenuPrincipal = "MainMenu";
 
     private bool pausado;
+    private bool cursorOverrideActive;
 
     private void Start()
     {
@@ -58,6 +59,7 @@ public class MenuPausa : MonoBehaviour
         Time.timeScale = 0f;
         if (painelPausa != null) painelPausa.SetActive(true);
         if (painelOpcoes != null) painelOpcoes.SetActive(false);
+        if (!cursorOverrideActive) { PlayerAim.ForceShowCursor(true); cursorOverrideActive = true; }
     }
 
     public void Continuar()
@@ -66,6 +68,12 @@ public class MenuPausa : MonoBehaviour
         Time.timeScale = 1f;
         if (painelPausa != null) painelPausa.SetActive(false);
         if (painelOpcoes != null) painelOpcoes.SetActive(false);
+        if (cursorOverrideActive) { PlayerAim.ForceShowCursor(false); cursorOverrideActive = false; }
+    }
+
+    private void OnDestroy()
+    {
+        if (cursorOverrideActive) PlayerAim.ForceShowCursor(false);
     }
 
     public void AbrirOpcoes()

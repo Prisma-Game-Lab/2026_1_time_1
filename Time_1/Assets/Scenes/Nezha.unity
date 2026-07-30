@@ -191,29 +191,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 524819274398448224}
     - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
-      propertyPath: slamAttack
-      value: 
-      objectReference: {fileID: 47484657}
-    - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
       propertyPath: chuteAttack
       value: 
       objectReference: {fileID: 391346760}
     - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
-      propertyPath: weightChute
-      value: 1
+      propertyPath: maxIdleTime
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
-      propertyPath: weightFireball
-      value: 1
+      propertyPath: minIdleTime
+      value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: chaoDeFogoAttack
+      value: 
+      objectReference: {fileID: 391346761}
     - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
       propertyPath: teleporteSlamAttack
       value: 
       objectReference: {fileID: 391346759}
-    - target: {fileID: 3094117739503362040, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
-      propertyPath: weightTeleporteSlam
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3523082738790159110, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5375
@@ -247,9 +243,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 128694468}
     - target: {fileID: 6723637712725970088, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6723637712725970088, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2b7a4590bf4fdaf4db3209b84af5c5b2, type: 3}
+      objectReference: {fileID: 21300000, guid: abf4dd73af4f23c479c7d456c71192a2, type: 3}
     - target: {fileID: 6723637712725970088, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -267,10 +267,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6769297392770798520, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
-      propertyPath: walkSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6769297392770798520, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 128694468}
@@ -278,10 +274,6 @@ PrefabInstance:
       propertyPath: spriteTransform
       value: 
       objectReference: {fileID: 47484656}
-    - target: {fileID: 6769297392770798520, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
-      propertyPath: groundLayer.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
     - target: {fileID: 8816219735419107528, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
       propertyPath: m_Constraints
       value: 4
@@ -308,17 +300,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2226160128901472765, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
   m_PrefabInstance: {fileID: 47484655}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &47484657 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2566423536601295276, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
-  m_PrefabInstance: {fileID: 47484655}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391346752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783a98b598fd03049a96e8ab2848ab23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &128694466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -547,10 +528,12 @@ MonoBehaviour:
   playerTransform: {fileID: 128694468}
   rb: {fileID: 391346755}
   pontoAcerto: {fileID: 0}
+  spriteRenderer: {fileID: 1167565189}
+  kickingSprite: {fileID: 21300000, guid: 3da2a93e518bd6e4688cb078df71ecab, type: 3}
   tempoPreparacao: 0.6
   duracaoChute: 0.4
   recuperacao: 0.4
-  velocidadeChute: 40
+  velocidadeChute: 20
   raioAcerto: 0.8
   playerLayer:
     serializedVersion: 2
@@ -1223,6 +1206,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1167565189 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6723637712725970088, guid: 5c604d5e7a49108409114d5d9543ad76, type: 3}
+  m_PrefabInstance: {fileID: 47484655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1194628724 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2099884667441094222, guid: 3470790e583c63c45b8604749cbde51f, type: 3}
@@ -1852,11 +1840,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.44447136
+      value: -2.2478046
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.03612
+      value: 5.02311
       objectReference: {fileID: 0}
     - target: {fileID: 5119046920775485376, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_Name

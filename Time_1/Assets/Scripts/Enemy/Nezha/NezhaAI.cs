@@ -15,8 +15,8 @@ public class NezhaAI : MonoBehaviour
     [SerializeField] private Transform playerTransform;
 
     [Header("Timing")]
-    [SerializeField] private float minIdleTime = 1.0f;
-    [SerializeField] private float maxIdleTime = 2.2f;
+    [SerializeField] private float minIdleTime = 0.4f;
+    [SerializeField] private float maxIdleTime = 1.0f;
 
     [Header("Neutral Movement")]
     [Tooltip("Distancia horizontal que o boss tenta manter do player no neutro.")]
@@ -308,7 +308,9 @@ public class NezhaAI : MonoBehaviour
         float halfWidth = cam.orthographicSize * cam.aspect;
         float centerX = cam.transform.position.x;
 
-        bool goLeft = Random.value < 0.5f;
+        // Go to the edge opposite the player so Nezha doesn't corner them.
+        bool playerIsRight = playerTransform != null && playerTransform.position.x > centerX;
+        bool goLeft = playerIsRight;
         return goLeft
             ? centerX - halfWidth + edgeMargin
             : centerX + halfWidth - edgeMargin;

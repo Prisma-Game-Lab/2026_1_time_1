@@ -90,7 +90,7 @@ public class HealController : MonoBehaviour
     }
     private void AoTomarDano(int dano)
     {
-        OrbManager.Instance?.PerderOrbsPorDano(orbsPerdidasAoTomarDano);
+        //OrbManager.Instance?.PerderOrbsPorDano(orbsPerdidasAoTomarDano);
 
         if (curando)
         {

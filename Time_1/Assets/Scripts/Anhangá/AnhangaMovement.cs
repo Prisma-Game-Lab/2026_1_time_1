@@ -8,15 +8,18 @@ public class AnhangaMovement : MonoBehaviour
     [SerializeField] private Transform limiteEsquerdo;
     [SerializeField] private Transform limiteDireito;
 
-    [Header("Referências")]
+    [Header("Referï¿½ncias")]
     [SerializeField] private Transform player;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
 
     [Header("Sprite")]
     [SerializeField] private bool spriteOlhaParaDireita = true;
 
-    [Header("Chão")]
+    [Header("Chï¿½o")]
     [SerializeField] private bool usarYDosLimites = true;
+
+    private bool walkingThisFrame;
 
     public float MinX => Mathf.Min(limiteEsquerdo.position.x, limiteDireito.position.x);
     public float MaxX => Mathf.Max(limiteEsquerdo.position.x, limiteDireito.position.x);
@@ -38,7 +41,7 @@ public class AnhangaMovement : MonoBehaviour
         {
             GameObject p = GameObject.FindGameObjectWithTag("Player");
             if (p != null) player = p.transform;
-            else Debug.LogWarning("[AnhangaMovement] Player não encontrado (tag 'Player').", this);
+            else Debug.LogWarning("[AnhangaMovement] Player nï¿½o encontrado (tag 'Player').", this);
         }
     }
     public void AndarParaPlayer(float velocidade)
@@ -49,6 +52,7 @@ public class AnhangaMovement : MonoBehaviour
         novoX = Mathf.Clamp(novoX, MinX, MaxX);
         transform.position = new Vector3(novoX, GroundY, transform.position.z);
         AtualizarFlip(dir);
+        walkingThisFrame = true;
     }
     public bool IrParaX(float alvoX, float velocidade)
     {
@@ -56,6 +60,7 @@ public class AnhangaMovement : MonoBehaviour
         float novoX = Mathf.MoveTowards(transform.position.x, alvoX, velocidade * Time.deltaTime);
         transform.position = new Vector3(novoX, GroundY, transform.position.z);
         AtualizarFlip(dir);
+        walkingThisFrame = true;
         return Mathf.Abs(transform.position.x - alvoX) <= 0.05f;
     }
 
@@ -69,16 +74,23 @@ public class AnhangaMovement : MonoBehaviour
         float novoX = Mathf.Clamp(transform.position.x + moveDir * velocidade * Time.deltaTime, MinX, MaxX);
         transform.position = new Vector3(novoX, GroundY, transform.position.z);
         AtualizarFlip(faceDir);
+        walkingThisFrame = true;
     }
 
-    // Teleporta para um X (usado quando surge num dos lados), travando na altura do chão.
+    // Teleporta para um X (usado quando surge num dos lados), travando na altura do chï¿½o.
     public void PosicionarEm(float x)
     {
         float cx = Mathf.Clamp(x, MinX, MaxX);
         transform.position = new Vector3(cx, GroundY, transform.position.z);
     }
 
-    // Vira o sprite para uma direção sem mover.
+    private void LateUpdate()
+    {
+        if (animator != null) animator.SetBool("isWalking", walkingThisFrame);
+        walkingThisFrame = false;
+    }
+
+    // Vira o sprite para uma direï¿½ï¿½o sem mover.
     public void Encarar(int direcao) => AtualizarFlip(direcao);
     private void AtualizarFlip(int direcao)
     {

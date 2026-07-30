@@ -62,6 +62,7 @@ public class BossCutscene : MonoBehaviour
     private void Tocar()
     {
         tocando = true;
+        PlayerAim.ForceShowCursor(true);
         CutsceneManager.Instance.MarcarVisto(cutsceneId);
 
         if (painel != null) painel.SetActive(true);
@@ -69,7 +70,7 @@ public class BossCutscene : MonoBehaviour
         aoIniciar?.Invoke();
 
         if (video != null) { video.Stop(); video.Play(); }
-        else Terminar(); 
+        else Terminar();
     }
 
     private void Update()
@@ -93,10 +94,15 @@ public class BossCutscene : MonoBehaviour
     {
         if (!tocando) return;
         tocando = false;
+        PlayerAim.ForceShowCursor(false);
 
         if (painel != null) painel.SetActive(false);
         SetPausado(false);
         aoTerminar?.Invoke();
+    }
+    private void OnDestroy()
+    {
+        if (tocando) PlayerAim.ForceShowCursor(false);
     }
     private void SetPausado(bool pausado)
     {

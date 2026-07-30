@@ -26,19 +26,21 @@ public class NPCTutorialEaNassir : Interactable
     {
         canvasDialogo.SetActive(true);
         textoDialogo.text = primeiraFala;
-        
+
         btnSair.SetActive(true);
         btnContinuar.SetActive(true);
         btnIrParaFase.SetActive(false);
 
-        Time.timeScale = 0f; 
+        Time.timeScale = 0f;
+        PlayerAim.ForceShowCursor(true);
     }
 
     public void BotaoSair()
     {
         canvasDialogo.SetActive(false);
-        
-        Time.timeScale = 1f; 
+
+        Time.timeScale = 1f;
+        PlayerAim.ForceShowCursor(false);
     }
 
     public void BotaoContinuar()
@@ -50,8 +52,9 @@ public class NPCTutorialEaNassir : Interactable
 
     public void BotaoIrParaFase()
     {
-        Time.timeScale = 1f; 
-        
+        Time.timeScale = 1f;
+        PlayerAim.ForceShowCursor(false);
+
         SceneManager.LoadScene(TUTORIAL);
     }
 }

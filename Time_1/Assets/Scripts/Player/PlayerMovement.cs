@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Walking Visuals")]
+    [SerializeField] private GameObject armSprite;
+    [SerializeField] private float walkSpriteScaleMultiplier = 2f;
+
     [Header("Knockback")]
     // Rate at which horizontal knockback decays.
     // ~20 matches the default vertical deceleration from gravity, giving both axes equal duration.
@@ -33,11 +37,13 @@ public class PlayerMovement : MonoBehaviour
     private bool hasJumped;      // true only after a player-initiated jump; gates the jumpCut branch
     private float knockbackVelocityX;
     private bool isWalking;
+    private Vector3 originalSpriteScale;
 
     void Start()
     {
-        // Zero friction prevents the player from sticking to walls.
         col.sharedMaterial = new PhysicsMaterial2D { friction = 0f, bounciness = 0f };
+        if (spriteRenderer != null)
+            originalSpriteScale = spriteRenderer.transform.localScale;
     }
     // Called by PlayerShooting when the spear is caught.
     public void Knockback(Vector2 velocity)
@@ -60,6 +66,12 @@ public class PlayerMovement : MonoBehaviour
             isWalking = walking;
             if (animator != null)
                 animator.SetBool(IsWalkingHash, isWalking);
+            if (armSprite != null)
+                armSprite.SetActive(!isWalking);
+            if (spriteRenderer != null)
+                spriteRenderer.transform.localScale = isWalking
+                    ? originalSpriteScale * walkSpriteScaleMultiplier
+                    : originalSpriteScale;
         }
         if (rb.velocity.y < 0)
         {
