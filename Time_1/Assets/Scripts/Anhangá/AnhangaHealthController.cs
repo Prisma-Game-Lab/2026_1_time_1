@@ -12,6 +12,8 @@ public class AnhangaHealthController : HealthController
     [SerializeField] private GameObject vfxMortePrefab;
     [Tooltip("Som de morte.")]
     [SerializeField] private AudioClip sfxMorte;
+    [Tooltip("Porta que aparece quando o boss morre. Deixe DESATIVADA na cena.")]
+    [SerializeField] private GameObject portaParaAtivar;
     [Tooltip("Disparado ao morrer.")]
     [SerializeField] private UnityEvent onMorte;
 
@@ -23,10 +25,8 @@ public class AnhangaHealthController : HealthController
     private bool vulneravel;
     private bool morreu;
 
-    // Ligado/desligado pelo AnhangaInvestida durante o stagger.
     public void SetVulneravel(bool v) => vulneravel = v;
 
-    // Amplifica o dano recebido durante o stagger; senao, dano normal.
     public override void TakeDamage(int dmg)
     {
         int final = vulneravel
@@ -44,6 +44,9 @@ public class AnhangaHealthController : HealthController
             Instantiate(vfxMortePrefab, transform.position, Quaternion.identity);
         if (sfxMorte != null)
             SFXManager.PlaySFX("anhanga_morte");
+
+        if (portaParaAtivar != null)
+            portaParaAtivar.SetActive(true);
 
         onMorte?.Invoke();
 
