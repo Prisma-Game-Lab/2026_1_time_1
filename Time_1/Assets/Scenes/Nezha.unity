@@ -1696,6 +1696,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Telademorte
       objectReference: {fileID: 0}
+    - target: {fileID: 1245780986089252475, guid: c2995655f399e16489d596084b00afdb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8777779804260507841, guid: c2995655f399e16489d596084b00afdb, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1848,11 +1852,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.32490587
+      value: -0.44447136
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.03693
+      value: 5.03612
       objectReference: {fileID: 0}
     - target: {fileID: 5119046920775485376, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_Name
