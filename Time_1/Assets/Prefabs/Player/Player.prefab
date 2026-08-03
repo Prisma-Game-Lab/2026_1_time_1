@@ -537,7 +537,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  idleSprite: {fileID: 1112072044523797014}
+  armSprite: {fileID: 0}
   walkSpriteScaleMultiplier: 1.5
   knockbackDecay: 20
 --- !u!50 &5635622864824786433
@@ -629,7 +629,7 @@ MonoBehaviour:
   returnSpeed: 40
   dropIntensity: 2
   damage: 5
-  returnKnockback: 12
+  returnKnockback: 15
   startLag: 0.2
   throwEndLag: 0.1
   returnLag: 0.1
@@ -637,7 +637,7 @@ MonoBehaviour:
   pogoFalloff: 0.7
   maxDamageMultiplier: 3
   maxSpeedMultiplier: 2
-  percentPorNabo: 12
+  percentPorNabo: 14
   playerMovement: {fileID: 3534906634803273781}
   parryKnockbackForce: 10
   parryKnockbackUp: 4
