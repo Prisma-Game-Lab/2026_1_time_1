@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4867066993783182573}
   - component: {fileID: 8632233338591508116}
   - component: {fileID: 5301473440715809330}
-  - component: {fileID: 3258795191478280336}
   - component: {fileID: 3659416626716689092}
   m_Layer: 0
   m_Name: MusicManager
@@ -69,6 +68,9 @@ MonoBehaviour:
   - musicName: boss
     musicClip: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
     volume: 0.101
+  - musicName: NE ZHA
+    musicClip: {fileID: 8300000, guid: cf20b48e2de943446ace0d5184bf1ce5, type: 3}
+    volume: 0.101
 --- !u!114 &5301473440715809330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,23 +83,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a67041070ef5c4ea31685571ee3866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3258795191478280336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7058534459148261585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d744501ebbda4249a94d540ac2c12ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultMusicName: menu
-  fadeInTime: 0
-  fadeOutTime: 0
-  playOnStart: 1
-  shouldFadeIn: 0
 --- !u!82 &3659416626716689092
 AudioSource:
   m_ObjectHideFlags: 0

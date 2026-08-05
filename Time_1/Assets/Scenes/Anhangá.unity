@@ -666,18 +666,18 @@ MonoBehaviour:
   pausarDurante:
   - {fileID: 1556960836}
   - {fileID: 6006314600027713086}
-  - {fileID: 359281966}
+  - {fileID: 0}
   permitirPular: 1
   aoIniciar:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
+      - m_Target: {fileID: 1018808932}
+        m_TargetAssemblyTypeName: UnityEngine.Video.VideoPlayer, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -847,33 +847,15 @@ GameObject:
   m_Component:
   - component: {fileID: 359281968}
   - component: {fileID: 359281967}
-  - component: {fileID: 359281966}
   - component: {fileID: 359281969}
+  - component: {fileID: 359281970}
   m_Layer: 0
-  m_Name: Caixa de som 2000
+  m_Name: Caixa de som 3000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &359281966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359281965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ff6300065fd36144af15716b083f5f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musica: {fileID: 8300000, guid: 70d209b714b98724cba5fcf85927f55e, type: 3}
-  volume: 0.5
-  loop: 1
-  tocarNoStart: 1
-  grupoMusica: {fileID: -4017735788582753969, guid: abf66cf70fe964d4888758a3ae80510b, type: 2}
-  pararMusicaGlobal: 1
 --- !u!212 &359281967
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1037,6 +1019,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &359281970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359281965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d744501ebbda4249a94d540ac2c12ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMusicName: Anhanga
+  fadeInTime: 0
+  fadeOutTime: 0
+  playOnStart: 1
+  shouldFadeIn: 0
 --- !u!4 &367004549 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2018517299112262216, guid: 0f250ad6bd3917e47bb7e3884543ec03, type: 3}
@@ -2583,7 +2582,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3258795191478280336, guid: bb162f12b084ddf4293672123102089b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

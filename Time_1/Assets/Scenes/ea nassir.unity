@@ -566,33 +566,15 @@ GameObject:
   m_Component:
   - component: {fileID: 78613069}
   - component: {fileID: 78613068}
-  - component: {fileID: 78613067}
   - component: {fileID: 78613070}
+  - component: {fileID: 78613071}
   m_Layer: 0
-  m_Name: Caixa de som 2000
+  m_Name: Caixa de som 3000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &78613067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78613066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ff6300065fd36144af15716b083f5f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musica: {fileID: 0}
-  volume: 0.5
-  loop: 0
-  tocarNoStart: 0
-  grupoMusica: {fileID: 0}
-  pararMusicaGlobal: 1
 --- !u!212 &78613068
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -756,6 +738,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &78613071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78613066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d744501ebbda4249a94d540ac2c12ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMusicName: ea
+  fadeInTime: 0
+  fadeOutTime: 0
+  playOnStart: 1
+  shouldFadeIn: 0
 --- !u!1 &113321296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3022,6 +3021,26 @@ PrefabInstance:
     - target: {fileID: 7058534459148261585, guid: bb162f12b084ddf4293672123102089b, type: 3}
       propertyPath: m_Name
       value: MusicManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
+      propertyPath: musicList.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
+      propertyPath: musicList.Array.data[5].musicClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
+    - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
+      propertyPath: musicList.Array.data[5].musicName
+      value: boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
+      propertyPath: musicList.Array.data[6].musicClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cf20b48e2de943446ace0d5184bf1ce5, type: 3}
+    - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
+      propertyPath: musicList.Array.data[6].musicName
+      value: NE ZHA
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
