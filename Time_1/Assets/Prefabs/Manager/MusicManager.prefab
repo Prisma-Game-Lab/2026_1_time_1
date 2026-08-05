@@ -49,7 +49,7 @@ MonoBehaviour:
   musicList:
   - musicName: menu
     musicClip: {fileID: 8300000, guid: 144976646abe31e4cbd75f490233a13d, type: 3}
-    volume: 0.101
+    volume: 0.419
   - musicName: Koalemos
     musicClip: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
     volume: 0.101

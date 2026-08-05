@@ -25,6 +25,8 @@ public class AnhangaAI : MonoBehaviour
     [SerializeField] private float pesoArrow    = 3f;
     [SerializeField] private float pesoScream   = 0f;
 
+    [SerializeField][Range(0f, 1f)] private float repeatPenalty = 0.25f;
+
     [Header("Flechas")]
     [SerializeField] private int   arrowCount    = 5;
     [SerializeField] private float arrowInterval = 0.2f;
@@ -32,6 +34,7 @@ public class AnhangaAI : MonoBehaviour
     [Header("Grito")]
     [SerializeField] private int screamDuration = 3;
 
+    private int lastAttack = -1;
     private void Start()
     {
         if (movement     == null) movement     = GetComponent<AnhangaMovement>();
