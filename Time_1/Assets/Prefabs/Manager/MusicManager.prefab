@@ -68,7 +68,7 @@ MonoBehaviour:
   - musicName: boss
     musicClip: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
     volume: 0.101
-  - musicName: NE ZHA
+  - musicName: Nezha
     musicClip: {fileID: 8300000, guid: cf20b48e2de943446ace0d5184bf1ce5, type: 3}
     volume: 0.101
 --- !u!114 &5301473440715809330
