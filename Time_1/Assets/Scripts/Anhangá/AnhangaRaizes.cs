@@ -32,6 +32,7 @@ public class AnhangaRaizes : MonoBehaviour
     [SerializeField] private float tempoRecolhe = 0.4f;
 
     [Header("audio")]
+    [SerializeField] private AudioClip sfxAviso;
     [SerializeField] private AudioClip sfxRaizes;
 
     private Coroutine routine;
@@ -57,6 +58,8 @@ public class AnhangaRaizes : MonoBehaviour
     }
     private IEnumerator RaizesRoutine()
     {
+        if (sfxAviso != null) SFXManager.PlaySFX("anhanga_raizes_aviso");
+
         List<float> posicoes = CalcularPosicoes();
         HashSet<int> brechas = SortearBrechas(posicoes.Count);
 

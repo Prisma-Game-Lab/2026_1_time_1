@@ -22,6 +22,9 @@ public class SFXManager : MonoBehaviour
     public static GameObject PlaySFX(string sfxName)
     {
         GameObject sfxObject = PlaySFX(sfxName, Vector2.zero, Camera.main.transform);
+
+        if (sfxObject == null) return null;
+
         sfxObject.GetComponent<AudioSource>().spatialBlend = 0;
         return sfxObject;
     }
@@ -40,8 +43,7 @@ public class SFXManager : MonoBehaviour
         SourceObj = Instantiate(instance.sfxSourceObj, soundPos, Quaternion.identity, parent);
         AudioSource audioSource = SourceObj.GetComponent<AudioSource>();
 
-        //sfxSource.pitch = pitchModifier;
-        audioSource.clip = sfxLibrary.GetClipRandomVariation(sfxName, ref volume, ref pitchModifier);
+        audioSource.clip = randomClip;
         audioSource.volume = volume;
         audioSource.pitch = pitchModifier;
 

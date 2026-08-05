@@ -8,7 +8,7 @@ public class AnhangaMovement : MonoBehaviour
     [SerializeField] private Transform limiteEsquerdo;
     [SerializeField] private Transform limiteDireito;
 
-    [Header("Refer�ncias")]
+    [Header("Referências")]
     [SerializeField] private Transform player;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
@@ -16,7 +16,7 @@ public class AnhangaMovement : MonoBehaviour
     [Header("Sprite")]
     [SerializeField] private bool spriteOlhaParaDireita = true;
 
-    [Header("Ch�o")]
+    [Header("Chão")]
     [SerializeField] private bool usarYDosLimites = true;
 
     private bool walkingThisFrame;
@@ -34,14 +34,13 @@ public class AnhangaMovement : MonoBehaviour
             return transform.position.y;
         }
     }
-
     private void Awake()
     {
         if (player == null)
         {
             GameObject p = GameObject.FindGameObjectWithTag("Player");
             if (p != null) player = p.transform;
-            else Debug.LogWarning("[AnhangaMovement] Player n�o encontrado (tag 'Player').", this);
+            else Debug.LogWarning("[AnhangaMovement] Player não encontrado (tag 'Player').", this);
         }
     }
     public void AndarParaPlayer(float velocidade)
@@ -63,7 +62,6 @@ public class AnhangaMovement : MonoBehaviour
         walkingThisFrame = true;
         return Mathf.Abs(transform.position.x - alvoX) <= 0.05f;
     }
-
     public int DirecaoParaPlayer()
     {
         if (player == null) return 1;
@@ -76,27 +74,27 @@ public class AnhangaMovement : MonoBehaviour
         AtualizarFlip(faceDir);
         walkingThisFrame = true;
     }
-
-    // Teleporta para um X (usado quando surge num dos lados), travando na altura do ch�o.
     public void PosicionarEm(float x)
     {
         float cx = Mathf.Clamp(x, MinX, MaxX);
         transform.position = new Vector3(cx, GroundY, transform.position.z);
     }
-
     private void LateUpdate()
     {
         if (animator != null) animator.SetBool("isWalking", walkingThisFrame);
         walkingThisFrame = false;
     }
 
-    // Vira o sprite para uma dire��o sem mover.
     public void Encarar(int direcao) => AtualizarFlip(direcao);
     private void AtualizarFlip(int direcao)
     {
-        if (spriteRenderer == null) return;
+        if (direcao == 0) return;
         bool olhandoDireita = direcao > 0;
-        spriteRenderer.flipX = (olhandoDireita != spriteOlhaParaDireita);
+
+        float sign = (olhandoDireita == spriteOlhaParaDireita) ? 1f : -1f;
+        Vector3 escala = transform.localScale;
+        escala.x = Mathf.Abs(escala.x) * sign;
+        transform.localScale = escala;
     }
     private void OnDrawGizmosSelected()
     {

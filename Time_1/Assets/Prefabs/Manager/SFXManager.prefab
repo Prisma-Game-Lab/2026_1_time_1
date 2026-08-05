@@ -99,6 +99,18 @@ MonoBehaviour:
       volume: 0.027
       minPitchShift: 1
       maxPitchShift: 1
+  - SFXName: anhanga_corrida_aviso
+    SFXVariations:
+    - audioClip: {fileID: 8300000, guid: bf7f14a2816bce64791135882317cc7a, type: 3}
+      volume: 0.027
+      minPitchShift: 1
+      maxPitchShift: 1
+  - SFXName: anhanga_raizes_aviso
+    SFXVariations:
+    - audioClip: {fileID: 8300000, guid: 5c762074c115cc44e8e7fac8c5d4725c, type: 3}
+      volume: 0.027
+      minPitchShift: 1
+      maxPitchShift: 1
 --- !u!114 &1250086137296701712
 MonoBehaviour:
   m_ObjectHideFlags: 0

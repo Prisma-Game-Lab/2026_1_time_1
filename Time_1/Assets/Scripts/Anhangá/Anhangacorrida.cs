@@ -1,27 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class AnhangaCorrida : MonoBehaviour
 {
     [Header("Referencias")]
     [SerializeField] private AnhangaMovement movement;
 
     [Header("Corrida")]
-    [Tooltip("Velocidade horizontal da chifrada")]
     [SerializeField] private float velocidade = 8f;
-    [Tooltip("Numero MINIMO de travessias por ataque")]
     [SerializeField] private int numeroDeCorridasMin = 5;
-    [Tooltip("Numero MAXIMO de travessias (= min para valor fixo)")]
     [SerializeField] private int numeroDeCorridasMax = 6;
 
     [Header("Tempos")]
-    [Tooltip("Pausa de aviso, parado, antes de correr")]
     [SerializeField] private float telegraphDuration = 0.6f;
-    [Tooltip("Pausa ao bater na parede antes de virar e voltar")]
     [SerializeField] private float pausaNaBorda = 0.25f;
 
     [Header("Audio")]
+    [SerializeField] private AudioClip sfxAviso;
     [SerializeField] private AudioClip sfxChifrada;
 
     private Coroutine routine;
@@ -49,7 +44,8 @@ public class AnhangaCorrida : MonoBehaviour
 
         movement.Encarar(direcao);
 
-        // Telegraph (parado).
+        if (sfxAviso != null) SFXManager.PlaySFX("anhanga_corrida_aviso");
+
         if (telegraphDuration > 0f)
             yield return new WaitForSeconds(telegraphDuration);
 
