@@ -297,28 +297,27 @@ MonoBehaviour:
   portal: {fileID: 931635172}
   orbsParaAvancar: 3
   logsDiagnostico: 1
-  fala1: "Bem vindo ao TUTORIAL! Como pagamento debitei uma vida sua. Uma pechincha,
-    n\xE9?"
+  fala1: Bem vindo ao TUTORIAL!
   fala2: "Voc\xEA j\xE1 sabe andar, pular e lan\xE7ar, claro, voc\xEA \xE9 todo espertinho.\nAgora
     precisa dominar as mec\xE2nicas."
   fala3: "Use o 'pogo' para pegar aquela moeda: atire a lan\xE7a no ch\xE3o, pule
     e chame a lan\xE7a de volta."
   fala4: "Muito bem. Agora vamos para a pr\xF3xima li\xE7\xE3o..."
-  falaAntesDoAtaque: Se prepare
-  falaLevouDano: "Voc\xEA levou dano! Para se recuperar, colete nabos espalhados
+  falaAntesDoAtaque: Se prepare!
+  falaLevouDano: "Voc\xEA levou dano! Para se recuperar, colete 3 nabos espalhados
     pela arena."
   falaDeuParry: "Voc\xEA deu parry? Eu nem te ensinei isso ainda. Pegue esses nabos
-    e se cure. 67"
-  falaPosColeta: "Boa! Cada nabo aumenta a for\xE7as de seus ataques! 10% por nabo"
+    e se cure."
+  falaPosColeta: "Boa! Cada nabo aumenta a for\xE7as de seus ataques! 10% por nabo."
   falaPosColeta2: "Para curar, clique com o bot\xE3o direito do mouse."
   falaFinal: "Perfeito. Voc\xEA dominou a cura. Est\xE1 pronto para os desafios reais!"
   falaIntroProjetil: "Vou jogar um peda\xE7o de cobre. Acerte-o com sua lan\xE7a
-    para transforma lo em nabo"
+    para transforma-lo em nabo."
   falaProjetilOk: "Isso! Voc\xEA parou o proj\xE9til e virou nabo. Agora um \xFAltimo
     desafio..."
   falaProjetilFalhou: "Ainda n\xE3o. Fique atento e tente o parry de novo!"
-  falaTravessiaLentaFinal: Muito brabo. Agora eu aposto que consegue enfrentar o
-    coalemos
+  falaTravessiaLentaFinal: "Parab\xE9ns! Parab\xE9ns!. Agora eu aposto que consegue
+    enfrentar o COALEMOS..."
   falaTravessiaLentaFalhou: Quase! Foque no tempo do parry e tente outra vez.
 --- !u!4 &47000329
 Transform:
@@ -690,7 +689,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 54, y: -136}
+  m_AnchoredPosition: {x: 694, y: 0}
   m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &94440678
@@ -4313,7 +4312,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 27, y: 40}
+  m_AnchoredPosition: {x: 438, y: 200}
   m_SizeDelta: {x: 2000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1446739126
