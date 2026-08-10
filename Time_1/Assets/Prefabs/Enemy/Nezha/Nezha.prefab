@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 3094117739503362040}
   - component: {fileID: 4537466160486295610}
   - component: {fileID: 2566423536601295276}
+  - component: {fileID: 4905502299723143118}
   m_Layer: 8
   m_Name: Nezha
   m_TagString: Untagged
@@ -203,6 +204,7 @@ MonoBehaviour:
   chuteAttack: {fileID: 0}
   teleporteSlamAttack: {fileID: 0}
   slamAttack: {fileID: 2566423536601295276}
+  firewallAttack: {fileID: 0}
   chaoDeFogoAttack: {fileID: 0}
   cam: {fileID: 0}
   playerTransform: {fileID: 0}
@@ -216,6 +218,7 @@ MonoBehaviour:
   weightChute: 1
   weightTeleporteSlam: 0.8
   weightSlam: 1
+  weightFirewall: 1
   closeRange: 3
   farRange: 8
   airHeightThreshold: 2
@@ -288,6 +291,33 @@ MonoBehaviour:
   fireballSpread: 70
   fireballLaunchSpeed: 20
   recoveryTime: 0.5
+--- !u!114 &4905502299723143118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847299950495477742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 238917678ed777f499c22cd6b7fbf3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 6769297392770798520}
+  spriteRenderer: {fileID: 0}
+  cam: {fileID: 0}
+  playerTransform: {fileID: 0}
+  firewallPrefab: {fileID: 6786033581701832808, guid: ae0b62ba24ce47e43888ffc8b4a8e9ae, type: 3}
+  edgeMargin: 1.5
+  cornerThreshold: 0.4
+  walkTimeout: 4
+  chargeSprite: {fileID: 21300000, guid: cc077d5186ee67942b228f684ec2d9c8, type: 3}
+  chargeTime: 1.2
+  segmentCount: 12
+  segmentSpacing: 1.5
+  spawnDelay: 0.25
+  spawnYOffset: -0.5
+  recoveryTime: 0.6
 --- !u!1 &3484288027399402318
 GameObject:
   m_ObjectHideFlags: 0
