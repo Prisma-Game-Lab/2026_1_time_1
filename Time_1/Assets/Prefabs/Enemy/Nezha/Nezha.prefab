@@ -214,7 +214,7 @@ MonoBehaviour:
   edgeMargin: 1.5
   weightFireball: 1
   weightChute: 1
-  weightTeleporteSlam: 1
+  weightTeleporteSlam: 0.8
   weightSlam: 1
   closeRange: 3
   farRange: 8
