@@ -117,13 +117,14 @@ MonoBehaviour:
   anhangaArrow: {fileID: 1075362651006491005}
   anhangaScream: {fileID: 855911154949338050}
   velocidadeNeutro: 1.02
-  neutroTempoMin: 1
-  neutroTempoMax: 1.5
+  neutroTempoMin: 0.8
+  neutroTempoMax: 1.2
   pesoCorrida: 0.75
   pesoRaizes: 0.4
   pesoInvestida: 1
   pesoArrow: 1
   pesoScream: 0.4
+  repeatPenalty: 0.25
   arrowCount: 10
   arrowInterval: 0.5
   screamDuration: 1
@@ -145,6 +146,7 @@ MonoBehaviour:
   numeroDeCorridasMax: 3
   telegraphDuration: 0.99
   pausaNaBorda: 0.25
+  sfxAviso: {fileID: 0}
   sfxChifrada: {fileID: 8300000, guid: 9d2f7af48c80239418003cd943764512, type: 3}
 --- !u!114 &1190953772131428527
 MonoBehaviour:
@@ -190,6 +192,7 @@ MonoBehaviour:
   tempoCrescimento: 0.23
   tempoEmPe: 2
   tempoRecolhe: 0.4
+  sfxAviso: {fileID: 0}
   sfxRaizes: {fileID: 8300000, guid: 04ee7e175f6303944aa84f0bf4065803, type: 3}
 --- !u!114 &7089570607411163476
 MonoBehaviour:

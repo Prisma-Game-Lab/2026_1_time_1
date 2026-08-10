@@ -637,7 +637,7 @@ MonoBehaviour:
   pogoFalloff: 0.7
   maxDamageMultiplier: 3
   maxSpeedMultiplier: 2
-  percentPorNabo: 14
+  percentPorNabo: 12
   playerMovement: {fileID: 3534906634803273781}
   parryKnockbackForce: 10
   parryKnockbackUp: 4

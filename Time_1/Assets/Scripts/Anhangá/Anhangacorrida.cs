@@ -5,11 +5,13 @@ public class AnhangaCorrida : MonoBehaviour
 {
     [Header("Referencias")]
     [SerializeField] private AnhangaMovement movement;
+    [SerializeField] private GameObject brilhoOlhos;
 
     [Header("Corrida")]
     [SerializeField] private float velocidade = 8f;
     [SerializeField] private int numeroDeCorridasMin = 5;
     [SerializeField] private int numeroDeCorridasMax = 6;
+
 
     [Header("Tempos")]
     [SerializeField] private float telegraphDuration = 0.6f;
@@ -46,8 +48,12 @@ public class AnhangaCorrida : MonoBehaviour
 
         if (sfxAviso != null) SFXManager.PlaySFX("anhanga_corrida_aviso");
 
+        if (brilhoOlhos != null) brilhoOlhos.SetActive(true);
+
         if (telegraphDuration > 0f)
             yield return new WaitForSeconds(telegraphDuration);
+
+        if (brilhoOlhos != null) brilhoOlhos.SetActive(false);
 
         if (sfxChifrada != null) SFXManager.PlaySFX("anhanga_chifrada");
 
