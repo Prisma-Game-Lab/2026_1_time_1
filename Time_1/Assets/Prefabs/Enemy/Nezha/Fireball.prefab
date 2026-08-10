@@ -53,7 +53,7 @@ MonoBehaviour:
   environmentLayers:
     serializedVersion: 2
     m_Bits: 0
-  gravityScale: 1
+  gravityScale: 0.5
   lifetime: 4
 --- !u!50 &1122333844202005278
 Rigidbody2D:

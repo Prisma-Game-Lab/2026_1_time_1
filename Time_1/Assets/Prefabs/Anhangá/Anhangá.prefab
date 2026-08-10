@@ -141,7 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {fileID: 1190953772131428527}
-  velocidade: 26
+  brilhoOlhos: {fileID: 0}
+  velocidade: 25
   numeroDeCorridasMin: 2
   numeroDeCorridasMax: 3
   telegraphDuration: 0.99
@@ -238,7 +239,7 @@ MonoBehaviour:
   tempoRecuo: 0.5
   tempoNaFumaca: 1
   tempoSurgir: 0.8
-  velocidadeInvestida: 31
+  velocidadeInvestida: 25
   tempoStagger: 2.5
   sfxInvestida: {fileID: 0}
 --- !u!114 &758299458970649858
