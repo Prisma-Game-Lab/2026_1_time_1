@@ -379,13 +379,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3514805460091916697, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_text
-      value: 'Perseverar
-
-'
+      value: Persistir
       objectReference: {fileID: 0}
     - target: {fileID: 3514805460091916697, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_fontSize
-      value: 36
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 3514805460091916697, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_margin.y
@@ -393,7 +391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3514805460091916697, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_fontSizeBase
-      value: 36
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 3514805460091916697, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_enableAutoSizing
@@ -507,7 +505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3514805460091916697, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_fontSize
-      value: 36
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 3514805460091916697, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_margin.y
@@ -515,7 +513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3514805460091916697, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_fontSizeBase
-      value: 36
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 6084389345160759873, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_Pivot.x
