@@ -629,7 +629,7 @@ MonoBehaviour:
   returnSpeed: 40
   dropIntensity: 2
   damage: 1000
-  returnKnockback: 15
+  returnKnockback: 17
   startLag: 0.2
   throwEndLag: 0.1
   returnLag: 0.1
