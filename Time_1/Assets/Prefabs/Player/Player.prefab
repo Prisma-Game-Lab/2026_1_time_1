@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6629587993135455583
 Transform:
   m_ObjectHideFlags: 0
@@ -628,7 +628,7 @@ MonoBehaviour:
   throwSpeed: 40
   returnSpeed: 40
   dropIntensity: 2
-  damage: 5
+  damage: 1000
   returnKnockback: 15
   startLag: 0.2
   throwEndLag: 0.1

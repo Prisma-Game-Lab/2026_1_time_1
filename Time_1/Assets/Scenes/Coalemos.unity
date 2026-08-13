@@ -150,7 +150,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20539653}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: a01fc7f5b82a8384fbd09a29c6bf1c7e, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: d0bc440be694763438336ebfe7a71720, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -187,7 +187,7 @@ AudioSource:
   m_GameObject: {fileID: 20539653}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4017735788582753969, guid: abf66cf70fe964d4888758a3ae80510b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -552,7 +552,7 @@ MonoBehaviour:
   pausarDurante:
   - {fileID: 1315019913}
   - {fileID: 1884956247}
-  - {fileID: 359620845}
+  - {fileID: 359620848}
   permitirPular: 1
   aoIniciar:
     m_PersistentCalls:
@@ -597,10 +597,10 @@ GameObject:
   m_Component:
   - component: {fileID: 359620844}
   - component: {fileID: 359620846}
-  - component: {fileID: 359620845}
   - component: {fileID: 359620847}
+  - component: {fileID: 359620848}
   m_Layer: 0
-  m_Name: Caixa de som 2000
+  m_Name: Caixa de som 3000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -621,24 +621,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 606583946}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &359620845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359620843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ff6300065fd36144af15716b083f5f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musica: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
-  volume: 0.416
-  loop: 1
-  tocarNoStart: 1
-  grupoMusica: {fileID: -4017735788582753969, guid: abf66cf70fe964d4888758a3ae80510b, type: 2}
-  pararMusicaGlobal: 1
 --- !u!212 &359620846
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -787,6 +769,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &359620848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359620843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d744501ebbda4249a94d540ac2c12ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMusicName: Koalemos
+  fadeInTime: 0
+  fadeOutTime: 0
+  playOnStart: 1
+  shouldFadeIn: 0
 --- !u!60 &371059248 stripped
 PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 5626344378405160941, guid: 72d03471af24ca54282dd3bd4068c592, type: 3}
@@ -898,6 +897,7 @@ Transform:
   m_Children:
   - {fileID: 2093085087}
   - {fileID: 359620844}
+  - {fileID: 1234071349}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &637244053 stripped
@@ -1544,6 +1544,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1234071348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1234071349}
+  - component: {fileID: 1234071350}
+  m_Layer: 0
+  m_Name: WinScreenManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1234071349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234071348}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 606583946}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1234071350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234071348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ec5fdb72564fb48bf8cb3929c0945e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0
+  pauseGame: 0
+  parentCanvas: {fileID: 0}
+  displayDuration: 3
+  fadeOutDuration: 0.5
 --- !u!1001 &1315019912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1684,6 +1733,10 @@ PrefabInstance:
       propertyPath: portaParaAtivar
       value: 
       objectReference: {fileID: 1413859478}
+    - target: {fileID: 8062104467287358412, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: winScreenPrefab
+      value: 
+      objectReference: {fileID: 5531276001431049538, guid: 1fd66868922db7a40bebe2b60a5eda78, type: 3}
     - target: {fileID: 8689566941947030917, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -1936,11 +1989,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
       propertyPath: musicList.Array.size
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
       propertyPath: musicList.Array.data[6].volume
       value: 0.101
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
+      propertyPath: musicList.Array.data[5].musicClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
+    - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
+      propertyPath: musicList.Array.data[5].musicName
+      value: boss
       objectReference: {fileID: 0}
     - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
       propertyPath: musicList.Array.data[6].musicClip
@@ -2018,7 +2079,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.57251
+      value: -0.5365
       objectReference: {fileID: 0}
     - target: {fileID: 5119046920775485376, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_Name
@@ -2066,6 +2127,10 @@ PrefabInstance:
     - target: {fileID: 1797887810018008619, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583274065654823911, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
+      propertyPath: damage
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6629587993135455583, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
       propertyPath: m_LocalPosition.x

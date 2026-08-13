@@ -9,12 +9,18 @@ public class EnemyHealthController : HealthController
     [Header("Porta pos-boss")]
     [SerializeField] private GameObject portaParaAtivar;
 
+    [Header("Tela de vitoria")]
+    [SerializeField] private GameObject winScreenPrefab;
+
     private bool morreu = false;
 
     public override void Die()
     {
-        if (morreu) return;   
+        if (morreu) return;
         morreu = true;
+
+        if (WinScreenManager.Instance != null)
+            WinScreenManager.Instance.ShowWinScreen(winScreenPrefab);
 
         EnemyReference.SetActive(false);
 

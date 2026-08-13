@@ -6,19 +6,14 @@ using UnityEngine.Events;
 public class AnhangaHealthController : HealthController
 {
     [Header("Morte")]
-    [Tooltip("Objeto a desativar ao morrer. Vazio = este proprio (a raiz do Anhanga).")]
     [SerializeField] private GameObject bossRoot;
-    [Tooltip("VFX instanciado na posicao do boss ao morrer.")]
     [SerializeField] private GameObject vfxMortePrefab;
-    [Tooltip("Som de morte.")]
     [SerializeField] private AudioClip sfxMorte;
-    [Tooltip("Porta que aparece quando o boss morre. Deixe DESATIVADA na cena.")]
     [SerializeField] private GameObject portaParaAtivar;
-    [Tooltip("Disparado ao morrer.")]
+    [SerializeField] private GameObject winScreenPrefab;
     [SerializeField] private UnityEvent onMorte;
 
     [Header("Stagger (vulnerabilidade)")]
-    [Tooltip("Multiplicador do dano que o boss RECEBE enquanto esta em stagger")]
     [Range(1f, 5f)]
     [SerializeField] private float multiplicadorDanoStagger = 2f;
 
@@ -34,7 +29,6 @@ public class AnhangaHealthController : HealthController
             : dmg;
         base.TakeDamage(final);
     }
-
     public override void Die()
     {
         if (morreu) return;
@@ -44,6 +38,9 @@ public class AnhangaHealthController : HealthController
             Instantiate(vfxMortePrefab, transform.position, Quaternion.identity);
         if (sfxMorte != null)
             SFXManager.PlaySFX("anhanga_morte");
+
+        if (WinScreenManager.Instance != null)
+            WinScreenManager.Instance.ShowWinScreen(winScreenPrefab);
 
         if (portaParaAtivar != null)
             portaParaAtivar.SetActive(true);
