@@ -528,6 +528,8 @@ MonoBehaviour:
   maxHealth: 500
   currentHealth: 0
   EnemyReference: {fileID: 8937436732187326094}
+  portaParaAtivar: {fileID: 0}
+  winScreenPrefab: {fileID: 0}
 --- !u!61 &5492278160625299312
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -662,7 +664,7 @@ MonoBehaviour:
   slamDropSpeed: 20
   slamReturnSpeed: 8
   slamJitterMax: 0.25
-  swipeSpeed: 10
+  swipeSpeed: 15
   swipeApproachSpeed: 15
   swipeArenaMinX: -10
   swipeArenaMaxX: 10

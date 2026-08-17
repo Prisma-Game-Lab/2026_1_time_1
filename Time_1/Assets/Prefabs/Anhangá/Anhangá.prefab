@@ -207,12 +207,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbbc79bbe635b2240b90fbb4dc50d519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 250
+  maxHealth: 300
   currentHealth: 0
   bossRoot: {fileID: 0}
   vfxMortePrefab: {fileID: 0}
   sfxMorte: {fileID: 8300000, guid: f76f18195b5e61f48823d65f1d523b18, type: 3}
   portaParaAtivar: {fileID: 0}
+  winScreenPrefab: {fileID: 0}
   onMorte:
     m_PersistentCalls:
       m_Calls: []

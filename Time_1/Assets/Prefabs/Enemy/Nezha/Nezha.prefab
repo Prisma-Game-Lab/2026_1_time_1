@@ -137,10 +137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bea298b139927b42b74765b4be59af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
+  maxHealth: 300
   currentHealth: 0
   EnemyReference: {fileID: 1847299950495477742}
   portaParaAtivar: {fileID: 0}
+  winScreenPrefab: {fileID: 0}
 --- !u!114 &6769297392770798520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,8 +217,8 @@ MonoBehaviour:
   edgeMargin: 1.5
   weightFireball: 1
   weightChute: 1
-  weightTeleporteSlam: 0.8
-  weightSlam: 0
+  weightTeleporteSlam: 0
+  weightSlam: 0.8
   weightFirewall: 1
   closeRange: 3
   farRange: 8
