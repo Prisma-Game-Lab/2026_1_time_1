@@ -71,8 +71,12 @@ public class PlayerHealthController : HealthController
 
     public override void Die()
     {
+        if (GameOverPanel != null)
+            GameOverPanel.SetActive(true);
+        else
+            Debug.LogError("[PlayerHealthController] GameOverPanel não está atribuído no Inspector!", this);
+
         if (PlayerReference != null) PlayerReference.SetActive(false);
         if (PlayerCanvas != null) PlayerCanvas.SetActive(false);
-        if (GameOverPanel != null) GameOverPanel.SetActive(true);
     }
 }

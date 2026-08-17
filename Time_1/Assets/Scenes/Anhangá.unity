@@ -1376,7 +1376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c32eb1336f65f479ab7dec434256ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nomeDaCena: Nezha
+  nomeDaCena: ea nassir 2
   usarProximaCenaNoBuild: 0
   tagDoJogador: Player
 --- !u!61 &629385864
@@ -5049,7 +5049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6513730409082068644, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
       propertyPath: pesoArrow
-      value: 1
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 6513730409082068644, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
       propertyPath: pesoRaizes

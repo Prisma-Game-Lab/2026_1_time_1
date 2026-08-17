@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c32eb1336f65f479ab7dec434256ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nomeDaCena: "Anhang\xE1"
+  nomeDaCena: ea nassir 1
   usarProximaCenaNoBuild: 0
   tagDoJogador: Player
 --- !u!61 &1413859480
@@ -2079,7 +2079,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5365
+      value: -0.06677008
       objectReference: {fileID: 0}
     - target: {fileID: 5119046920775485376, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_Name

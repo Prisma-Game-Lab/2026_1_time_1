@@ -4317,12 +4317,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -5360,9 +5360,9 @@ MonoBehaviour:
   btnSair: {fileID: 59727219}
   btnContinuar: {fileID: 841966976}
   btnIrParaFase: {fileID: 385890931}
-  primeiraFala: "Kuebiko? Vejo que voc\xEA \xE9 novo por aqui. Quer saber como as
-    coisas funcionam?"
-  segundaFala: "Excelente! Venha comigo, eu vou te cobrar um pre\xE7o 'amigo'..."
+  falas:
+  - "Kuebiko? Vejo que voce \xE9 novo por aqui. Quer saber como as coisas funcionam?"
+  - "Excelente! Venha comigo, eu vou te cobrar um pre\xE7o 'amigo'"
   TUTORIAL: TUTORIAL
 --- !u!1 &1361874513
 GameObject:

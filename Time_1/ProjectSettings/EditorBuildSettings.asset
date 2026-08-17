@@ -15,6 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/ea nassir.unity
     guid: dc15e261e60c11447b12569419fff16f
   - enabled: 1
+    path: Assets/Scenes/ea nassir 2.unity
+    guid: 11fbffe0df60ce340b360b90c5745a70
+  - enabled: 1
+    path: Assets/Scenes/ea nassir 1.unity
+    guid: 4f98a60b664fc2645b476dc21e67a427
+  - enabled: 1
     path: Assets/Scenes/Coalemos.unity
     guid: 0a34ca35eca2c4a42853489ac12cd352
   - enabled: 1
