@@ -261,7 +261,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2835181076644938472}
   - component: {fileID: 4712315545039924928}
-  - component: {fileID: 8026617575036514902}
   m_Layer: 5
   m_Name: PauseUI
   m_TagString: Untagged
@@ -298,24 +297,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6804250579621604589}
   m_CullTransparentMesh: 1
---- !u!114 &8026617575036514902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6804250579621604589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1db89cd406d7ca446a1c2e990c37534e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  painelPausa: {fileID: 6255275307481784313}
-  painelOpcoes: {fileID: 8502857053496160150}
-  sliderMusica: {fileID: 485567234505963397}
-  sliderSFX: {fileID: 7405612662817460438}
-  mixer: {fileID: 0}
-  cenaMenuPrincipal: MainMenu
 --- !u!1 &6889593147603206644
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,10 +536,6 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 8026617575036514902}
-    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Continuar
       objectReference: {fileID: 0}
@@ -664,10 +641,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1373670757265845323}
     m_Modifications:
-    - target: {fileID: 619748393098721777, guid: 7f13918390f4af345820f892f154c90a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 8026617575036514902}
     - target: {fileID: 619748393098721777, guid: 7f13918390f4af345820f892f154c90a, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AoMudarVolumeMusica
@@ -789,17 +762,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f13918390f4af345820f892f154c90a, type: 3}
---- !u!114 &485567234505963397 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 619748393098721777, guid: 7f13918390f4af345820f892f154c90a, type: 3}
-  m_PrefabInstance: {fileID: 1019182626731150964}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &2057982942499085748 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1345364248191554496, guid: 7f13918390f4af345820f892f154c90a, type: 3}
@@ -829,10 +791,6 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 50
       objectReference: {fileID: 0}
-    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 8026617575036514902}
     - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: VoltarAoMenu
@@ -1168,10 +1126,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1373670757265845323}
     m_Modifications:
     - target: {fileID: 619748393098721777, guid: 7f13918390f4af345820f892f154c90a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 8026617575036514902}
-    - target: {fileID: 619748393098721777, guid: 7f13918390f4af345820f892f154c90a, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: MenuPausa, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -1284,17 +1238,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f13918390f4af345820f892f154c90a, type: 3}
---- !u!114 &7405612662817460438 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 619748393098721777, guid: 7f13918390f4af345820f892f154c90a, type: 3}
-  m_PrefabInstance: {fileID: 7953300435930589479}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &9003959253575006951 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1345364248191554496, guid: 7f13918390f4af345820f892f154c90a, type: 3}
@@ -1324,10 +1267,6 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 50
       objectReference: {fileID: 0}
-    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 8026617575036514902}
     - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Reiniciar
@@ -1451,10 +1390,6 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 8026617575036514902}
-    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AbrirOpcoes
       objectReference: {fileID: 0}
@@ -1576,10 +1511,6 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 50
       objectReference: {fileID: 0}
-    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 8026617575036514902}
     - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: FecharOpcoes
