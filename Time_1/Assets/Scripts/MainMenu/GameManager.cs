@@ -7,6 +7,11 @@ public class GameManager : MonoBehaviour
     public int totalBosses = 3;
     public int CurrentBossIndex { get; private set; } = 0;
     public bool IsGameOver { get; private set; } = false;
+
+    [Header("Vidas")]
+    [SerializeField] private int startingLives = 5;
+    public int CurrentLives { get; private set; }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -16,12 +21,18 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        CurrentLives = startingLives;
     }
     public void IniciarJogo()
     {
         CurrentBossIndex = 0;
         IsGameOver = false;
+        CurrentLives = startingLives;
         CarregarCenaBoss(CurrentBossIndex);
+    }
+    public void UseLife()
+    {
+        CurrentLives = Mathf.Max(0, CurrentLives - 1);
     }
     public void BossDerrotado()
     {

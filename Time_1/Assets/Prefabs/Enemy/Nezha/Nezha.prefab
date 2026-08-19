@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3523082738790159110}
   - component: {fileID: 6723637712725970088}
+  - component: {fileID: 7682501099707547061}
   m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
@@ -84,6 +85,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7682501099707547061
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210848633766225782}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fdcbf8430934f494aaedb1868d30bd40, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1847299950495477742
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,10 +225,9 @@ MonoBehaviour:
   movement: {fileID: 6769297392770798520}
   fireballAttack: {fileID: 4537466160486295610}
   chuteAttack: {fileID: 0}
-  teleporteSlamAttack: {fileID: 0}
   slamAttack: {fileID: 2566423536601295276}
-  firewallAttack: {fileID: 0}
-  chaoDeFogoAttack: {fileID: 0}
+  firewallAttack: {fileID: 4905502299723143118}
+  animator: {fileID: 7682501099707547061}
   cam: {fileID: 0}
   playerTransform: {fileID: 0}
   minIdleTime: 1.2
@@ -217,7 +238,6 @@ MonoBehaviour:
   edgeMargin: 1.5
   weightFireball: 1
   weightChute: 1
-  weightTeleporteSlam: 0
   weightSlam: 0.8
   weightFirewall: 1
   closeRange: 3
@@ -235,7 +255,6 @@ MonoBehaviour:
   floatVertSpeed: 4
   floatChaseSpacing: 2.5
   floatLandTimeout: 4
-  chanceChaoPosFloat: 0.5
 --- !u!114 &4537466160486295610
 MonoBehaviour:
   m_ObjectHideFlags: 0

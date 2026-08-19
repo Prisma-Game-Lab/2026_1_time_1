@@ -32,8 +32,9 @@ public class DundeProjectile : MonoBehaviour
         if (other.GetComponent<SpearCollisionRelay>() != null) return;
         // Ignora qualquer Duende (incluindo o que disparou) � tiro n�o acerta Duende.
         if (other.GetComponentInParent<Duende>() != null) return;
-        // Se j� virou orb, n�o faz mais nada (a l�gica de orb controla o objeto).
-        if (GetComponent<ParriedOrb>() != null && !enabled) return;
+        // Se já virou orb, não faz mais nada (a lógica de orb controla o objeto).
+        var parriedOrb = GetComponent<ParriedOrb>();
+        if (parriedOrb != null && parriedOrb.EstaComoOrb) return;
         // Ignora outros proj�teis.
         if (other.CompareTag("Projectile")) return;
         // Dano ao jogador.

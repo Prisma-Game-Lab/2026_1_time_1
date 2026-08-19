@@ -537,8 +537,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  armSprite: {fileID: 0}
+  armSprite: {fileID: 1112072044523797014}
   walkSpriteScaleMultiplier: 1.5
+  jumpSpriteScaleMultiplier: 1.5
   knockbackDecay: 20
 --- !u!50 &5635622864824786433
 Rigidbody2D:
@@ -658,7 +659,6 @@ MonoBehaviour:
   currentHealth: 0
   PlayerReference: {fileID: 7133087523553522135}
   PlayerCanvas: {fileID: 0}
-  GameOverPanel: {fileID: 1245780986089252475, guid: c2995655f399e16489d596084b00afdb, type: 3}
   iframeDuration: 0.75
   parryEffect: {fileID: 718480132463861317}
   parryEffectDuration: 0.3

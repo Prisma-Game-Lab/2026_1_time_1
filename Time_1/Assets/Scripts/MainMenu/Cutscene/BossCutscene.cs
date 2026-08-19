@@ -69,7 +69,7 @@ public class BossCutscene : MonoBehaviour
         MusicManager.StartFadeOut();
         aoIniciar?.Invoke();
 
-        if (video != null) { video.Stop(); video.Play(); }
+        if (video != null) StartCoroutine(PrepareAndPlay());
         else Terminar();
     }
 
@@ -83,9 +83,17 @@ public class BossCutscene : MonoBehaviour
             Pular();
     }
 
+    private IEnumerator PrepareAndPlay()
+    {
+        video.Stop();
+        video.Prepare();
+        yield return new WaitUntil(() => video.isPrepared);
+        if (tocando) video.Play();
+    }
     public void Pular()
     {
         if (!tocando) return;
+        StopAllCoroutines();
         if (video != null) video.Stop();
         Terminar();
     }

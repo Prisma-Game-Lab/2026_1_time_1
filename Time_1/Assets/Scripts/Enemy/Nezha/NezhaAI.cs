@@ -6,11 +6,9 @@ public class NezhaAI : MonoBehaviour
     [SerializeField] private NezhaMovement movement;
     [SerializeField] private NezhaFireball fireballAttack;
     [SerializeField] private NezhaChute chuteAttack;
-    [SerializeField] private NezhaTeleporteSlam teleporteSlamAttack;
     [SerializeField] private NezhaSlam slamAttack;
     [SerializeField] private NezhaFirewall firewallAttack;
-    [Tooltip("Ataque de chao disparado ao terminar a flutuacao (com chance).")]
-    [SerializeField] private NezhaChaoDeFogo chaoDeFogoAttack;
+    [SerializeField] private Animator animator;
     [SerializeField] private Camera cam;
     [Tooltip("Se vazio, tenta achar pela tag 'Player' no Start.")]
     [SerializeField] private Transform playerTransform;
@@ -29,7 +27,6 @@ public class NezhaAI : MonoBehaviour
     [Header("Attack Weights (base)")]
     [SerializeField] private float weightFireball = 1f;
     [SerializeField] private float weightChute = 1f;
-    [SerializeField] private float weightTeleporteSlam = 1f;
     [SerializeField] private float weightSlam = 1f;
     [SerializeField] private float weightFirewall = 1f;
 
@@ -61,8 +58,6 @@ public class NezhaAI : MonoBehaviour
     [Tooltip("Espacamento horizontal que o boss tenta manter do player enquanto paira.")]
     [SerializeField] private float floatChaseSpacing = 2.5f;
     [SerializeField] private float floatLandTimeout = 4f;
-    [Tooltip("Chance de soltar o ataque de chao ao terminar uma flutuacao.")]
-    [SerializeField][Range(0f, 1f)] private float chanceChaoPosFloat = 0.5f;
 
     private int lastAttack = -1;
     private float lastFloatTime = -999f;
@@ -108,6 +103,7 @@ public class NezhaAI : MonoBehaviour
             int attack = PickAttack();
             lastAttack = attack;
 
+            if (animator != null) animator.enabled = false;
             switch (attack)
             {
                 case 0:
@@ -121,20 +117,16 @@ public class NezhaAI : MonoBehaviour
                     break;
 
                 case 2:
-                    teleporteSlamAttack.Iniciar();
-                    yield return new WaitUntil(() => !teleporteSlamAttack.IsAttacking);
-                    break;
-
-                case 3:
                     slamAttack.Iniciar();
                     yield return new WaitUntil(() => !slamAttack.IsAttacking);
                     break;
 
-                case 4:
+                case 3:
                     firewallAttack.Iniciar();
                     yield return new WaitUntil(() => !firewallAttack.IsAttacking);
                     break;
             }
+            if (animator != null) animator.enabled = true;
         }
     }
     private IEnumerator IdlePhase()
@@ -198,12 +190,6 @@ public class NezhaAI : MonoBehaviour
         }
         movement.Stop();
 
-        // Ao bater no chao apos flutuar, com chance, cobre o chao da arena de dano.
-        if (chaoDeFogoAttack != null && Random.value < chanceChaoPosFloat)
-        {
-            chaoDeFogoAttack.Iniciar();
-            yield return new WaitUntil(() => !chaoDeFogoAttack.IsAttacking);
-        }
     }
 
     private int PickAttack()
@@ -219,8 +205,8 @@ public class NezhaAI : MonoBehaviour
         // t = 0 quando perto, 1 quando longe.
         float rangeT = Mathf.InverseLerp(closeRange, farRange, dist);
 
-        // 5 ataques: 0 = Fireball, 1 = Chute, 2 = TeleporteSlam, 3 = Slam, 4 = Firewall.
-        float[] w = { weightFireball, weightChute, weightTeleporteSlam, weightSlam, weightFirewall };
+        // 4 ataques: 0 = Fireball, 1 = Chute, 2 = Slam, 3 = Firewall.
+        float[] w = { weightFireball, weightChute, weightSlam, weightFirewall };
 
         // Fireball: chuva aerea, melhor de longe / com espaco.
         w[0] *= Mathf.Lerp(0.4f, 1.6f, rangeT);
@@ -230,17 +216,13 @@ public class NezhaAI : MonoBehaviour
         float sameLevel = playerAbove ? 0.4f : 1.2f;
         w[1] *= chuteRange * sameLevel + 0.2f;
 
-        // TeleporteSlam: teleporta ate o player; brilha quando ele esta no ar/acima ou longe.
-        w[2] *= playerAirborne ? 1.8f : 1.0f;
-        w[2] *= Mathf.Lerp(0.8f, 1.4f, rangeT);
-
         // Slam: pulo + esmagao no centro da arena; melhor de perto e com o player no chao.
-        w[3] *= playerAirborne ? 0.6f : 1.4f;
-        w[3] *= Mathf.Lerp(1.3f, 0.7f, rangeT);
+        w[2] *= playerAirborne ? 0.6f : 1.4f;
+        w[2] *= Mathf.Lerp(1.3f, 0.7f, rangeT);
 
         // Firewall: parede de fogo no canto; melhor quando player esta no chao e longe.
-        w[4] *= playerAirborne ? 0.3f : 1.4f;
-        w[4] *= Mathf.Lerp(0.5f, 1.5f, rangeT);
+        w[3] *= playerAirborne ? 0.3f : 1.4f;
+        w[3] *= Mathf.Lerp(0.5f, 1.5f, rangeT);
 
         // Penaliza (nao zera) o ultimo ataque -> variedade sem travar combos.
         if (lastAttack >= 0 && lastAttack < w.Length)

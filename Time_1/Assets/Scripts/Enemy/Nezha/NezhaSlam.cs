@@ -76,10 +76,18 @@ public class NezhaSlam : MonoBehaviour
         yield return new WaitForSeconds(hangTime);
 
         // Slam down
+        Collider2D[] myCols = GetComponents<Collider2D>();
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        Collider2D[] playerCols = playerObj != null
+            ? playerObj.GetComponentsInChildren<Collider2D>()
+            : System.Array.Empty<Collider2D>();
+        foreach (var mc in myCols)
+            foreach (var pc in playerCols)
+                Physics2D.IgnoreCollision(mc, pc, true);
+
         movement.ReleaseFromAir();
         if (rb != null) rb.velocity = Vector2.down * slamSpeed;
 
-        // Wait until grounded 
         elapsed = 0f;
         while (!movement.IsGrounded && elapsed < slamTimeout)
         {
@@ -87,6 +95,10 @@ public class NezhaSlam : MonoBehaviour
             yield return null;
         }
         movement.Stop();
+
+        foreach (var mc in myCols)
+            foreach (var pc in playerCols)
+                Physics2D.IgnoreCollision(mc, pc, false);
 
         // Spawn effects 
         Vector2 spawnPos = spawnPoint != null
