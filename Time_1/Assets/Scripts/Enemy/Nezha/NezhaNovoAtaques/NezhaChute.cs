@@ -10,6 +10,7 @@ public class NezhaChute : MonoBehaviour
     [Tooltip("Ponto de origem do teste de acerto. Se vazio, usa este transform.")]
     [SerializeField] private Transform pontoAcerto;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite startupSprite;
     [SerializeField] private Sprite kickingSprite;
 
     [Header("Tempo")]
@@ -52,6 +53,8 @@ public class NezhaChute : MonoBehaviour
         // Telegrafo
         movement.Stop();
         movement.FacePlayer();
+        if (spriteRenderer != null && startupSprite != null)
+            spriteRenderer.sprite = startupSprite;
         yield return new WaitForSeconds(tempoPreparacao);
 
         // Dire��o capturada no in�cio do avan�o

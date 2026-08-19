@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Walking Visuals")]
     [SerializeField] private GameObject armSprite;
     [SerializeField] private float walkSpriteScaleMultiplier = 2f;
+    [SerializeField] private float jumpSpriteScaleMultiplier = 2f;
 
     [Header("Knockback")]
     // Rate at which horizontal knockback decays.
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public float HorizontalInput => horizontalMovement;
 
     private static readonly int IsWalkingHash = Animator.StringToHash("isWalking");
+    private static readonly int IsJumpingHash = Animator.StringToHash("isJumping");
 
     private float horizontalMovement;
     private float verticalInput;
@@ -37,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     private bool hasJumped;      // true only after a player-initiated jump; gates the jumpCut branch
     private float knockbackVelocityX;
     private bool isWalking;
+    private bool isJumping;
     private Vector3 originalSpriteScale;
 
     void Start()
@@ -60,18 +63,35 @@ public class PlayerMovement : MonoBehaviour
         float inputX = movementLocked ? 0f : horizontalMovement;
         rb.velocity = new Vector2(knockbackVelocityX + inputX * moveSpeed, rb.velocity.y);
 
-        bool walking = inputX != 0f;
-        if (walking != isWalking)
+        bool walking = inputX != 0f && IsGrounded();
+        bool jumping = !IsGrounded();
+
+        bool walkingChanged = walking != isWalking;
+        bool jumpingChanged = jumping != isJumping;
+
+        if (walkingChanged || jumpingChanged)
         {
             isWalking = walking;
+            isJumping = jumping;
+
             if (animator != null)
+            {
                 animator.SetBool(IsWalkingHash, isWalking);
+                animator.SetBool(IsJumpingHash, isJumping);
+            }
+
             if (armSprite != null)
-                armSprite.SetActive(!isWalking);
+                armSprite.SetActive(!isWalking && !isJumping);
+
             if (spriteRenderer != null)
-                spriteRenderer.transform.localScale = isWalking
-                    ? originalSpriteScale * walkSpriteScaleMultiplier
-                    : originalSpriteScale;
+            {
+                if (isJumping)
+                    spriteRenderer.transform.localScale = originalSpriteScale * jumpSpriteScaleMultiplier;
+                else if (isWalking)
+                    spriteRenderer.transform.localScale = originalSpriteScale * walkSpriteScaleMultiplier;
+                else
+                    spriteRenderer.transform.localScale = originalSpriteScale;
+            }
         }
         if (rb.velocity.y < 0)
         {

@@ -7,7 +7,9 @@ public class PlayerHealthController : HealthController
 {
     [SerializeField] GameObject PlayerReference;
     [SerializeField] GameObject PlayerCanvas;
-    [SerializeField] GameObject GameOverPanel;
+
+    public static event System.Action OnPlayerDied;
+    private bool isDead;
 
     [Header("I-Frames")]
     [SerializeField] private float iframeDuration = 1f;
@@ -71,12 +73,16 @@ public class PlayerHealthController : HealthController
 
     public override void Die()
     {
-        if (GameOverPanel != null)
-            GameOverPanel.SetActive(true);
-        else
-            Debug.LogError("[PlayerHealthController] GameOverPanel não está atribuído no Inspector!", this);
-
+        if (isDead) return;
+        isDead = true;
+        Debug.Log($"[PlayerHealthController] Die() em: {gameObject.name}", gameObject);
+        if (!gameObject.CompareTag("Player"))
+        {
+            Debug.LogWarning($"[PlayerHealthController] Die() ignorado â€” objeto nao tem tag 'Player': {gameObject.name}", gameObject);
+            return;
+        }
         if (PlayerReference != null) PlayerReference.SetActive(false);
         if (PlayerCanvas != null) PlayerCanvas.SetActive(false);
+        OnPlayerDied?.Invoke();
     }
 }

@@ -25,6 +25,11 @@ public class PlayerAim : MonoBehaviour
 
     public void SetAimReversed(bool reversed) => aimReversed = reversed;
 
+    void Awake()
+    {
+        cursorForceCount = 0;
+    }
+
     void Start()
     {
         cam = Camera.main;

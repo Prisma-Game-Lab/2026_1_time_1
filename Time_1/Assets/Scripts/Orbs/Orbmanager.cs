@@ -28,6 +28,7 @@ public class OrbManager : MonoBehaviour
     {
         CurrentOrbs = Mathf.Min(CurrentOrbs + amount, maxOrbs);
         OnOrbsChanged?.Invoke(CurrentOrbs, maxOrbs);
+        SFXManager.PlaySFX("orbCollect");
         if (logs) Debug.Log($"[ORB] Orb coletada. Total: {CurrentOrbs}/{maxOrbs}");
     }
     // Consome exatamente o custo da cura. Retorna true se conseguiu consumir.

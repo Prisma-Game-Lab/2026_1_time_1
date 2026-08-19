@@ -290,6 +290,10 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4281900867
       objectReference: {fileID: 0}
+    - target: {fileID: 2273379495195901953, guid: 8d76e50ad26d34a448d0d96eb8033fc0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2316721646060493453, guid: 8d76e50ad26d34a448d0d96eb8033fc0, type: 3}
       propertyPath: m_text
       value: "Voc\xEA est\xE1 morto"
@@ -358,11 +362,46 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8892445024164091846, guid: 8d76e50ad26d34a448d0d96eb8033fc0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7238254085453863174}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3926536741951430974, guid: 8d76e50ad26d34a448d0d96eb8033fc0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6539795174353246145}
   m_SourcePrefab: {fileID: 100100000, guid: 8d76e50ad26d34a448d0d96eb8033fc0, type: 3}
+--- !u!95 &510788801689724084 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3200368604357819486, guid: 8d76e50ad26d34a448d0d96eb8033fc0, type: 3}
+  m_PrefabInstance: {fileID: 3134314022992206058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2090388910813297108 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3926536741951430974, guid: 8d76e50ad26d34a448d0d96eb8033fc0, type: 3}
+  m_PrefabInstance: {fileID: 3134314022992206058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6539795174353246145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090388910813297108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 881143a1eb1288840b95485b558dd7ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 6744934343710328298}
+  restartButton: {fileID: 7720235764898430793}
+  giveUpButton: {fileID: 8884147093908392537}
+  livesText: {fileID: 4523164948181876391}
+  animator: {fileID: 510788801689724084}
 --- !u!224 &5771114835551211308 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8892445024164091846, guid: 8d76e50ad26d34a448d0d96eb8033fc0, type: 3}
+  m_PrefabInstance: {fileID: 3134314022992206058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6744934343710328298 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8567398949144894720, guid: 8d76e50ad26d34a448d0d96eb8033fc0, type: 3}
   m_PrefabInstance: {fileID: 3134314022992206058}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3311500792617661361
@@ -396,6 +435,34 @@ PrefabInstance:
     - target: {fileID: 3514805460091916697, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6539795174353246145}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Reiniciar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameOverScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: MenuPrincipal, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6084389345160759873, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_Pivot.x
@@ -482,6 +549,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+--- !u!114 &7720235764898430793 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+  m_PrefabInstance: {fileID: 3311500792617661361}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8756343144848357872 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6084389345160759873, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
@@ -514,6 +592,34 @@ PrefabInstance:
     - target: {fileID: 3514805460091916697, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_fontSizeBase
       value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6539795174353246145}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: IrParaMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameOverScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: MenuPrincipal, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6084389345160759873, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
       propertyPath: m_Pivot.x
@@ -605,3 +711,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6084389345160759873, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
   m_PrefabInstance: {fileID: 4439930609067198113}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8884147093908392537 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5104577201038101752, guid: f9ce72a069a354d4ab67f5c314f23428, type: 3}
+  m_PrefabInstance: {fileID: 4439930609067198113}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

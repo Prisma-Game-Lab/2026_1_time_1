@@ -39,18 +39,22 @@ public class CutsceneController : MonoBehaviour
         MusicManager.StartFadeOut();
 
         if (videoPlayer != null)
-        {
-            videoPlayer.Stop();
-            videoPlayer.Play();
-        }
+            StartCoroutine(PrepareAndPlay());
         else
-        {
             CarregarCenaDestino();
-        }
+    }
+
+    private IEnumerator PrepareAndPlay()
+    {
+        videoPlayer.Stop();
+        videoPlayer.Prepare();
+        yield return new WaitUntil(() => videoPlayer.isPrepared);
+        videoPlayer.Play();
     }
 
     public void PularCutscene()
     {
+        StopAllCoroutines();
         if (videoPlayer != null)
             videoPlayer.Stop();
 
