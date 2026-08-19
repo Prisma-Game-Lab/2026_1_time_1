@@ -1897,7 +1897,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
       propertyPath: musicList.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
       propertyPath: musicList.Array.data[6].volume
@@ -1914,10 +1914,10 @@ PrefabInstance:
     - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
       propertyPath: musicList.Array.data[6].musicClip
       value: 
-      objectReference: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
+      objectReference: {fileID: 8300000, guid: cf20b48e2de943446ace0d5184bf1ce5, type: 3}
     - target: {fileID: 8632233338591508116, guid: bb162f12b084ddf4293672123102089b, type: 3}
       propertyPath: musicList.Array.data[6].musicName
-      value: boss
+      value: Nezha
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
