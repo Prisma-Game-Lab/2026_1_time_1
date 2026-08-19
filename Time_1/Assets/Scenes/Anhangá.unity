@@ -2479,6 +2479,14 @@ PrefabInstance:
       value: 0.134
       objectReference: {fileID: 0}
     - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[0].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e4cb0f94806ef664186203918e61879d, type: 3}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[7].SFXVariations.Array.data[0].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3de673c2fc083b74abe89ba5304849c9, type: 3}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
       propertyPath: SFXGroups.Array.data[8].SFXVariations.Array.data[0].audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 5e977d185c4ba424bbd59642c351d72a, type: 3}
