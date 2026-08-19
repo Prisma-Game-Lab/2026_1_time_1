@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 7406403022187744113}
   - component: {fileID: 6991707820927381310}
   - component: {fileID: 1975737258280315887}
-  - component: {fileID: 6115463572851598221}
   - component: {fileID: 5097680563931927001}
   m_Layer: 0
   m_Name: Duende
@@ -243,24 +242,6 @@ MonoBehaviour:
   maxHealth: 5
   currentHealth: 0
   duende: {fileID: 6991707820927381310}
---- !u!114 &6115463572851598221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8842925718238509237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 143059b823c577e4284f72d02652f217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 13.3
-  damage: 1
-  maxLifetime: 60
-  environmentLayers:
-    serializedVersion: 2
-    m_Bits: 576
 --- !u!212 &5097680563931927001
 SpriteRenderer:
   m_ObjectHideFlags: 0

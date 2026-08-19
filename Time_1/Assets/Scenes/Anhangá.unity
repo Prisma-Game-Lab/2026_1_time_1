@@ -4896,6 +4896,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7089570607411163476, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
+      propertyPath: maxHealth
+      value: 325
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089570607411163476, guid: 3a0a089fd68924440af8062b584dad23, type: 3}
       propertyPath: portaParaAtivar
       value: 
       objectReference: {fileID: 629385862}

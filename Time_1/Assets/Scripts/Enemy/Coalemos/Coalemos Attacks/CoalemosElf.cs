@@ -54,6 +54,7 @@ public class CoalemosElf : MonoBehaviour
             if (!elf.TryGetComponent(out Rigidbody2D rb))
                 rb = elf.GetComponentInChildren<Rigidbody2D>();
             if (rb != null) rb.simulated = false;
+            if (elf.TryGetComponent(out Duende duende)) duende.DisableContactDamage();
 
             foreach (Collider2D col in elf.GetComponentsInChildren<Collider2D>())
                 col.isTrigger = true;

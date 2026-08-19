@@ -62,6 +62,7 @@ public class Duende : MonoBehaviour
     // Combate
     private float _contactTimer = 0f;
     private float _fireTimer = 0f;
+    private bool _contactDamageEnabled = true;
 
     private void Awake()
     {
@@ -186,9 +187,12 @@ public class Duende : MonoBehaviour
         return Vector2.Distance(transform.position, playerTransform.position) <= detectionRadius;
     }
 
+    public void DisableContactDamage() => _contactDamageEnabled = false;
+
     // ── Dano por contato ─────────────────────────────────────────────
     private void HandleContactDamage()
     {
+        if (!_contactDamageEnabled) return;
         if (_contactTimer > 0f) return;
         if (Vector2.Distance(transform.position, playerTransform.position) > attackRadius) return;
 
