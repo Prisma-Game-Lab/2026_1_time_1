@@ -1656,8 +1656,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 401, y: -175}
-  m_SizeDelta: {x: 767.5608, y: 118.54248}
+  m_AnchoredPosition: {x: 450.7384, y: -175}
+  m_SizeDelta: {x: 867.0376, y: 118.5425}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1056424704
 MonoBehaviour:
@@ -1679,7 +1679,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ea-Nasir
+  m_text: "Kuebiko: Ascen\xE7\xE3o Divina"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fbc25c6fb60bdd443ac5125fba59ec9a, type: 2}
   m_sharedMaterial: {fileID: 2176940358367781983, guid: fbc25c6fb60bdd443ac5125fba59ec9a, type: 2}
