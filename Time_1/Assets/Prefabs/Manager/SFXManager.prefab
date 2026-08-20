@@ -89,14 +89,14 @@ MonoBehaviour:
       maxPitchShift: 1
   - SFXName: duende_ataque
     SFXVariations:
-    - audioClip: {fileID: 8300000, guid: 3de673c2fc083b74abe89ba5304849c9, type: 3}
+    - audioClip: {fileID: 8300000, guid: e4cb0f94806ef664186203918e61879d, type: 3}
       volume: 0.027
       minPitchShift: 1
       maxPitchShift: 1
   - SFXName: duende_morte
     SFXVariations:
-    - audioClip: {fileID: 8300000, guid: e4cb0f94806ef664186203918e61879d, type: 3}
-      volume: 0.027
+    - audioClip: {fileID: 8300000, guid: 3de673c2fc083b74abe89ba5304849c9, type: 3}
+      volume: 0.101
       minPitchShift: 1
       maxPitchShift: 1
   - SFXName: anhanga_corrida_aviso
@@ -114,9 +114,9 @@ MonoBehaviour:
   - SFXName: orbCollect
     SFXVariations:
     - audioClip: {fileID: 8300000, guid: 63038e266fc2e6142866249c4b891291, type: 3}
-      volume: 0.112
-      minPitchShift: 1
-      maxPitchShift: 1
+      volume: 0.06
+      minPitchShift: 0.13
+      maxPitchShift: 0.35
 --- !u!114 &1250086137296701712
 MonoBehaviour:
   m_ObjectHideFlags: 0
