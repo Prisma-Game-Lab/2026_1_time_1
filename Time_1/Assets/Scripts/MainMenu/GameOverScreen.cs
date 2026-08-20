@@ -40,9 +40,15 @@ public class GameOverScreen : MonoBehaviour
         }
     }
 
+    private static readonly Color ZeroLivesColor = new(0xAB / 255f, 0x36 / 255f, 0x36 / 255f);
+
     private void RefreshUI()
     {
-        if (livesText != null) livesText.text = $"X {Lives}";
+        if (livesText != null)
+        {
+            livesText.text = $"X {Lives}";
+            livesText.color = Lives <= 0 ? ZeroLivesColor : Color.white;
+        }
         if (restartButton != null) restartButton.interactable = Lives > 0;
     }
 

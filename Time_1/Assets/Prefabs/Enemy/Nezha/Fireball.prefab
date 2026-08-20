@@ -54,7 +54,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   gravityScale: 0.5
-  lifetime: 4
+  lifetime: 3
 --- !u!50 &1122333844202005278
 Rigidbody2D:
   serializedVersion: 4
