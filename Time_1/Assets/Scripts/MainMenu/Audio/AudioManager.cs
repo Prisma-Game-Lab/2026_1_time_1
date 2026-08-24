@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-
+using UnityEngine.SceneManagement;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
@@ -11,42 +11,66 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] AudioMixer mixer;
 
-    [HideInInspector] public const string MASTER_KEY = "masterVolume";
-    [HideInInspector] public const string MUSIC_KEY = "musicVolume";
-    [HideInInspector] public const string SFX_KEY = "sfxVolume";
+    public const string MASTER_KEY = "masterVolume";
+    public const string MUSIC_KEY = "musicVolume";
+    public const string SFX_KEY = "sfxVolume";
+    private const float MIN_VOLUME = 0.0001f;
 
     private void Awake()
     {
         if (instance != null && instance != this)
         {
-            sfxManager = GetComponentInChildren<SFXManager>();
-            Destroy(sfxManager.gameObject);
-            musicManager = GetComponentInChildren<MusicManager>();
-            Destroy(musicManager.gameObject);
-            Destroy(this);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-
-            sfxManager = GetComponentInChildren<SFXManager>();
-            sfxManager.Initialization();
-            musicManager = GetComponentInChildren<MusicManager>();
-            musicManager.Initialization();
+            Destroy(gameObject);
+            return;
         }
 
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        sfxManager = GetComponentInChildren<SFXManager>();
+        sfxManager.Initialization();
+        musicManager = GetComponentInChildren<MusicManager>();
+        musicManager.Initialization();
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void Start()
+    {
+        ApplyVolumeSoon();
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this) SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        ApplyVolumeSoon();
+    }
+
+    private void ApplyVolumeSoon()
+    {
+        LoadVolume();                
+        StartCoroutine(ApplyNextFrame()); 
+    }
+
+    private IEnumerator ApplyNextFrame()
+    {
+        yield return null;
         LoadVolume();
     }
 
-    void LoadVolume()  //Volume salvo no audioSlider
+    private void LoadVolume()
     {
-        float masterVolume = PlayerPrefs.GetFloat(MASTER_KEY, 1f);
-        float musicVolume = PlayerPrefs.GetFloat(MUSIC_KEY, 1f);
-        float sfxVolume = PlayerPrefs.GetFloat(SFX_KEY, 1f);
+        SetMixer(AudioSlider.MIXER_MASTER, PlayerPrefs.GetFloat(MASTER_KEY, 1f));
+        SetMixer(AudioSlider.MIXER_MUSIC, PlayerPrefs.GetFloat(MUSIC_KEY, 1f));
+        SetMixer(AudioSlider.MIXER_SFX, PlayerPrefs.GetFloat(SFX_KEY, 1f));
+    }
 
-        mixer.SetFloat(AudioSlider.MIXER_MASTER, Mathf.Log10(masterVolume) * 20);
-        mixer.SetFloat(AudioSlider.MIXER_MUSIC, Mathf.Log10(musicVolume) * 20);
-        mixer.SetFloat(AudioSlider.MIXER_SFX, Mathf.Log10(sfxVolume) * 20);
+    private void SetMixer(string param, float linear)
+    {
+        mixer.SetFloat(param, Mathf.Log10(Mathf.Max(linear, MIN_VOLUME)) * 20f);
     }
 }

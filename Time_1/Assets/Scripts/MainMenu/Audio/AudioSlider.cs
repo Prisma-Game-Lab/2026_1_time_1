@@ -4,7 +4,6 @@ using System;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-
 public class AudioSlider : MonoBehaviour
 {
     [SerializeField] AudioMixer mixer;
@@ -12,9 +11,9 @@ public class AudioSlider : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
 
-    [HideInInspector] public const string MIXER_MASTER = "MasterVolume";
-    [HideInInspector] public const string MIXER_MUSIC = "MusicVolume";
-    [HideInInspector] public const string MIXER_SFX = "SFXVolume";
+    public const string MIXER_MASTER = "MasterVolume";
+    public const string MIXER_MUSIC = "MusicVolume";
+    public const string MIXER_SFX = "SFXVolume";
     private const float MIN_VOLUME = 0.0001f;
 
     void Awake()
@@ -23,31 +22,31 @@ public class AudioSlider : MonoBehaviour
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
     }
+    void OnEnable()
+    {
+        LoadInto(masterSlider, AudioManager.MASTER_KEY, MIXER_MASTER);
+        LoadInto(musicSlider, AudioManager.MUSIC_KEY, MIXER_MUSIC);
+        LoadInto(sfxSlider, AudioManager.SFX_KEY, MIXER_SFX);
+    }
 
-    void Start()
+    void LoadInto(Slider slider, string prefKey, string mixerParam)
     {
-        masterSlider.value = PlayerPrefs.GetFloat(AudioManager.MASTER_KEY, 1f);
-        musicSlider.value = PlayerPrefs.GetFloat(AudioManager.MUSIC_KEY, 1f);
-        sfxSlider.value = PlayerPrefs.GetFloat(AudioManager.SFX_KEY, 1f);
+        float v = PlayerPrefs.GetFloat(prefKey, 1f);
+        slider.SetValueWithoutNotify(v);
+        mixer.SetFloat(mixerParam, VolumeToDecibels(v));
     }
-    void OnDisable()
+    void SetMasterVolume(float value) => Apply(AudioManager.MASTER_KEY, MIXER_MASTER, value);
+    void SetMusicVolume(float value) => Apply(AudioManager.MUSIC_KEY, MIXER_MUSIC, value);
+    void SetSFXVolume(float value) => Apply(AudioManager.SFX_KEY, MIXER_SFX, value);
+
+    void Apply(string prefKey, string mixerParam, float value)
     {
-        PlayerPrefs.SetFloat(AudioManager.MASTER_KEY, masterSlider.value);
-        PlayerPrefs.SetFloat(AudioManager.MUSIC_KEY, musicSlider.value);
-        PlayerPrefs.SetFloat(AudioManager.SFX_KEY, sfxSlider.value);
+        mixer.SetFloat(mixerParam, VolumeToDecibels(value));
+        PlayerPrefs.SetFloat(prefKey, value);
     }
-    void SetMasterVolume(float value)
-    {
-        mixer.SetFloat(MIXER_MASTER, VolumeToDecibels(value));
-    }
-    void SetMusicVolume(float value)
-    {
-        mixer.SetFloat(MIXER_MUSIC, VolumeToDecibels(value));
-    }
-    void SetSFXVolume(float value)
-    {
-        mixer.SetFloat(MIXER_SFX, VolumeToDecibels(value));
-    }
+    void OnDisable() => PlayerPrefs.Save();
+    void OnApplicationQuit() => PlayerPrefs.Save();
+    void OnApplicationPause(bool paused) { if (paused) PlayerPrefs.Save(); }
     private float VolumeToDecibels(float value)
     {
         return Mathf.Log10(Mathf.Max(value, MIN_VOLUME)) * 20f;
