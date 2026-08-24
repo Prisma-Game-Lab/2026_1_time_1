@@ -15,7 +15,7 @@ public class PlayerAim : MonoBehaviour
     private float originalScaleX;
     private bool aimReversed;
 
-    
+
     private static int cursorForceCount = 0;
     public static void ForceShowCursor(bool show)
     {
@@ -51,19 +51,13 @@ public class PlayerAim : MonoBehaviour
     {
         if (cursor == null || canvas == null) return;
 
-        if (cursorForceCount > 0)
-        {
-            Cursor.visible = true;
-            return;
-        }
-
         bool inGameCursorVisible = cursor.gameObject.activeInHierarchy;
         Cursor.visible = !inGameCursorVisible;
         if (!inGameCursorVisible) return;
 
+        if (Mouse.current == null) return;
         Vector2 screenPos = Mouse.current.position.ReadValue();
 
-        // Move the cursor UI element
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             (RectTransform)canvas.transform,
             screenPos,
@@ -71,6 +65,10 @@ public class PlayerAim : MonoBehaviour
             out Vector2 localPoint
         );
         cursor.localPosition = aimReversed ? -localPoint : localPoint;
+
+        // Durante diálogo/cutscene (cursor forçado): a mira segue o mouse,
+        // mas o player NÃO mira/gira a lança nem vira de lado.
+        if (cursorForceCount > 0) return;
 
         if (cam != null)
         {
@@ -111,7 +109,7 @@ public class PlayerAim : MonoBehaviour
                 else
                 {
                     shouldFlip = false;
-                    faceRight = false; 
+                    faceRight = false;
                 }
 
                 if (shouldFlip)

@@ -52,25 +52,25 @@ MonoBehaviour:
     volume: 0.245
   - musicName: Koalemos
     musicClip: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
-    volume: 0.101
+    volume: 0.252
   - musicName: AreaInicial
     musicClip: {fileID: 8300000, guid: 739be9cc3db089f4a8f9371fed88fd6f, type: 3}
-    volume: 0.101
+    volume: 0.219
   - musicName: Anhanga
     musicClip: {fileID: 8300000, guid: 70d209b714b98724cba5fcf85927f55e, type: 3}
-    volume: 0.101
+    volume: 0.252
   - musicName: ea
     musicClip: {fileID: 8300000, guid: 739be9cc3db089f4a8f9371fed88fd6f, type: 3}
-    volume: 0.101
+    volume: 0.271
   - musicName: ea
     musicClip: {fileID: 8300000, guid: 739be9cc3db089f4a8f9371fed88fd6f, type: 3}
-    volume: 0.101
+    volume: 0.258
   - musicName: boss
     musicClip: {fileID: 8300000, guid: 19e1a8011a8e121488c6a34f6eb94576, type: 3}
-    volume: 0.101
+    volume: 0.303
   - musicName: Nezha
     musicClip: {fileID: 8300000, guid: cf20b48e2de943446ace0d5184bf1ce5, type: 3}
-    volume: 0.101
+    volume: 0.316
 --- !u!114 &5301473440715809330
 MonoBehaviour:
   m_ObjectHideFlags: 0
