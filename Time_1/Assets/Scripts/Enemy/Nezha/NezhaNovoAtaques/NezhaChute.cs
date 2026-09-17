@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class NezhaChute : MonoBehaviour
 {
-    [Header("Refer�ncias")]
+    [Header("Referencias")]
     [SerializeField] private NezhaMovement movement;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Rigidbody2D rb;
@@ -14,15 +14,15 @@ public class NezhaChute : MonoBehaviour
     [SerializeField] private Sprite kickingSprite;
 
     [Header("Tempo")]
-    [Tooltip("Espera antes de partir (telegrafo). � o 'tempo x' ajust�vel.")]
+    [Tooltip("Espera antes de partir (telegrafo).  o 'tempo x' ajustavel.")]
     [SerializeField] private float tempoPreparacao = 0.6f;
-    [Tooltip("Dura��o do avan�o do chute.")]
+    [Tooltip("Duracao do avanco do chute.")]
     [SerializeField] private float duracaoChute = 0.4f;
-    [Tooltip("Recupera��o depois do chute.")]
+    [Tooltip("Recuperacao depois do chute.")]
     [SerializeField] private float recuperacao = 0.4f;
 
     [Header("Chute")]
-    [Tooltip("Velocidade do avan�o (absurda).")]
+    [Tooltip("Velocidade do avanco.")]
     [SerializeField] private float velocidadeChute = 40f;
     [SerializeField] private float raioAcerto = 0.8f;
     [SerializeField] private LayerMask playerLayer;
@@ -31,7 +31,7 @@ public class NezhaChute : MonoBehaviour
     [SerializeField] private int dano = 1;
     [SerializeField] private float knockbackForca = 14f;
     [SerializeField] private float knockbackCima = 4f;
-    [Tooltip("Se marcado, o dano usa tag 'Melee' (pode ser parryado). Desmarque para chute impar�vel.")]
+    [Tooltip("Se marcado, o dano usa tag 'Melee' (pode ser parryado). Desmarque para chute imparavel.")]
     [SerializeField] private bool parryavel = true;
     public bool IsAttacking { get; private set; }
 
@@ -57,13 +57,11 @@ public class NezhaChute : MonoBehaviour
             spriteRenderer.sprite = startupSprite;
         yield return new WaitForSeconds(tempoPreparacao);
 
-        // Dire��o capturada no in�cio do avan�o
         Vector2 origem = transform.position;
         Vector2 dir = ((Vector2)playerTransform.position - origem);
         dir = dir.sqrMagnitude > 0.01f ? dir.normalized : Vector2.right;
         movement.FacePlayer();
 
-        // Avan�o reto (sem gravidade) na velocidade absurda
         if (spriteRenderer != null && kickingSprite != null)
             spriteRenderer.sprite = kickingSprite;
 

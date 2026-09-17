@@ -23,7 +23,18 @@ public class NPCTutorialEaNassir : Interactable
     [Header("Configuração de Transição")]
     public string TUTORIAL = "TUTORIAL";
 
+    [Header("Porta secreta")]
+    [Tooltip("Liga a porta secreta. Começa DESLIGADA: sem botão e sem porta.")]
+    [SerializeField] private bool habilitarPortaSecreta = false;
+    [Tooltip("Botão extra que aparece na última fala e cria a porta. Pode ficar vazio.")]
+    [SerializeField] private GameObject btnPortaSecreta;
+    [Tooltip("Prefab com PortaCena + Collider2D (Is Trigger). Pode ficar vazio se não usar a porta.")]
+    [SerializeField] private GameObject portaCenaPrefab;
+    [Tooltip("Onde a porta aparece. Vazio = posição deste NPC.")]
+    [SerializeField] private Transform pontoDaPorta;
+
     private int indiceFala = 0;
+    private GameObject portaInstanciada;
 
     public override bool PodeInteragir() => true;
 
@@ -64,6 +75,20 @@ public class NPCTutorialEaNassir : Interactable
 
         SceneManager.LoadScene(TUTORIAL);
     }
+    public void BotaoPortaSecreta()
+    {
+        SpawnarPorta();
+        if (btnPortaSecreta != null) btnPortaSecreta.SetActive(false);
+    }
+    private void SpawnarPorta()
+    {
+        if (!habilitarPortaSecreta) return;
+        if (portaCenaPrefab == null || portaInstanciada != null) return;
+
+        Vector3 pos = pontoDaPorta != null ? pontoDaPorta.position : transform.position;
+        portaInstanciada = Instantiate(portaCenaPrefab, pos, Quaternion.identity);
+    }
+
     private void MostrarFalaAtual()
     {
         if (falas == null || falas.Length == 0)
@@ -74,5 +99,7 @@ public class NPCTutorialEaNassir : Interactable
 
         btnContinuar.SetActive(!ultimaFala);
         btnIrParaFase.SetActive(ultimaFala);
+        if (btnPortaSecreta != null)
+            btnPortaSecreta.SetActive(ultimaFala && habilitarPortaSecreta && portaInstanciada == null);
     }
 }
