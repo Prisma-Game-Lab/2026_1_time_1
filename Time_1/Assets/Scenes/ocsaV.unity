@@ -2308,7 +2308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c32eb1336f65f479ab7dec434256ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nomeDaCena: MainMenu 1
+  nomeDaCena: "Anhang\xE1 1"
   usarProximaCenaNoBuild: 0
   tagDoJogador: Player
 --- !u!61 &1539145339
@@ -2448,7 +2448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6539795174353246145, guid: e44cc396be8850f498ea6fbbf643fded, type: 3}
       propertyPath: sceneToLoad
-      value: ea nassir 2
+      value: ea nassirdomal
       objectReference: {fileID: 0}
     - target: {fileID: 6744934343710328298, guid: e44cc396be8850f498ea6fbbf643fded, type: 3}
       propertyPath: m_IsActive
@@ -2966,11 +2966,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5290952
+      value: -0.32490587
       objectReference: {fileID: 0}
     - target: {fileID: 4057217916948578086, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.0358696
+      value: 5.03693
       objectReference: {fileID: 0}
     - target: {fileID: 5119046920775485376, guid: f7020f1a817d5b74088d60aa6e0e48c3, type: 3}
       propertyPath: m_Name
