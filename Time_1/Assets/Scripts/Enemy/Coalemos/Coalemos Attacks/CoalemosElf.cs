@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-
 public class CoalemosElf : MonoBehaviour
 {
     [Header("References")]
@@ -8,16 +7,19 @@ public class CoalemosElf : MonoBehaviour
     [SerializeField] private CoalemosMovement movement;
 
     [Header("Arena Bounds")]
-    [SerializeField] private float arenaLeft      = -10f;
-    [SerializeField] private float arenaRight     =  10f;
+    [SerializeField] private float arenaLeft = -10f;
+    [SerializeField] private float arenaRight = 10f;
     [SerializeField] private float spawnHeightMin = -2f;
-    [SerializeField] private float spawnHeightMax =  3f;
+    [SerializeField] private float spawnHeightMax = 3f;
 
     [Header("Wave Settings")]
-    [SerializeField] private int   elfCount      = 5;
+    [SerializeField] private int elfCount = 5;
     [SerializeField] private float spawnInterval = 0.35f;
-    [SerializeField] private float elfSpeed      = 6f;
-    [SerializeField] private float elfLifetime   = 6f;
+    [SerializeField] private float elfSpeed = 6f;
+    [Tooltip("Tempo m�ximo de vida. O duende some antes se j� tiver cruzado a arena.")]
+    [SerializeField] private float elfLifetime = 6f;
+    [Tooltip("Tempo extra depois de cruzar a arena antes de destruir.")]
+    [SerializeField] private float exitMargin = 0.5f;
 
     private Coroutine waveCoroutine;
     public bool IsAttacking => waveCoroutine != null;
@@ -35,8 +37,13 @@ public class CoalemosElf : MonoBehaviour
         if (movement != null) { movement.Freeze(); movement.SetHandsRaised(true); }
 
         float spawnX = fromLeft ? arenaLeft : arenaRight;
-        float dirX   = fromLeft ? 1f : -1f;
+        float dirX = fromLeft ? 1f : -1f;
         WaitForSeconds wait = new(spawnInterval);
+
+        float tempoTravessia = elfSpeed > 0f
+            ? Mathf.Abs(arenaRight - arenaLeft) / elfSpeed + exitMargin
+            : elfLifetime;
+        float lifetime = Mathf.Min(elfLifetime, tempoTravessia);
 
         for (int i = 0; i < elfCount; i++)
         {
@@ -55,13 +62,16 @@ public class CoalemosElf : MonoBehaviour
                 rb = elf.GetComponentInChildren<Rigidbody2D>();
             if (rb != null) rb.simulated = false;
 
+            Duende duende = elf.GetComponentInChildren<Duende>();
+            if (duende != null) duende.DisableContactDamage();
+
             foreach (Collider2D col in elf.GetComponentsInChildren<Collider2D>())
                 col.isTrigger = true;
 
             ElfMover mover = elf.AddComponent<ElfMover>();
             mover.Init(dirX, elfSpeed);
 
-            Destroy(elf, elfLifetime);
+            Destroy(elf, lifetime);
 
             yield return wait;
         }

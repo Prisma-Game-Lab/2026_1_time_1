@@ -9,8 +9,20 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 46d51a0960fa14549a56b8d0c5045fb0
   - enabled: 1
+    path: Assets/Scenes/MainMenu 1.unity
+    guid: 5474b1d5d9367fc4fa3934a085f9c171
+  - enabled: 1
+    path: "Assets/Scenes/Anhang\xE1 1.unity"
+    guid: aae266d344ddbea4faaa7bd842e8d35e
+  - enabled: 1
     path: Assets/Scenes/Nezha.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/MainMenu 2.unity
+    guid: e405fe644e8e3fd479acb4fa524240ae
+  - enabled: 1
+    path: Assets/Scenes/ea nassirdomal.unity
+    guid: 887555a8d1bf6364c9aa6af7673d8ae5
   - enabled: 1
     path: Assets/Scenes/ea nassir.unity
     guid: dc15e261e60c11447b12569419fff16f
@@ -23,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Coalemos.unity
     guid: 0a34ca35eca2c4a42853489ac12cd352
+  - enabled: 1
+    path: Assets/Scenes/2ocsaV.unity
+    guid: f81d3eeefe779984eada79d2218fe37f
   - enabled: 1
     path: Assets/Scenes/AreaInicial.unity
     guid: 6f39c0eb3fb801240bbec88d5639d238

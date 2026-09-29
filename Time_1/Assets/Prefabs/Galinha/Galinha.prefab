@@ -200,10 +200,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5c667b99d42a74cb94beba48eccbbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallSpeed: 3
-  lateralIntensity: 0.5
-  lateralFrequency: 0.8
-  maxFallSpeed: 6
+  fallSpeed: 7
+  lateralIntensity: 1.04
+  lateralFrequency: 0.98
+  maxFallSpeed: 7.01
   gravityMultiplier: 0.5
   lifetime: 0
   explosionDamage: 1
@@ -235,6 +235,8 @@ MonoBehaviour:
   maxHealth: 5
   currentHealth: 0
   EnemyReference: {fileID: 2214549789284929401}
+  portaParaAtivar: {fileID: 0}
+  winScreenPrefab: {fileID: 0}
 --- !u!114 &1731091986402780263
 MonoBehaviour:
   m_ObjectHideFlags: 0

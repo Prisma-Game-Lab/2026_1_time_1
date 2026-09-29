@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf233dfb97b2c14194384a535e83c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 6629587993135455583, guid: 8bd9510b6d85b064a849660ebd442a6e, type: 3}
+  playerTransform: {fileID: 0}
   spriteRenderer: {fileID: 5097680563931927001}
   projectileSpawnPoint: {fileID: 9013516864452686665}
   elfSprites:
@@ -220,8 +220,14 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4186590148938384958, guid: 70a042d6156f3004eb81f1b56339d258, type: 3}
   projectileSpeed: 12
   projectileDamage: 1
-  fireInterval: 2.5
-  aimSpread: 12
+  fireInterval: 1.5
+  preverMovimento: 1
+  fatorPrevisao: 1
+  desvioMira: 0
+  primeiroTiroMin: 0.5
+  primeiroTiroMax: 1.2
+  margemTela: 0.05
+  debugMira: 1
   sfxJump: {fileID: 0}
   sfxAttack: {fileID: 8300000, guid: e4cb0f94806ef664186203918e61879d, type: 3}
   sfxDeath: {fileID: 0}

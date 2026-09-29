@@ -38,7 +38,23 @@ public class Duende : MonoBehaviour
     [SerializeField] private float projectileSpeed = 12f;
     [SerializeField] private int projectileDamage = 5;
     [SerializeField] private float fireInterval = 2.5f;
-    [SerializeField] private float aimSpread = 5f;
+
+    [Header("Mira")]
+    [Tooltip("Mira onde o player vai estar quando o tiro chegar.")]
+    [SerializeField] private bool preverMovimento = true;
+    [Tooltip("1 = previsão total, 0 = mira na posição atual.")]
+    [SerializeField, Range(0f, 1f)] private float fatorPrevisao = 1f;
+    [Tooltip("Distância máxima que a previsão pode deslocar o alvo.")]
+    [SerializeField] private float previsaoMaxima = 4f;
+    [Tooltip("Erro de mira em unidades de mundo (não cresce com a distância).")]
+    [SerializeField] private float desvioMira = 0.3f;
+    [Tooltip("Atraso aleatório antes do primeiro tiro, para o duende entrar na arena.")]
+    [SerializeField] private float primeiroTiroMin = 0.5f;
+    [SerializeField] private float primeiroTiroMax = 1.2f;
+    [Tooltip("Margem da tela (0 a 0.5). Fora dela o duende não atira.")]
+    [SerializeField, Range(0f, 0.5f)] private float margemTela = 0.05f;
+    [Tooltip("Desenha as linhas de mira na aba Scene (verde = centro do alvo, vermelha = mira final).")]
+    [SerializeField] private bool debugMira = false;
 
     [Header("Áudio")]
     [SerializeField] private AudioClip sfxJump;
@@ -49,6 +65,10 @@ public class Duende : MonoBehaviour
     private Rigidbody2D _rb;
     private Collider2D _col;
     private bool _isAlive = true;
+
+    // Alvo
+    private Collider2D _playerCol;
+    private Rigidbody2D _playerRb;
 
     // Movimento
     private float _currentDirectionX = 1f;
@@ -62,6 +82,7 @@ public class Duende : MonoBehaviour
     // Combate
     private float _contactTimer = 0f;
     private float _fireTimer = 0f;
+    private bool _contactDamageEnabled = true;
 
     private void Awake()
     {
@@ -73,10 +94,26 @@ public class Duende : MonoBehaviour
 
         if (spriteRenderer != null && elfSprites != null && elfSprites.Length > 0)
             spriteRenderer.sprite = elfSprites[Random.Range(0, elfSprites.Length)];
+
         // Direção inicial: esquerda ou direita com igual probabilidade
         _currentDirectionX = Random.value < 0.5f ? -1f : 1f;
         _nextDirectionChange = Random.Range(directionChangeIntervalMin, directionChangeIntervalMax);
-        // Localiza jogador automaticamente pela tag
+
+        CacheAlvo();
+
+        // Não atira no primeiro frame (evita tiro da borda da arena)
+        _fireTimer = Random.Range(primeiroTiroMin, primeiroTiroMax);
+    }
+
+    private void CacheAlvo()
+    {
+        // Referência para o prefab (asset) em vez do player da cena: descarta e busca de novo
+        if (playerTransform != null && !playerTransform.gameObject.scene.IsValid())
+        {
+            Debug.LogWarning("[Duende] Player Transform aponta para um prefab, não para o player da cena. Buscando pela tag.", this);
+            playerTransform = null;
+        }
+
         if (playerTransform == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -85,12 +122,29 @@ public class Duende : MonoBehaviour
             else
                 Debug.LogWarning("[Duende] Jogador não encontrado. Atribua playerTransform ou use a tag 'Player'.", this);
         }
+
+        if (playerTransform == null) return;
+
+        // Collider de corpo: precisa estar ATIVO e não ser trigger
+        _playerCol = null;
+        foreach (Collider2D c in playerTransform.GetComponentsInChildren<Collider2D>())
+        {
+            if (c.enabled && !c.isTrigger) { _playerCol = c; break; }
+        }
+
+        _playerRb = playerTransform.GetComponent<Rigidbody2D>();
+        if (_playerRb == null)
+            _playerRb = playerTransform.GetComponentInChildren<Rigidbody2D>();
+
+        if (debugMira)
+            Debug.Log($"[Duende] Alvo: {playerTransform.name} | Collider: {(_playerCol != null ? _playerCol.name : "nenhum")}", this);
     }
+
     private void Update()
     {
         if (!_isAlive) return;
         TickTimers();
-        // HandleMovement();  
+        // HandleMovement();
         // HandleJump();
         // FlipSprite();
 
@@ -101,6 +155,7 @@ public class Duende : MonoBehaviour
             HandleRangedAttack();
         }
     }
+
     private void TickTimers()
     {
         _directionTimer += Time.deltaTime;
@@ -109,9 +164,9 @@ public class Duende : MonoBehaviour
         _fireTimer = Mathf.Max(0f, _fireTimer - Time.deltaTime);
     }
 
+    // ── Movimento ────────────────────────────────────────────────────
     private void HandleMovement()
     {
-        // Troca de direção por timer
         if (_directionTimer >= _nextDirectionChange)
             TrocarDirecao();
 
@@ -121,13 +176,15 @@ public class Duende : MonoBehaviour
 
         _rb.velocity = new Vector2(newVelocityX, _rb.velocity.y);
     }
+
     private void TrocarDirecao()
     {
-        // Sempre inverte — garante alternância real, nunca fica na mesma direção por dois timers seguidos
+        // Sempre inverte — garante alternância real
         _currentDirectionX = -_currentDirectionX;
         _directionTimer = 0f;
         _nextDirectionChange = Random.Range(directionChangeIntervalMin, directionChangeIntervalMax);
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!_isAlive) return;
@@ -140,6 +197,7 @@ public class Duende : MonoBehaviour
             }
         }
     }
+
     private void HandleJump()
     {
         if (_jumpTimer < _jumpInterval) return;
@@ -153,28 +211,25 @@ public class Duende : MonoBehaviour
         float forcaY = Random.Range(jumpForceMin, jumpForceMax);
         if (sorteio < 0.25f)
         {
-            // Continua na direção atual com impulso normal
             forcaX = _currentDirectionX * moveSpeed;
         }
         else if (sorteio < 0.5f)
         {
-            // Inverte a direção no ar
             TrocarDirecao();
             forcaX = _currentDirectionX * moveSpeed;
         }
         else if (sorteio < 0.75f)
         {
-            // Impulso diagonal forte — salta mais para o lado
             forcaX = _currentDirectionX * moveSpeed * 1.5f;
         }
         else
         {
-            // Impulso curto — quase no lugar
             forcaX = _currentDirectionX * moveSpeed * 0.3f;
         }
         _rb.velocity = new Vector2(forcaX, forcaY);
         SFXManager.PlaySFX("duende_pulo");
     }
+
     private float JumpFrequencyToInterval(float frequency)
     {
         if (frequency <= 0f) return float.MaxValue;
@@ -186,57 +241,109 @@ public class Duende : MonoBehaviour
         return Vector2.Distance(transform.position, playerTransform.position) <= detectionRadius;
     }
 
+    public void DisableContactDamage() => _contactDamageEnabled = false;
+
     // ── Dano por contato ─────────────────────────────────────────────
     private void HandleContactDamage()
     {
+        if (!_contactDamageEnabled) return;
         if (_contactTimer > 0f) return;
         if (Vector2.Distance(transform.position, playerTransform.position) > attackRadius) return;
 
-        PlayerHealthController playerHealth = playerTransform.GetComponent<PlayerHealthController>();
+        PlayerHealthController playerHealth = playerTransform.GetComponentInChildren<PlayerHealthController>();
         if (playerHealth == null) return;
 
         playerHealth.TakeDamage(contactDamage);
         _contactTimer = contactDamageCooldown;
 
-        Rigidbody2D playerRb = playerTransform.GetComponent<Rigidbody2D>();
-        if (playerRb != null)
+        if (_playerRb != null)
         {
             Vector2 knockDir = ((Vector2)playerTransform.position - (Vector2)transform.position).normalized;
-            playerRb.AddForce(knockDir * knockbackForce, ForceMode2D.Impulse);
+            _playerRb.AddForce(knockDir * knockbackForce, ForceMode2D.Impulse);
         }
     }
+
+    // ── Ataque à distância ───────────────────────────────────────────
     private void HandleRangedAttack()
     {
         if (!enableRangedAttack) return;
         if (projectilePrefab == null) return;
         if (_fireTimer > 0f) return;
+        if (!DentroDaTela()) return;
 
         FireProjectile();
         _fireTimer = fireInterval;
     }
+
     private void FireProjectile()
     {
         if (playerTransform == null) return;
 
         Transform spawnPos = projectileSpawnPoint != null ? projectileSpawnPoint : transform;
-        Vector2 dir = ((Vector2)playerTransform.position - (Vector2)spawnPos.position).normalized;
-        float spread = Random.Range(-aimSpread, aimSpread);
-        dir = Quaternion.Euler(0f, 0f, spread) * dir;
+        Vector2 origem = spawnPos.position;
+        Vector2 alvo = CalcularPontoDeMira(origem);
 
-        GameObject proj = Instantiate(projectilePrefab, spawnPos.position, Quaternion.identity);
+        // Desvio perpendicular à linha de tiro, em unidades de mundo
+        Vector2 dir = (alvo - origem).normalized;
+        Vector2 perpendicular = new Vector2(-dir.y, dir.x);
+        alvo += perpendicular * Random.Range(-desvioMira, desvioMira);
+        dir = (alvo - origem).normalized;
+
+        if (debugMira)
+            Debug.DrawLine(origem, alvo, Color.red, 1f);
+
+        GameObject proj = Instantiate(projectilePrefab, origem, Quaternion.identity);
 
         DundeProjectile dp = proj.GetComponent<DundeProjectile>();
         if (dp != null)
             dp.Initialize(dir, projectileSpeed, projectileDamage);
-        else
-        {
-            Rigidbody2D projRb = proj.GetComponent<Rigidbody2D>();
-            if (projRb != null)
-                projRb.velocity = dir * projectileSpeed;
-        }
+        else if (proj.TryGetComponent(out Rigidbody2D projRb))
+            projRb.velocity = dir * projectileSpeed;
 
         SFXManager.PlaySFX("duende_ataque");
     }
+
+    private Vector2 CalcularPontoDeMira(Vector2 origem)
+    {
+        // Centro real do corpo do player (não o pivô da raiz)
+        Vector2 centro = (_playerCol != null && _playerCol.enabled)
+            ? (Vector2)_playerCol.bounds.center
+            : (Vector2)playerTransform.position;
+
+        if (debugMira)
+            Debug.DrawLine(origem, centro, Color.green, 1f);
+
+        if (!preverMovimento || _playerRb == null || projectileSpeed <= 0f)
+            return centro;
+
+        Vector2 v = _playerRb.velocity * fatorPrevisao;
+
+        // Gravidade só entra se o player estiver no ar
+        bool noAr = Mathf.Abs(_playerRb.velocity.y) > 0.05f;
+        Vector2 g = noAr ? Physics2D.gravity * _playerRb.gravityScale * fatorPrevisao : Vector2.zero;
+
+        Vector2 alvo = centro;
+        for (int i = 0; i < 3; i++)
+        {
+            float t = Vector2.Distance(origem, alvo) / projectileSpeed;
+            alvo = centro + v * t + 0.5f * g * t * t;
+        }
+
+        // Limita o quanto a previsão pode se afastar do player (evita picos de velocidade)
+        return centro + Vector2.ClampMagnitude(alvo - centro, previsaoMaxima);
+    }
+
+    private bool DentroDaTela()
+    {
+        Camera cam = Camera.main;
+        if (cam == null) return true;
+
+        Vector3 vp = cam.WorldToViewportPoint(transform.position);
+        return vp.x > margemTela && vp.x < 1f - margemTela
+            && vp.y > margemTela && vp.y < 1f - margemTela;
+    }
+
+    // ── Utilidades ───────────────────────────────────────────────────
     private void FlipSprite()
     {
         if (spriteRenderer == null) return;
@@ -254,6 +361,7 @@ public class Duende : MonoBehaviour
             groundLayer
         );
     }
+
     public void OnDeath()
     {
         if (!_isAlive) return;
@@ -266,6 +374,7 @@ public class Duende : MonoBehaviour
         SFXManager.PlaySFX("duende_morte");
         gameObject.SetActive(false);
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(1f, 1f, 0f, 0.2f);

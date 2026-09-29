@@ -1669,6 +1669,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1461117428605098694, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: elfCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461117428605098694, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
+      propertyPath: spawnInterval
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 1719996091227446426, guid: b1d18b9cc1fc5754eb0acf41276b523e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.54
@@ -1995,6 +2003,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1480523897
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1140173911}
+    m_Modifications:
+    - target: {fileID: 749918658708904502, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: m_Name
+      value: SFXManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929133546559962352, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929133546559962352, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929133546559962352, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929133546559962352, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929133546559962352, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929133546559962352, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929133546559962352, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929133546559962352, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929133546559962352, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929133546559962352, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[0].volume
+      value: 0.215
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[0].maxPitchShift
+      value: 1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835118893855056235, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+      propertyPath: SFXGroups.Array.data[6].SFXVariations.Array.data[0].minPitchShift
+      value: 0.73
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+--- !u!4 &1480523898 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2929133546559962352, guid: 9bb3bc37c8d3d0340ac2f3643044c106, type: 3}
+  m_PrefabInstance: {fileID: 1480523897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1551533490
 PrefabInstance:
   m_ObjectHideFlags: 0
